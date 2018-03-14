@@ -19,7 +19,7 @@ import util.DataSource;
  * @author Justpro
  */
 public class ServiceCoVoiturage {
-    public Connection con = DataSource.getInstance().getCon();
+    public Connection con = DataSource.getInstance().getConnection();
     public Statement st;
     
     public ServiceCoVoiturage() throws SQLException{
