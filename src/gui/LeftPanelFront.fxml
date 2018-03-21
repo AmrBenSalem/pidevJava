@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorSideBar" prefHeight="400.0" prefWidth="99.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LeftPanelFrontController">
+   <children>
+      <VBox fx:id="vboxSideBar" prefHeight="400.0" prefWidth="100.0">
+         <children>
+            <Pane fx:id="paneSideBar" prefHeight="100.0" prefWidth="100.0" />
+            <Button fx:id="buttonCoVoiturage" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="47.0" prefWidth="100.0" text="CoVoiturage" textAlignment="CENTER" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
