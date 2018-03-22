@@ -19,16 +19,14 @@ import javafx.scene.layout.VBox;
  *
  * @author Justpro
  */
-public class LeftPanelFrontController implements Initializable {
+public class LeftMenuFrontController implements Initializable {
 
     @FXML
-    private AnchorPane anchorSideBar;
+    private Button btn;
     @FXML
-    private VBox vboxSideBar;
+    private VBox vboxx;
     @FXML
-    private Pane paneSideBar;
-    @FXML
-    private Button buttonCoVoiturage;
+    private Pane panee;
 
     /**
      * Initializes the controller class.

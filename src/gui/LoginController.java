@@ -30,11 +30,11 @@ import javafx.stage.Stage;
 public class LoginController implements Initializable {
 
     @FXML
-    private TextField fieldUsername;
+    private TextField fieldLogin;
+    @FXML
+    private Button submit;
     @FXML
     private PasswordField fieldPassword;
-    @FXML
-    private Button buttonSubmit;
 
     /**
      * Initializes the controller class.
@@ -46,7 +46,7 @@ public class LoginController implements Initializable {
 
     @FXML
     private void authentification(ActionEvent event) {
-        Parent page = null;
+       /* Parent page = null;
         try {
             page = FXMLLoader.load(getClass().getResource("DashboardCoVoiturage.fxml"));
         } catch (IOException ex) {
@@ -56,8 +56,7 @@ public class LoginController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.show();
-       
+        stage.show();*/
     }
     
 }
