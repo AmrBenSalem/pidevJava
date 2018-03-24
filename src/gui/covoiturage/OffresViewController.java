@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui;
+package gui.covoiturage;
 
+import com.jfoenix.controls.JFXDrawer;
+import gui.DashboardCoVoiturageController;
+import gui.LoginController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,8 +21,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -27,28 +32,45 @@ import javafx.stage.Stage;
  *
  * @author Justpro
  */
-public class LoginController implements Initializable {
+public class OffresViewController implements Initializable {
 
     @FXML
-    private TextField fieldLogin;
+    private AnchorPane anchor;
     @FXML
-    private PasswordField fieldPassword;
+    private JFXDrawer drawerLeft;
     @FXML
-    private Button buttonSubmit;
+    private Pane CoVoiturage;
+    @FXML
+    private JFXDrawer drawerTop;
+    @FXML
+    private Label pageLabel;
+    @FXML
+    private Pane CoVoiturage1;
+    @FXML
+    private Button buttonAddOffre;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+       drawerLeft.open();
+      //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
+       
+        
+        try {
+            VBox box = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
+            drawerLeft.setSidePane(box);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardCoVoiturageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
 
     @FXML
-    private void authentification(ActionEvent event) {
+    private void AddOffreAction(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("DashboardCoVoiturage.fxml"));
+            page = FXMLLoader.load(getClass().getResource("AddOffreView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }

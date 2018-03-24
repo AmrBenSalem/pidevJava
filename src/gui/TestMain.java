@@ -6,27 +6,29 @@
 package gui;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
  *
  * @author Justpro
  */
-public class LoginMain extends Application {
+public class TestMain extends Application {
+    
     @Override
     public void start(Stage stage) throws IOException {
-     
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+       Parent root = FXMLLoader.load(getClass().getResource("LeftMenuFront.FXML"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-       }
+    }
 
     /**
      * @param args the command line arguments
