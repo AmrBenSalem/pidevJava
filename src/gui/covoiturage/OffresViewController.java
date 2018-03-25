@@ -77,6 +77,7 @@ public class OffresViewController implements Initializable {
         Scene scene = new Scene(page);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
+        stage.setResizable(true);
         stage.setScene(scene);
         stage.show();
     }
