@@ -6,19 +6,25 @@
 package gui.covoiturage;
 
 import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXToggleButton;
 import gui.DashboardCoVoiturageController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
 
 /**
  * FXML Controller class
@@ -39,6 +45,34 @@ public class OwnOffresViewController implements Initializable {
     private Label pageLabel;
     @FXML
     private Pane CoVoiturage1;
+    @FXML
+    private WebView webView;
+    @FXML
+    private TextField departTextField;
+    @FXML
+    private TextField destinationTextField;
+    @FXML
+    private TextField placeTextField;
+    @FXML
+    private Pane datePane;
+    @FXML
+    private DatePicker dateTextField;
+    @FXML
+    private Pane daysPane;
+    @FXML
+    private CheckBox lundiButton;
+    @FXML
+    private CheckBox jeudiButton;
+    @FXML
+    private CheckBox vendrediButton;
+    @FXML
+    private CheckBox samediButton;
+    @FXML
+    private CheckBox mercrediButton;
+    @FXML
+    private CheckBox mardiButton;
+    @FXML
+    private JFXToggleButton quotidiennement;
 
     /**
      * Initializes the controller class.
@@ -56,5 +90,9 @@ public class OwnOffresViewController implements Initializable {
             Logger.getLogger(DashboardCoVoiturageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
+
+    @FXML
+    private void onOffAction(ActionEvent event) {
+    }
     
 }
