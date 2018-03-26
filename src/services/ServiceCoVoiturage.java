@@ -96,7 +96,7 @@ public class ServiceCoVoiturage {
             return null;
     }
     
-    public ArrayList<CoVoiturage> readCoVoiturage(String type) throws SQLException{
+    public ArrayList<CoVoiturage> GetCovoituragePerType(String type) throws SQLException{
         String req = "SELECT * FROM co_voiturage WHERE `type` = ? ";
         PreparedStatement pre = con.prepareStatement(req);
         pre.setString(1,type);

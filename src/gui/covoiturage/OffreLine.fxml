@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane fx:id="redPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="915.0" style="-fx-background-color: white; -fx-border-color: #f0f0f0;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.covoiturage.OffreLineController">
+   <children>
+      <JFXButton layoutY="17.0" prefHeight="17.0" prefWidth="35.0" text=" ">
+         <graphic>
+            <ImageView fitHeight="18.0" fitWidth="19.0" onDragDetected="#InfoAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/information.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <Label layoutX="43.0" layoutY="19.0" prefHeight="21.0" prefWidth="45.0" text="User" textFill="#d00000">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="userTextField" layoutX="88.0" layoutY="21.0" text="UserExp" />
+      <Label layoutX="160.0" layoutY="19.0" prefHeight="21.0" prefWidth="58.0" text="Depart" textFill="#d00000">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="departTextField" layoutX="218.0" layoutY="21.0" prefHeight="17.0" prefWidth="133.0" text="UserExp" />
+      <Label layoutX="347.0" layoutY="19.0" prefHeight="21.0" prefWidth="82.0" text="Destination" textFill="#d00000">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="destinationTextField" layoutX="435.0" layoutY="21.0" prefHeight="17.0" prefWidth="109.0" text="UserExp" />
+      <Label fx:id="dateTextField" layoutX="555.0" layoutY="21.0" text="Il y XX jours" />
+      <Label layoutX="641.0" layoutY="19.0" prefHeight="21.0" prefWidth="42.0" text="Etat" textFill="#d00000">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="etatTextField" layoutX="683.0" layoutY="21.0" prefHeight="17.0" prefWidth="119.0" text="Etat" />
+      <JFXButton layoutX="866.0" layoutY="17.0" prefHeight="17.0" prefWidth="35.0" text=" ">
+         <graphic>
+            <ImageView fitHeight="18.0" fitWidth="19.0" onDragDetected="#DeleteAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/cancel.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton layoutX="838.0" layoutY="17.0" prefHeight="17.0" prefWidth="35.0" text=" ">
+         <graphic>
+            <ImageView fitHeight="18.0" fitWidth="19.0" onDragDetected="#UpdateAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/sliders.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+   </children>
+</Pane>

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="anchor" prefHeight="600.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.covoiturage.OffresViewController">
@@ -18,9 +19,7 @@
                   <JFXDrawer fx:id="drawerLeft" prefHeight="600.0" prefWidth="127.0">
                      <children>
                         <Pane fx:id="CoVoiturage" prefHeight="448.0" prefWidth="983.0" style="-fx-background-color: #f0f0f0;">
-                           <children>
-                              <JFXDrawer fx:id="drawerLeft" prefHeight="600.0" prefWidth="127.0" />
-                           </children>
+                       
                         </Pane>
                      </children>
                   </JFXDrawer>
@@ -33,14 +32,10 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane fx:id="CoVoiturage1" layoutX="127.0" layoutY="153.0" prefHeight="448.0" prefWidth="983.0" style="-fx-background-color: #f0f0f0;">
+                  <Pane fx:id="CoVoiturage1" layoutX="127.0" layoutY="153.0" prefHeight="448.0" prefWidth="957.0" style="-fx-background-color: #f0f0f0;">
                      <children>
-                        <Label layoutX="323.0" layoutY="125.0" prefHeight="147.0" prefWidth="319.0" text="Offre">
-                           <font>
-                              <Font size="77.0" />
-                           </font>
-                        </Label>
                         <Button fx:id="buttonAddOffre" layoutX="905.0" layoutY="26.0" mnemonicParsing="false" onAction="#AddOffreAction" text="Add" />
+                        <VBox fx:id="testPane" layoutX="28.0" layoutY="234.0" prefHeight="200.0" prefWidth="913.0" />
                      </children>
                   </Pane>
                </children>
