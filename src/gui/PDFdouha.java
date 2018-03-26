@@ -18,12 +18,12 @@ public class PDFdouha {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Colocation c1 = new Colocation(100,"colocation","type","meuble","description","photo","photo1","photo2","ville",2,2552,"nature",3,4);
+        Colocation c1 = new Colocation(100,"colocation","type","meuble","description","photo","photo1","photo2","ville",2,2552,"nature",6,4);
         
         
         // TODO code application logic here
      ColocationCRUD col = new ColocationCRUD();
-  //   col.ajouterColocation(c1);
+     col.ajouterColocation(c1);
         
           
 //     for(Colocation c : col.afficherColocation()){
