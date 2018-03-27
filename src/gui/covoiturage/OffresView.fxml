@@ -35,7 +35,7 @@
                   <Pane fx:id="CoVoiturage1" layoutX="127.0" layoutY="153.0" prefHeight="448.0" prefWidth="969.0" style="-fx-background-color: #f0f0f0;">
                      <children>
                         <Button fx:id="buttonAddOffre" layoutX="905.0" layoutY="26.0" mnemonicParsing="false" onAction="#AddOffreAction" text="Add" />
-                        <VBox fx:id="testPane" layoutX="8.0" layoutY="243.0" prefHeight="191.0" prefWidth="955.0" />
+                        <VBox fx:id="testPane" layoutX="8.0" layoutY="243.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="955.0" />
                         <Pane layoutX="8.0" layoutY="203.0" prefHeight="42.0" prefWidth="955.0" style="-fx-background-color: #ffc870;">
                            <children>
                               <Label layoutX="46.0" layoutY="7.0" text="Offres" textFill="WHITE">

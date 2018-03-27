@@ -39,7 +39,9 @@ public class OffreLineController implements Initializable {
     @FXML
     public Label etatTextField;
     ServiceCoVoiturage cs;
+   
 
+    
     /**
      * Initializes the controller class.
      */
@@ -47,6 +49,7 @@ public class OffreLineController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         OffresViewController.littlePane = redPane;
+        
         try {
             cs = new ServiceCoVoiturage();
         } catch (SQLException ex) {
