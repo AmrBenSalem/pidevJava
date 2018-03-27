@@ -76,6 +76,8 @@ public class OffresViewController implements Initializable {
     private Pane testPane;
     public static Pane littlePane;
     public ServiceCoVoiturage cs;
+    @FXML
+    private AnchorPane vboxAnchorPane;
 
     /**
      * Initializes the controller class.
@@ -127,7 +129,11 @@ public class OffresViewController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        Pane panee = FXMLLoader.load(getClass().getResource("OffreLine.fxml"));
+        vboxAnchorPane.setMinHeight(54 * listOfOffres.size());
+        vboxAnchorPane.setMaxHeight(54 * listOfOffres.size());
+        vboxAnchorPane.setPrefHeight(54 * listOfOffres.size());
+       
         for (int k = 0; k < listOfOffres.size(); k++) {
             Pane pane = FXMLLoader.load(getClass().getResource("OffreLine.fxml"));
 
@@ -188,7 +194,7 @@ public class OffresViewController implements Initializable {
             });
 
             testPane.getChildren().add(pane);
-            
+
         }
 
     }
