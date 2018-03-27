@@ -15,6 +15,7 @@ import gui.LoginController;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -31,6 +32,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -69,18 +71,25 @@ public class OffresViewController implements Initializable {
     List<CoVoiturage> offresList;
     @FXML
     private Pane testPane;
+    public static Pane littlePane;
+    public ServiceCoVoiturage cs;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         try {
-                Instance();
-            } catch (IOException ex) {
-                Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            cs = new ServiceCoVoiturage();
+        } catch (SQLException ex) {
+            Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Instance();
+        } catch (IOException ex) {
+            Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         drawerLeft.open();
         //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
 
@@ -108,11 +117,56 @@ public class OffresViewController implements Initializable {
         stage.show();
     }
 
-   
     public void Instance() throws IOException {
+        ArrayList<CoVoiturage> listOfOffres = new ArrayList<>();
+        try {
+            listOfOffres.addAll(cs.GetCovoituragePerType("o"));
+        } catch (SQLException ex) {
+            Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         for (int k = 0; k < 5; k++) {
             Pane pane = FXMLLoader.load(getClass().getResource("OffreLine.fxml"));
+
+            Label userField = new Label("aaZEBI");
+            userField.setLayoutX(pane.getChildren().get(2).getLayoutX());
+            userField.setLayoutY(pane.getChildren().get(2).getLayoutY());
+            pane.getChildren().set(2, userField);
+
+            Label departField = new Label("aaZEBI");
+            departField.setLayoutX(pane.getChildren().get(4).getLayoutX());
+            departField.setLayoutY(pane.getChildren().get(4).getLayoutY());
+            pane.getChildren().set(4, departField);
+
+            Label destinationField = new Label("aaZEBI");
+            destinationField.setLayoutX(pane.getChildren().get(6).getLayoutX());
+            destinationField.setLayoutY(pane.getChildren().get(6).getLayoutY());
+            pane.getChildren().set(6, destinationField);
+
+            Label dateField = new Label("aaZEBI");
+            dateField.setLayoutX(pane.getChildren().get(12).getLayoutX());
+            dateField.setLayoutY(pane.getChildren().get(12).getLayoutY());
+            pane.getChildren().set(12, dateField);
+
+            Label etatField = new Label("aaZEBI");
+            etatField.setLayoutX(pane.getChildren().get(9).getLayoutX());
+            etatField.setLayoutY(pane.getChildren().get(9).getLayoutY());
+            pane.getChildren().set(9, etatField);
+
+            CoVoiturage offre;
+            offre = listOfOffres.get(k);
+            userField.setText(String.valueOf(offre.getUser()));
+            
+            departField.setText(String.valueOf(offre.getDepart()));
+           // departField.setMaxSize(3, 3);
+            destinationField.setText(String.valueOf(offre.getDestination()));
+            dateField.setText(String.valueOf(offre.getDate()));
+            etatField.setText(String.valueOf(offre.getOnetime()));
+
+            
             testPane.getChildren().add(pane);
+
         }
+
     }
+
 }

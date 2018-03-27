@@ -5,13 +5,19 @@
  */
 package gui.covoiturage;
 
+import entities.CoVoiturage;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import services.ServiceCoVoiturage;
 
 /**
  * FXML Controller class
@@ -23,15 +29,16 @@ public class OffreLineController implements Initializable {
     @FXML
     public Pane redPane;
     @FXML
-    private Label userTextField;
+    public Label userTextField;
     @FXML
-    private Label departTextField;
+    public Label departTextField;
     @FXML
-    private Label destinationTextField;
+    public Label destinationTextField;
     @FXML
-    private Label dateTextField;
+    public Label dateTextField;
     @FXML
-    private Label etatTextField;
+    public Label etatTextField;
+    ServiceCoVoiturage cs;
 
     /**
      * Initializes the controller class.
@@ -39,18 +46,55 @@ public class OffreLineController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-
-    @FXML
-    private void InfoAction(MouseEvent event) {
+        OffresViewController.littlePane = redPane;
+        try {
+            cs = new ServiceCoVoiturage();
+        } catch (SQLException ex) {
+            Logger.getLogger(OffreLineController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    @FXML
-    private void DeleteAction(MouseEvent event) {
-    }
-
-    @FXML
-    private void UpdateAction(MouseEvent event) {
-    }
     
+
+    @FXML
+    public void DeleteAction(ActionEvent event)  {
+        
+    }
+
+    @FXML
+    public void InfoAction(ActionEvent event) {
+        System.out.println("try of info action");
+    }
+
+    @FXML
+    public void UpdateAction(ActionEvent event) {
+        System.out.println("try of update action");
+    }
+
+    
+
+    public void setUserTextField(String userTextField) {
+        this.userTextField.setText(userTextField); 
+    }
+
+    public void setDepartTextField(String departTextField) {
+        this.departTextField.setText(departTextField);
+    }
+
+    public void setDestinationTextField(String destinationTextField) {
+        this.destinationTextField.setText(destinationTextField);
+    }
+
+    public void setDateTextField(String dateTextField) {
+        this.dateTextField.setText(dateTextField);
+    }
+
+    public void setEtatTextField(String etatTextField) {
+        this.etatTextField.setText(etatTextField);
+    }
+
+    public Pane getRedPane() {
+        return redPane;
+    }
+
 }
