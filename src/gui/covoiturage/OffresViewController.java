@@ -43,6 +43,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import services.ServiceCoVoiturage;
 
+
 /**
  * FXML Controller class
  *
@@ -133,31 +134,33 @@ public class OffresViewController implements Initializable {
         vboxAnchorPane.setMinHeight(54 * listOfOffres.size());
         vboxAnchorPane.setMaxHeight(54 * listOfOffres.size());
         vboxAnchorPane.setPrefHeight(54 * listOfOffres.size());
-       
+       for (int x = 0; x < panee.getChildren().size() ; x++){
+           System.out.println(x+"  "+panee.getChildren().get(x).toString());
+       }
         for (int k = 0; k < listOfOffres.size(); k++) {
             Pane pane = FXMLLoader.load(getClass().getResource("OffreLine.fxml"));
 
-            Label userField = new Label("aaZEBI");
+            Label userField = new Label();
             userField.setLayoutX(pane.getChildren().get(2).getLayoutX());
             userField.setLayoutY(pane.getChildren().get(2).getLayoutY());
             pane.getChildren().set(2, userField);
 
-            Label departField = new Label("aaZEBI");
+            Label departField = new Label();
             departField.setLayoutX(pane.getChildren().get(4).getLayoutX());
             departField.setLayoutY(pane.getChildren().get(4).getLayoutY());
             pane.getChildren().set(4, departField);
 
-            Label destinationField = new Label("aaZEBI");
+            Label destinationField = new Label();
             destinationField.setLayoutX(pane.getChildren().get(6).getLayoutX());
             destinationField.setLayoutY(pane.getChildren().get(6).getLayoutY());
             pane.getChildren().set(6, destinationField);
 
-            Label dateField = new Label("aaZEBI");
-            dateField.setLayoutX(pane.getChildren().get(12).getLayoutX());
-            dateField.setLayoutY(pane.getChildren().get(12).getLayoutY());
+            Label dateField = new Label();
+            dateField.setLayoutX(pane.getChildren().get(8).getLayoutX());
+            dateField.setLayoutY(pane.getChildren().get(8).getLayoutY());
             pane.getChildren().set(12, dateField);
 
-            Label etatField = new Label("aaZEBI");
+            Label etatField = new Label();
             etatField.setLayoutX(pane.getChildren().get(9).getLayoutX());
             etatField.setLayoutY(pane.getChildren().get(9).getLayoutY());
             pane.getChildren().set(9, etatField);
@@ -169,17 +172,23 @@ public class OffresViewController implements Initializable {
             departField.setText(String.valueOf(offre.getDepart()));
             // departField.setMaxSize(3, 3);
             destinationField.setText(String.valueOf(offre.getDestination()));
+            //PrettyTime p = new PrettyTime();
             dateField.setText(String.valueOf(offre.getDate()));
             etatField.setText(String.valueOf(offre.getOnetime()));
 
             JFXButton btn = new JFXButton();
+            
+            //btn.setGraphic(pane.getChildren().get(13));
 //            Image image = new Image("/assets/information.png");
 //            ImageView img = new ImageView(image);
 //            btn.setGraphic(img);
 //            btn.setStyle(pane.getChildren().get(11).getStyle());
-            btn.setLayoutX(pane.getChildren().get(11).getLayoutX());
-            btn.setLayoutY(pane.getChildren().get(11).getLayoutY());
-            pane.getChildren().set(11, btn);
+           
+            //btn.setLayoutX(pane.getChildren().get(13).getLayoutX());
+            //btn.setLayoutY(pane.getChildren().get(13).getLayoutY());
+            
+            btn = (JFXButton) pane.getChildren().get(13);
+            pane.getChildren().set(13, btn);
 
             btn.setOnAction((event) -> {
                 try {

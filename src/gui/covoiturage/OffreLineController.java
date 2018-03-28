@@ -5,6 +5,7 @@
  */
 package gui.covoiturage;
 
+import com.jfoenix.controls.JFXButton;
 import entities.CoVoiturage;
 import java.net.URL;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import services.ServiceCoVoiturage;
@@ -39,6 +41,10 @@ public class OffreLineController implements Initializable {
     @FXML
     public Label etatTextField;
     ServiceCoVoiturage cs;
+    @FXML
+    private JFXButton buttonDelete;
+    @FXML
+    private JFXButton buttonUpdate;
    
 
     
