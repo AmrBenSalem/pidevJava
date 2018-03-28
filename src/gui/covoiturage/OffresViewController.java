@@ -79,6 +79,8 @@ public class OffresViewController implements Initializable {
     public ServiceCoVoiturage cs;
     @FXML
     private AnchorPane vboxAnchorPane;
+    @FXML
+    private JFXButton redirectButtonCov;
 
     /**
      * Initializes the controller class.
@@ -177,16 +179,6 @@ public class OffresViewController implements Initializable {
             etatField.setText(String.valueOf(offre.getOnetime()));
 
             JFXButton btn = new JFXButton();
-            
-            //btn.setGraphic(pane.getChildren().get(13));
-//            Image image = new Image("/assets/information.png");
-//            ImageView img = new ImageView(image);
-//            btn.setGraphic(img);
-//            btn.setStyle(pane.getChildren().get(11).getStyle());
-           
-            //btn.setLayoutX(pane.getChildren().get(13).getLayoutX());
-            //btn.setLayoutY(pane.getChildren().get(13).getLayoutY());
-            
             btn = (JFXButton) pane.getChildren().get(13);
             pane.getChildren().set(13, btn);
 
@@ -212,6 +204,22 @@ public class OffresViewController implements Initializable {
         Parent page = null;
         try {
             page = FXMLLoader.load(getClass().getResource("OffresView.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(page);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.show();
+    }
+
+    @FXML
+    private void redirectToCoVoiturage(ActionEvent event) {
+        Parent page = null;
+        try {
+            page = FXMLLoader.load(getClass().getResource("CoVoiturageView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
