@@ -5,14 +5,23 @@
  */
 package gui.covoiturage;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTreeTableView;
+import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
+import entities.CoVoiturage;
 import gui.DashboardCoVoiturageController;
 import gui.LoginController;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,10 +31,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import services.ServiceCoVoiturage;
 
 /**
  * FXML Controller class
@@ -48,23 +64,47 @@ public class OffresViewController implements Initializable {
     private Pane CoVoiturage1;
     @FXML
     private Button buttonAddOffre;
+    private TableView<CoVoiturage> offresTable;
+    private TableColumn<?, ?> userOffresTable;
+    private TableColumn<?, ?> departOffresTable;
+    private TableColumn<?, ?> destinationOffresTable;
+    private TableColumn<?, ?> dateOffresTable;
+    private TableColumn<?, ?> etatOffresTable;
+    ServiceCoVoiturage serviceCoVoiturage;
+    List<CoVoiturage> offresList;
+    @FXML
+    private Pane testPane;
+    public static Pane littlePane;
+    public ServiceCoVoiturage cs;
+    @FXML
+    private AnchorPane vboxAnchorPane;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       drawerLeft.open();
-      //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
-       
-        
+
+        try {
+            cs = new ServiceCoVoiturage();
+        } catch (SQLException ex) {
+            Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            Instance();
+        } catch (IOException ex) {
+            Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        drawerLeft.open();
+        //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
+
         try {
             VBox box = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
             drawerLeft.setSidePane(box);
         } catch (IOException ex) {
             Logger.getLogger(DashboardCoVoiturageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
+    }
 
     @FXML
     private void AddOffreAction(ActionEvent event) {
@@ -81,5 +121,96 @@ public class OffresViewController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    
+
+    public void Instance() throws IOException {
+        ArrayList<CoVoiturage> listOfOffres = new ArrayList<>();
+        try {
+            listOfOffres.addAll(cs.GetCovoituragePerType("o"));
+        } catch (SQLException ex) {
+            Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Pane panee = FXMLLoader.load(getClass().getResource("OffreLine.fxml"));
+        vboxAnchorPane.setMinHeight(54 * listOfOffres.size());
+        vboxAnchorPane.setMaxHeight(54 * listOfOffres.size());
+        vboxAnchorPane.setPrefHeight(54 * listOfOffres.size());
+       
+        for (int k = 0; k < listOfOffres.size(); k++) {
+            Pane pane = FXMLLoader.load(getClass().getResource("OffreLine.fxml"));
+
+            Label userField = new Label("aaZEBI");
+            userField.setLayoutX(pane.getChildren().get(2).getLayoutX());
+            userField.setLayoutY(pane.getChildren().get(2).getLayoutY());
+            pane.getChildren().set(2, userField);
+
+            Label departField = new Label("aaZEBI");
+            departField.setLayoutX(pane.getChildren().get(4).getLayoutX());
+            departField.setLayoutY(pane.getChildren().get(4).getLayoutY());
+            pane.getChildren().set(4, departField);
+
+            Label destinationField = new Label("aaZEBI");
+            destinationField.setLayoutX(pane.getChildren().get(6).getLayoutX());
+            destinationField.setLayoutY(pane.getChildren().get(6).getLayoutY());
+            pane.getChildren().set(6, destinationField);
+
+            Label dateField = new Label("aaZEBI");
+            dateField.setLayoutX(pane.getChildren().get(12).getLayoutX());
+            dateField.setLayoutY(pane.getChildren().get(12).getLayoutY());
+            pane.getChildren().set(12, dateField);
+
+            Label etatField = new Label("aaZEBI");
+            etatField.setLayoutX(pane.getChildren().get(9).getLayoutX());
+            etatField.setLayoutY(pane.getChildren().get(9).getLayoutY());
+            pane.getChildren().set(9, etatField);
+
+            CoVoiturage offre;
+            offre = listOfOffres.get(k);
+            userField.setText(String.valueOf(offre.getUser()));
+
+            departField.setText(String.valueOf(offre.getDepart()));
+            // departField.setMaxSize(3, 3);
+            destinationField.setText(String.valueOf(offre.getDestination()));
+            dateField.setText(String.valueOf(offre.getDate()));
+            etatField.setText(String.valueOf(offre.getOnetime()));
+
+            JFXButton btn = new JFXButton();
+//            Image image = new Image("/assets/information.png");
+//            ImageView img = new ImageView(image);
+//            btn.setGraphic(img);
+//            btn.setStyle(pane.getChildren().get(11).getStyle());
+            btn.setLayoutX(pane.getChildren().get(11).getLayoutX());
+            btn.setLayoutY(pane.getChildren().get(11).getLayoutY());
+            pane.getChildren().set(11, btn);
+
+            btn.setOnAction((event) -> {
+                try {
+                    CoVoiturage cov = new CoVoiturage();
+                    System.out.println("bbbbbbbb" + offre.getId());
+                    cov = cs.readCoVoiturage(offre.getId());
+                    cs.deleteCoVoiturage(cov);
+                    Refresh(event);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+
+            testPane.getChildren().add(pane);
+
+        }
+
+    }
+
+    public void Refresh(ActionEvent event) {
+        Parent page = null;
+        try {
+            page = FXMLLoader.load(getClass().getResource("OffresView.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(page);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.show();
+    }
 }
