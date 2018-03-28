@@ -3,10 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Justpro/Documents/NetBeansProjects/pidev/src/gui/covoiturage/OffresViewController.java</file>
-            <file>file:/C:/Users/Justpro/Documents/NetBeansProjects/pidev/src/gui/covoiturage/OffreLineController.java</file>
-            <file>file:/C:/Users/Justpro/Documents/NetBeansProjects/pidev/src/entities/CoVoiturage.java</file>
-            <file>file:/C:/Users/Justpro/Documents/NetBeansProjects/pidev/src/gui/covoiturage/CovoiturageViewController.java</file>
+            <file>file:/C:/Users/Justpro/Documents/NetBeansProjects/pidev/src/services/ServiceCoVoiturageRequests.java</file>
+            <file>file:/C:/Users/Justpro/Documents/NetBeansProjects/pidev/src/services/ServiceCoVoiturage.java</file>
         </group>
     </open-files>
 </project-private>
