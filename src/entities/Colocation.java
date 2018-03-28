@@ -21,8 +21,8 @@ public class Colocation {
     String photo1;
     String photo2;
     String ville;
-    int x;
-    int y;
+    double x;
+    double y;
     String nature;
     int user_id;
     int enable;
@@ -128,17 +128,23 @@ public class Colocation {
         this.ville = ville;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    
 
     public void setY(int y) {
         this.y = y;
