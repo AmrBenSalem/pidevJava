@@ -11,9 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="66.0" prefWidth="737.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="gui.TopMenuController">
-    <stylesheets>
-        <URL value="@topmenu.css" />
-    </stylesheets>
+    
    <children>
       <Pane prefHeight="101.0" prefWidth="737.0" style="-fx-background-color: #F06261;">
          <children>
@@ -38,4 +36,7 @@
          </children>
       </Pane>
    </children>
+   <stylesheets>
+        <URL value="@topmenu.css" />
+    </stylesheets>
 </AnchorPane>
