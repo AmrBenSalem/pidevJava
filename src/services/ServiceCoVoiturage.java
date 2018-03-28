@@ -23,10 +23,10 @@ import util.DataSource;
  */
 public class ServiceCoVoiturage {
     public Connection con = DataSource.getInstance().getConnection();
-    public Statement st;
+   
     
     public ServiceCoVoiturage() throws SQLException{
-        st = con.createStatement();
+      
     }
     
     public void addCoVoiturage(CoVoiturage cov) {

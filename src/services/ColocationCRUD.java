@@ -37,20 +37,15 @@ public class ColocationCRUD {
             pst.setString(8, c.getPhoto2());
             pst.setString(9, c.getVille());
             pst.setInt(13, c.getUser_id());
-            pst.setInt(10, c.getX());
-            pst.setInt(11, c.getY());
+            pst.setDouble(10, c.getX());
+            pst.setDouble(11, c.getY());
             pst.setInt(14, c.getEnable());
             pst.setString(12, c.getNature());
 
-            boolean res = pst.execute();
-            if (res) {
-                System.out.println("Colocation ajoutée");
-            } else {
-                System.out.println("Colocation ajoutée");
-            }
+            pst.executeUpdate();
 
         } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
+            ex.printStackTrace();
         }
     }
 
@@ -81,7 +76,38 @@ public class ColocationCRUD {
         return myList;
     }
 
-    public void supprimerColocation(Colocation c, int id) {
+    public List<Colocation> afficherColocationByUser(int id) {
+        List<Colocation> myList = new ArrayList<Colocation>();
+        try {
+
+            String requete = "SELECT * FROM colocation where user_id=?";
+
+            PreparedStatement pst = cnx.prepareStatement(requete);
+            pst.setInt(1, id);
+
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Colocation c = new Colocation();
+                c.setId(rs.getInt(1));
+                c.setLoyer(rs.getInt(2));
+                c.setTitre(rs.getString(3));
+                c.setType(rs.getString(4));
+                c.setMeuble(rs.getString(5));
+                c.setDescription(rs.getString(6));
+                c.setPhoto(rs.getString(7));
+c.setNature(rs.getString("nature"));
+c.setVille(rs.getString("ville"));
+                myList.add(c);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return myList;
+    }
+
+    public void supprimerColocation(int id) {
+
         try {
             String requete = "DELETE FROM"
                     + " colocation WHERE id=?";
