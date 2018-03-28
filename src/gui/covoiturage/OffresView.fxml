@@ -11,10 +11,10 @@
 
 <AnchorPane id="AnchorPane" fx:id="anchor" prefHeight="600.0" prefWidth="1112.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.covoiturage.OffresViewController">
    <children>
-      <Pane fx:id="CoVoiturage1" layoutX="129.0" layoutY="153.0" prefHeight="448.0" prefWidth="983.0" style="-fx-background-color: #f0f0f0;">
+      <Pane fx:id="CoVoiturage1" layoutX="84.0" layoutY="153.0" prefHeight="448.0" prefWidth="1028.0" style="-fx-background-color: #f0f0f0;">
          <children>
             <Button fx:id="buttonAddOffre" layoutX="905.0" layoutY="26.0" mnemonicParsing="false" onAction="#AddOffreAction" text="Add" />
-            <Pane layoutX="8.0" layoutY="202.0" prefHeight="42.0" prefWidth="955.0" style="-fx-background-color: #ffc870;">
+            <Pane layoutX="8.0" layoutY="202.0" prefHeight="42.0" prefWidth="1011.0" style="-fx-background-color: #ffc870;">
                <children>
                   <Label layoutX="46.0" layoutY="7.0" text="Offres" textFill="WHITE">
                      <font>
@@ -23,7 +23,7 @@
                   </Label>
                </children>
             </Pane>
-            <ScrollPane layoutX="8.0" layoutY="243.0" prefHeight="200.0" prefWidth="955.0">
+            <ScrollPane layoutX="8.0" layoutY="243.0" prefHeight="200.0" prefWidth="1011.0">
               <content>
                 <AnchorPane fx:id="vboxAnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="953.0" style="-fx-background-color: white;">
                      <children>
@@ -34,8 +34,8 @@
             </ScrollPane>
          </children>
       </Pane>
-      <JFXDrawer fx:id="drawerTop" layoutX="129.0" prefHeight="97.0" prefWidth="983.0" style="-fx-background-color: pink;" />
-      <Pane layoutX="128.0" layoutY="97.0" prefHeight="56.0" prefWidth="983.0" style="-fx-background-color: white;">
+      <JFXDrawer fx:id="drawerTop" layoutX="84.0" prefHeight="97.0" prefWidth="1028.0" style="-fx-background-color: pink;" />
+      <Pane layoutX="83.0" layoutY="97.0" prefHeight="56.0" prefWidth="1028.0" style="-fx-background-color: white;">
          <children>
             <Label fx:id="pageLabel" layoutX="43.0" layoutY="9.0" prefHeight="39.0" prefWidth="183.0" text="Label">
                <font>
@@ -44,9 +44,9 @@
             </Label>
          </children>
       </Pane>
-      <JFXDrawer fx:id="drawerLeft" prefHeight="600.0" prefWidth="127.0">
+      <JFXDrawer fx:id="drawerLeft" prefHeight="600.0" prefWidth="86.0">
          <children>
-            <Pane fx:id="CoVoiturage" prefHeight="448.0" prefWidth="983.0" style="-fx-background-color: #f0f0f0;">
+            <Pane fx:id="CoVoiturage" prefHeight="600.0" prefWidth="97.0" style="-fx-background-color: #f0f0f0;">
                        
                         </Pane>
          </children>

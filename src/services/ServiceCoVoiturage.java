@@ -73,8 +73,18 @@ public class ServiceCoVoiturage {
     }
     
     public void deleteCoVoiturage(CoVoiturage cov) throws SQLException{
-        String req = "DELETE FROM co_voiturage WHERE `id` = ? ";
+        String req = "DELETE FROM co_voiturage_requests WHERE `idc` = ? ";
         PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1,cov.getId());
+        pre.execute();
+        
+        req = "DELETE FROM co_voiturage_days WHERE `idc` = ? ";
+        pre = con.prepareStatement(req);
+        pre.setInt(1,cov.getId());
+        pre.execute();
+        
+        req = "DELETE FROM co_voiturage WHERE `id` = ? ";
+        pre = con.prepareStatement(req);
         pre.setInt(1,cov.getId());
         pre.execute();
     }
