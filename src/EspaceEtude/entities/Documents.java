@@ -17,7 +17,7 @@ public class Documents {
     private String typeDocument;
     private Double size;
     private String language;
-    private User user;
+   // private User user;
     private Matiere matiere;
     private String image;
     private int flag;

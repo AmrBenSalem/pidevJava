@@ -1,62 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="474.0" prefWidth="664.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="574.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EspaceEtude.Gui.AfficherClasseInterfaceController">
    <children>
-      <Pane layoutX="-6.0" prefHeight="91.0" prefWidth="672.0" style="-fx-background-color: #F06261;" />
-      <Pane layoutY="-2.0" prefHeight="481.0" prefWidth="118.0" style="-fx-background-color: #3D3B3C;">
+      <AnchorPane id="AnchorPane" prefHeight="66.0" prefWidth="737.0" styleClass="mainFxmlClass">
+          <stylesheets>
+              <URL value="@topmenu.css" />
+          </stylesheets>
          <children>
-            <JFXButton layoutY="108.0" prefHeight="56.0" prefWidth="118.0" text="objet perdu" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+            <Pane prefHeight="101.0" prefWidth="737.0" style="-fx-background-color: #F06261;">
+               <children>
+                  <Label layoutX="155.0" layoutY="29.0" prefHeight="17.0" prefWidth="144.0" text="USER NAME" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <MenuButton layoutX="567.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                     <graphic>
+                        <ImageView fx:id="avatar" fitHeight="50.0" fitWidth="47.0" onMouseClicked="#showList" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../image/avatar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuButton>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;">
+         <children>
+            <Pane prefHeight="97.0" prefWidth="127.0">
+               <children>
+                  <ImageView fitHeight="88.0" fitWidth="112.0" layoutX="19.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/lost.png" />
+                        <Image url="@../../assets/logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Button fx:id="b1" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ChangeViewAction" prefHeight="100.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" text=" ">
+               <graphic>
+                  <ImageView fitHeight="51.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/diamond.png" />
                      </image>
                   </ImageView>
                </graphic>
-            </JFXButton>
-            <JFXButton layoutY="164.0" prefHeight="56.0" prefWidth="118.0" text="Co-voiturage" textFill="WHITE">
+            </Button>
+            <Button fx:id="b2" contentDisplay="TOP" mnemonicParsing="false" onAction="#ChangeViewAction" prefHeight="100.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" text="CoVoiturage" textFill="#cd2a2a">
                <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="67.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/lost.png" />
+                        <Image url="@../../assets/car.png" />
                      </image>
                   </ImageView>
                </graphic>
-            </JFXButton>
-            <JFXButton layoutY="221.0" prefHeight="56.0" prefWidth="118.0" text="Colocation" textFill="WHITE">
+            </Button>
+            <Button fx:id="b3" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ChangeViewAction" prefHeight="100.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" text=" ">
                <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="49.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/House.png" />
+                        <Image url="@../assets/diamond.png" />
                      </image>
                   </ImageView>
                </graphic>
-            </JFXButton>
-            <JFXButton layoutY="277.0" prefHeight="56.0" prefWidth="118.0" text="Etude" textFill="WHITE">
+            </Button>
+            <Button fx:id="b4" contentDisplay="TOP" mnemonicParsing="false" onAction="#ChangeViewAction" prefHeight="100.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" text="Etude" textFill="WHITE">
                <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="56.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../image/Study.png" />
                      </image>
                   </ImageView>
                </graphic>
-            </JFXButton>
-            <JFXButton layoutY="333.0" prefHeight="56.0" prefWidth="118.0" text="Evennement" textFill="WHITE">
+            </Button>
+            <Button fx:id="b5" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ChangeViewAction" prefHeight="100.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" text=" ">
                <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="58.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../image/Event.png" />
+                        <Image url="@../assets/diamond.png" />
                      </image>
                   </ImageView>
                </graphic>
-            </JFXButton>
+            </Button>
          </children>
-      </Pane>
+      </VBox>
+      <JFXListView fx:id="listViewNiveau" layoutX="127.0" layoutY="100.0" orientation="HORIZONTAL" prefHeight="499.0" prefWidth="609.0" />
    </children>
 </AnchorPane>

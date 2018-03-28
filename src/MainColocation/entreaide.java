@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 public class entreaide extends Application {
     private static Stage MainStage;
     
+    
     public void start(Stage stage) throws Exception {
         entreaide.MainStage=stage;
         Parent root = FXMLLoader.load(getClass().getResource("/views.Colocation/ajoutCol.fxml"));

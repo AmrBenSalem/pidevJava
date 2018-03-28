@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LeftMenuController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LeftMenuController">
    <children>
       <Pane prefHeight="97.0" prefWidth="127.0">
          <children>
@@ -40,11 +40,11 @@
                </image></ImageView>
          </graphic>
       </Button>
-      <Button fx:id="b4" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ChangeViewAction" prefHeight="100.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" text=" ">
+      <Button fx:id="b4" contentDisplay="TOP" mnemonicParsing="false" onAction="#ChangeViewAction" prefHeight="100.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" text="Etude" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="56.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assets/diamond.png" />
+                  <Image url="@../../image/Study.png" />
                </image></ImageView>
          </graphic>
       </Button>
