@@ -177,16 +177,6 @@ public class OffresViewController implements Initializable {
             etatField.setText(String.valueOf(offre.getOnetime()));
 
             JFXButton btn = new JFXButton();
-            
-            //btn.setGraphic(pane.getChildren().get(13));
-//            Image image = new Image("/assets/information.png");
-//            ImageView img = new ImageView(image);
-//            btn.setGraphic(img);
-//            btn.setStyle(pane.getChildren().get(11).getStyle());
-           
-            //btn.setLayoutX(pane.getChildren().get(13).getLayoutX());
-            //btn.setLayoutY(pane.getChildren().get(13).getLayoutY());
-            
             btn = (JFXButton) pane.getChildren().get(13);
             pane.getChildren().set(13, btn);
 

@@ -13,7 +13,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1110.0">
                <children>
-                  <JFXDrawer fx:id="drawerTop" layoutX="86.0" prefHeight="97.0" prefWidth="1022.0" style="-fx-background-color: pink;" />
+                  <JFXDrawer fx:id="drawerTop" layoutX="86.0" prefHeight="97.0" prefWidth="1022.0" style="-fx-background-color: #ef6262;" />
                   <JFXDrawer fx:id="drawerLeft" prefHeight="600.0" prefWidth="86.0">
                      <children>
                         <Pane fx:id="CoVoiturage" prefHeight="448.0" prefWidth="983.0" style="-fx-background-color: #f0f0f0;" />
