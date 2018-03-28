@@ -43,7 +43,9 @@
                   <Font name="SansSerif Regular" size="24.0" />
                </font>
             </Label>
-            <JFXButton layoutX="11.0" layoutY="27.0" style="-fx-background-color: transparent;" text="Co-Voiturage" textFill="#ec4444" />
+            <JFXButton fx:id="redirectButtonCov" layoutX="11.0" layoutY="27.0" onAction="#redirectToCoVoiturage" style="-fx-background-color: transparent;" text="Co-Voiturage" textFill="#ec4444" />
+            <Label layoutX="98.0" layoutY="32.0" opacity="0.35" text="/" />
+            <Label layoutX="106.0" layoutY="32.0" opacity="0.6" text="Offres" />
          </children>
       </Pane>
       <JFXDrawer fx:id="drawerLeft" prefHeight="600.0" prefWidth="86.0">

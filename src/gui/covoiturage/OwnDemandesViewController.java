@@ -5,20 +5,27 @@
  */
 package gui.covoiturage;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import gui.DashboardCoVoiturageController;
+import gui.LoginController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -36,9 +43,11 @@ public class OwnDemandesViewController implements Initializable {
     @FXML
     private JFXDrawer drawerTop;
     @FXML
-    private Label pageLabel;
-    @FXML
     private Pane CoVoiturage1;
+    @FXML
+    private Label pageLabel1;
+    @FXML
+    private JFXButton redirectButtonCov;
 
     /**
      * Initializes the controller class.
@@ -56,5 +65,21 @@ public class OwnDemandesViewController implements Initializable {
             Logger.getLogger(DashboardCoVoiturageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
+
+    @FXML
+    private void redirectToCoVoiturage(ActionEvent event) {
+        Parent page = null;
+        try {
+            page = FXMLLoader.load(getClass().getResource("CoVoiturageView.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(page);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.show();
+    }
     
 }
