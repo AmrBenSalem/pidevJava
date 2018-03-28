@@ -28,6 +28,9 @@ public class CoVoiturage {
     private double depart_lat;
     private double depart_lng;
 
+    public CoVoiturage() {
+    }
+
     public CoVoiturage(int id, int user, String type, String depart, String destination, Timestamp date, String onetime, int placedisponibles, String depart_id, String destination_id, Timestamp created, Timestamp updated, double depart_lat, double depart_lng) {
         this.id = id;
         this.user = user;

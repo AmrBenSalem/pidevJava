@@ -11,7 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import util.DataSource;
 
 /**
@@ -26,23 +29,27 @@ public class ServiceCoVoiturage {
       
     }
     
-    public void addCoVoiturage(CoVoiturage cov) throws SQLException{
-        String req = "INSERT INTO co_voiturage (`user`, `type`, `depart`, `destination`, `date`, `onetime`, `placedisponibles`, `depart_id`, `destination_id`, `created`, `updated`, `depart_lat`, `depart_lng`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        PreparedStatement pre = con.prepareStatement(req);
-        pre.setInt(1,cov.getUser());
-        pre.setString(2,cov.getType());
-        pre.setString(3,cov.getDepart());
-        pre.setString(4,cov.getDestination());
-        pre.setTimestamp(5,cov.getDate());
-        pre.setString(6,cov.getOnetime());
-        pre.setInt(7,cov.getPlacedisponibles());
-        pre.setString(8,cov.getDepart_id());
-        pre.setString(9,cov.getDestination_id());
-        pre.setTimestamp(10,cov.getCreated());
-        pre.setTimestamp(11,cov.getUpdated());
-        pre.setDouble(12,cov.getDepart_lat());
-        pre.setDouble(13,cov.getDepart_lng());
-        pre.execute();
+    public void addCoVoiturage(CoVoiturage cov) {
+        try {
+            String req = "INSERT INTO co_voiturage (`user`, `type`, `depart`, `destination`, `date`, `onetime`, `placedisponibles`, `depart_id`, `destination_id`, `created`, `updated`, `depart_lat`, `depart_lng`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement pre = con.prepareStatement(req);
+            pre.setInt(1,cov.getUser());
+            pre.setString(2,cov.getType());
+            pre.setString(3,cov.getDepart());
+            pre.setString(4,cov.getDestination());
+            pre.setTimestamp(5,cov.getDate());
+            pre.setString(6,cov.getOnetime());
+            pre.setInt(7,cov.getPlacedisponibles());
+            pre.setString(8,cov.getDepart_id());
+            pre.setString(9,cov.getDestination_id());
+            pre.setTimestamp(10,new Timestamp(System.currentTimeMillis()));
+            pre.setTimestamp(11,new Timestamp(System.currentTimeMillis()));
+            pre.setDouble(12,cov.getDepart_lat());
+            pre.setDouble(13,cov.getDepart_lng());
+            pre.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCoVoiturage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
    
     public void updateCoVoiturage(CoVoiturage cov) throws SQLException{
@@ -58,7 +65,7 @@ public class ServiceCoVoiturage {
         pre.setString(8,cov.getDepart_id());
         pre.setString(9,cov.getDestination_id());
         pre.setTimestamp(10,cov.getCreated());
-        pre.setTimestamp(11,cov.getUpdated());
+        pre.setTimestamp(11,new Timestamp(System.currentTimeMillis()));
         pre.setDouble(12,cov.getDepart_lat());
         pre.setDouble(13,cov.getDepart_lng());
         pre.setInt(14,cov.getId());
@@ -67,8 +74,18 @@ public class ServiceCoVoiturage {
     }
     
     public void deleteCoVoiturage(CoVoiturage cov) throws SQLException{
-        String req = "DELETE FROM co_voiturage WHERE `id` = ? ";
+        String req = "DELETE FROM co_voiturage_requests WHERE `idc` = ? ";
         PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1,cov.getId());
+        pre.execute();
+        
+        req = "DELETE FROM co_voiturage_days WHERE `idc` = ? ";
+        pre = con.prepareStatement(req);
+        pre.setInt(1,cov.getId());
+        pre.execute();
+        
+        req = "DELETE FROM co_voiturage WHERE `id` = ? ";
+        pre = con.prepareStatement(req);
         pre.setInt(1,cov.getId());
         pre.execute();
     }
@@ -96,10 +113,11 @@ public class ServiceCoVoiturage {
             return null;
     }
     
-    public ArrayList<CoVoiturage> readCoVoiturage(String type) throws SQLException{
-        String req = "SELECT * FROM co_voiturage WHERE `type` = ? ";
+    public ArrayList<CoVoiturage> GetCovoituragePerType(String type) throws SQLException{
+        String req = "SELECT * FROM co_voiturage WHERE `type` = ? AND ( date > ? OR onetime = 'on' ) AND placedisponibles > 0 ORDER BY updated DESC , created DESC";
         PreparedStatement pre = con.prepareStatement(req);
         pre.setString(1,type);
+        pre.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
         ResultSet rs =  pre.executeQuery();
         ArrayList<CoVoiturage> co = new ArrayList<> ();
         while (rs.next()){

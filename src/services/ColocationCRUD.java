@@ -107,6 +107,7 @@ c.setVille(rs.getString("ville"));
     }
 
     public void supprimerColocation(int id) {
+
         try {
             String requete = "DELETE FROM"
                     + " colocation WHERE id=?";
