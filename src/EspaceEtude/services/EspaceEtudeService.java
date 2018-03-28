@@ -35,7 +35,9 @@ public class EspaceEtudeService {
             String req="select * from section where niveau='"+niveau+"'";
             st=con.createStatement();
             ResultSet rs=st.executeQuery(req); 
+            
             while(rs.next()){
+                System.out.println(rs.getString("libelle"));
                 Section s=new Section();
                 s.setId(rs.getInt("id"));
                 s.setLibelle(rs.getString("libelle"));

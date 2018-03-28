@@ -15,6 +15,11 @@
             <file>file:/C:/Users/Justpro/Documents/NetBeansProjects/pidev/src/gui/covoiturage/OwnOffresViewController.java</file>
             <file>file:/C:/Users/Justpro/Documents/NetBeansProjects/pidev/src/gui/covoiturage/AddOffreView.fxml</file>
         </group>
-        <group name="SR"/>
+        <group name="SR">
+            <file>file:/C:/Users/oussema/Documents/NetBeansProjects/pidevJava/src/EspaceEtude/Gui/AfficherSectionInterfaceController.java</file>
+            <file>file:/C:/Users/oussema/Documents/NetBeansProjects/pidevJava/src/EspaceEtude/Gui/Test2.java</file>
+            <file>file:/C:/Users/oussema/Documents/NetBeansProjects/pidevJava/src/EspaceEtude/Gui/AfficherClasseInterfaceController.java</file>
+            <file>file:/C:/Users/oussema/Documents/NetBeansProjects/pidevJava/src/EspaceEtude/Gui/afficherClasseInterface.fxml</file>
+        </group>
     </open-files>
 </project-private>
