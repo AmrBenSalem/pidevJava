@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="616.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ja.CreationCompteController">
+   <children>
+      <TextField id="usernameTF" fx:id="usernameTF" layoutX="202.0" layoutY="44.0" promptText="UserName" />
+      <TextField id="nomTF" fx:id="nomTF" layoutX="202.0" layoutY="88.0" promptText="Nom" />
+      <TextField id="mailTF" fx:id="mailTF" layoutX="202.0" layoutY="188.0" promptText="E-mail" />
+      <TextField id="prenomTF" fx:id="prenomTF" layoutX="202.0" layoutY="132.0" promptText="Prenom" />
+      <PasswordField id="confirmTF" fx:id="confirmTF" layoutX="202.0" layoutY="287.0" promptText="Confirmer Mot de Passe" />
+      <PasswordField id="passwordTF" fx:id="passwordTF" layoutX="202.0" layoutY="241.0" promptText="Mot de Passe" />
+      <Label fx:id="cpasswordL" layoutX="32.0" layoutY="291.0" text="Confirmer Mot de Passe" />
+      <Label fx:id="passwordL" layoutX="48.0" layoutY="245.0" text="Mot de Passe" />
+      <Label fx:id="mailL" layoutX="64.0" layoutY="193.0" text="E-mail" />
+      <Label fx:id="prenomL" layoutX="63.0" layoutY="136.0" text="Prenom" />
+      <Label fx:id="nomL" layoutX="71.0" layoutY="92.0" text="Nom" />
+      <Label fx:id="usernameL" layoutX="57.0" layoutY="48.0" text="UserName" />
+      <Button id="ajouterB" fx:id="ajouterB" layoutX="44.0" layoutY="542.0" mnemonicParsing="false" onAction="#ajouter" text="Ajouter" />
+      <Button id="LoginB" fx:id="loginB" layoutX="524.0" layoutY="542.0" mnemonicParsing="false" onAction="#login" text="Retour" />
+      <Label fx:id="datenaissanceL" layoutX="36.0" layoutY="337.0" text="Date de Naissance" />
+      <DatePicker fx:id="dateNaissance" layoutX="202.0" layoutY="333.0" promptText="Date de Naissance" />
+      <Label fx:id="sexeL" layoutX="59.0" layoutY="375.0" text="Sexe" />
+      <ChoiceBox fx:id="sexe" layoutX="202.0" layoutY="371.0" prefWidth="150.0" />
+      <TextField fx:id="telephone" layoutX="202.0" layoutY="418.0" promptText="N° Téléphone" />
+      <Label fx:id="telephoneL" layoutX="53.0" layoutY="422.0" text="Telephone" />
+      <TextField fx:id="classe" layoutX="203.0" layoutY="472.0" promptText="Classe" />
+      <Label fx:id="classeL" layoutX="67.0" layoutY="476.0" text="Classe" />
+   </children>
+</AnchorPane>
