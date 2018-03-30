@@ -7,7 +7,6 @@ package gui.covoiturage;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import gui.DashboardCoVoiturageController;
 import gui.LoginController;
@@ -27,21 +26,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import org.json.simple.parser.ParseException;
 
 /**
  * FXML Controller class
@@ -49,15 +44,11 @@ import org.json.simple.parser.ParseException;
  * @author Justpro
  */
 import entities.Adresse;
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.util.ArrayList;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import util.GooglePlacesAPI;
 
@@ -76,7 +67,7 @@ public class AddOffreViewController implements Initializable {
     @FXML
     private WebView webView;
     @FXML
-    private  TextField departTextField;
+    private TextField departTextField;
     @FXML
     private TextField destinationTextField;
     @FXML
@@ -110,11 +101,12 @@ public class AddOffreViewController implements Initializable {
     private ProgressIndicator load;
     @FXML
     private AnchorPane parent;
-    
+
     static double originLat;
     static double originLng;
     static double destLat;
     static double destLng;
+
     /**
      * Initializes the controller class.
      */
@@ -123,11 +115,12 @@ public class AddOffreViewController implements Initializable {
         drawerLeft.open();
         //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
 
-        
-        
         GridPane container = new GridPane();
         HBox searchBox = new HBox();
         
+        GridPane container2 = new GridPane();
+        HBox searchBox2 = new HBox();
+
         try {
             VBox box = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
             drawerLeft.setSidePane(box);
@@ -136,55 +129,43 @@ public class AddOffreViewController implements Initializable {
         }
         daysPane.setVisible(false);
         datePane.setVisible(true);
-        
+
         originLat = 36.77159839999999;
         originLng = 10.2768388;
         destLat = 36.9173042;
         destLng = 10.2852532;
         setParams(originLat, originLng, destLat, destLng, parent);
-//        try {
-//             
-//            
-//            //setParams(36.77159839999999, 10.2768388, 36.9173042, 10.2852532, parent);
-//            
-//        } catch (IOException ex) {
-//            Logger.getLogger(AddOffreViewController.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(AddOffreViewController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        container.setBackground(new Background(new BackgroundFill(Color.GRAY, null,null)));
-        ////////////////////////////////////////////////
+
+        container.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
+        container2.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
+       
 
         parent.getChildren().add(container);
-            searchBox.getChildren().add(departTextField);
-            container.add(searchBox, 0, 0);
-            container.setLayoutX(135);
-            container.setLayoutY(230);
-            
-        departTextField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            if(container.getChildren().size()>1){ // if already contains a drop-down menu -> remove it 
-                container.getChildren().remove(1);
-            }
-            
-            
-            container.add(populateDropDownMenuOrigin(newValue,departTextField),0,1); // then add the populated drop-down menu to the second row in the grid pane
-            /*if (changed == true){
-                setParams(originLat, originLng, destLat, destLng, parent);
-                changed =false;
-            }*/
-            
-            
-           
-        });
+        searchBox.getChildren().add(departTextField);
+        container.add(searchBox, 0, 0);
+        container.setLayoutX(135);
+        container.setLayoutY(230);
         
-        destinationTextField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            if(container.getChildren().size()!= 0){ // if already contains a drop-down menu -> remove it 
+        parent.getChildren().add(container2);
+        searchBox2.getChildren().add(destinationTextField);
+        container2.add(searchBox2, 0, 0);
+        container2.setLayoutX(135);
+        container2.setLayoutY(290);
+
+        departTextField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (container.getChildren().size() > 1) { // if already contains a drop-down menu -> remove it 
                 container.getChildren().remove(1);
             }
-            
-            
-            container.add(populateDropDownMenuDest(newValue,departTextField),0,1); // then add the populated drop-down menu to the second row in the grid pane
-           
+            container.add(populateDropDownMenuOrigin(newValue, departTextField), 0, 1); // then add the populated drop-down menu to the second row in the grid pane
+
+        });
+
+        destinationTextField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (container2.getChildren().size() > 1) { // if already contains a drop-down menu -> remove it 
+                container2.getChildren().remove(1);
+            }
+            container2.add(populateDropDownMenuDest(newValue, destinationTextField), 0, 1); // then add the populated drop-down menu to the second row in the grid pane
+
         });
 
     }
@@ -252,17 +233,17 @@ public class AddOffreViewController implements Initializable {
             }
         });
     }
-    
-    public  VBox populateDropDownMenuOrigin(String text,TextField textx){
-        List<Adresse> opt= GooglePlacesAPI.autoCompleteAddress(textx.getText()); 
+
+    public VBox populateDropDownMenuOrigin(String text, TextField textx) {
+        List<Adresse> opt = GooglePlacesAPI.autoCompleteAddress(textx.getText());
         VBox dropDownMenu = new VBox();
         //dropDownMenu.setBackground(new Background(new BackgroundFill(Color.GREEN, null,null))); // colors just for example
         dropDownMenu.setAlignment(Pos.CENTER); // all these are optional and up to you
 
-        for(Adresse option : opt){ // loop through every String in the array
+        for (Adresse option : opt) { // loop through every String in the array
             // if the given text is not empty and doesn't consists of spaces only, as well as it's a part of one (or more) of the options
-            String lll = option.getCity()+","+option.getCountry();
-            if(!text.replace(" ", "").isEmpty() && lll.toUpperCase().contains(text.toUpperCase())){ 
+            String lll = option.getCity() + "," + option.getCountry();
+            if (!text.replace(" ", "").isEmpty() && lll.toUpperCase().contains(text.toUpperCase())) {
                 Label label = new Label(lll); // create a label and set the text 
                 label.setOnMouseClicked((event) -> {
                     //System.out.println(option);
@@ -270,12 +251,11 @@ public class AddOffreViewController implements Initializable {
                     textx.setText(lll);
                     originLat = option.getLatitude();
                     originLng = option.getLongitude();
-                    
+
                     dropDownMenu.setVisible(false);
                     setParams(originLat, originLng, destLat, destLng, parent);
-                    
-                    
-            });
+
+                });
                 // you can add listener to the label here if you want
                 // your user to be able to click on the options in the drop-down menu
                 dropDownMenu.getChildren().add(label); // add the label to the VBox
@@ -284,32 +264,28 @@ public class AddOffreViewController implements Initializable {
 
         return dropDownMenu; // at the end return the VBox (i.e. drop-down menu)
     }
-    
-    public  VBox populateDropDownMenuDest(String text,TextField textx){
-        List<Adresse> opt= GooglePlacesAPI.autoCompleteAddress(textx.getText()); 
+
+    public VBox populateDropDownMenuDest(String text, TextField textx) {
+        List<Adresse> opt = GooglePlacesAPI.autoCompleteAddress(textx.getText());
         VBox dropDownMenu = new VBox();
         //dropDownMenu.setBackground(new Background(new BackgroundFill(Color.GREEN, null,null))); // colors just for example
         dropDownMenu.setAlignment(Pos.CENTER); // all these are optional and up to you
 
-        for(Adresse option : opt){ // loop through every String in the array
+        for (Adresse option : opt) { // loop through every String in the array
             // if the given text is not empty and doesn't consists of spaces only, as well as it's a part of one (or more) of the options
-            String lll = option.getCity()+","+option.getCountry();
-            if(!text.replace(" ", "").isEmpty() && lll.toUpperCase().contains(text.toUpperCase())){ 
+            String lll = option.getCity() + "," + option.getCountry();
+            if (!text.replace(" ", "").isEmpty() && lll.toUpperCase().contains(text.toUpperCase())) {
                 Label label = new Label(lll); // create a label and set the text 
                 label.setOnMouseClicked((event) -> {
-                    
+
                     System.out.println(option);
                     textx.setText(lll);
                     destLat = option.getLatitude();
                     destLng = option.getLongitude();
                     dropDownMenu.setVisible(false);
                     setParams(originLat, originLng, destLat, destLng, parent);
-                    
-                 
-                    
-                    
-                    
-            });
+
+                });
                 // you can add listener to the label here if you want
                 // your user to be able to click on the options in the drop-down menu
                 dropDownMenu.getChildren().add(label); // add the label to the VBox
@@ -319,9 +295,6 @@ public class AddOffreViewController implements Initializable {
         return dropDownMenu; // at the end return the VBox (i.e. drop-down menu)
     }
 
-
-
-    
 //    public static VBox populateDropDownMenu(String text, String[] options, TextField textx){
 //        VBox dropDownMenu = new VBox();
 //        dropDownMenu.setBackground(new Background(new BackgroundFill(Color.GREEN, null,null))); // colors just for example
@@ -343,5 +316,4 @@ public class AddOffreViewController implements Initializable {
 //
 //        return dropDownMenu; // at the end return the VBox (i.e. drop-down menu)
 //    }
-
 }
