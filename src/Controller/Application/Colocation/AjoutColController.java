@@ -7,8 +7,7 @@ package Controller.Application.Colocation;
 
 import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
-import com.lynden.gmapsfx.javascript.event.GMapMouseEvent;
-import com.lynden.gmapsfx.javascript.event.MouseEventHandler;
+
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
 import com.lynden.gmapsfx.javascript.object.LatLong;
@@ -236,27 +235,9 @@ public class AjoutColController implements Initializable, MapComponentInitialize
                 .zoom(12);
 
         map = mapView.createMap(mapOptions);
-        MouseEventHandler mouseClick = new MouseEventHandler() {
+       // MouseEventHandler mouseClick = new MouseEventHandler() {
 
-            @Override
-            public void handle(GMapMouseEvent gmme) {
-                map.clearMarkers();
-                MarkerOptions markerOptions = new MarkerOptions();
 
-                markerOptions.position(gmme.getLatLong())
-                        .title("My Marker");
-
-                Marker marker = new Marker(markerOptions);
-
-                map.addMarker(marker);
-                lat_txt.setText(String.valueOf(gmme.getLatLong().getLatitude()));
-                lng_txt.setText(String.valueOf(gmme.getLatLong().getLongitude()));
-
-            }
-        };
-
-        //Add a marker to the map
-        map.addMouseEventHandler(UIEventType.click, mouseClick);
 
     }
 

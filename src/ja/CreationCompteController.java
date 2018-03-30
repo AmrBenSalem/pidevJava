@@ -216,7 +216,7 @@ public class CreationCompteController implements Initializable {
                             }
                         });
                 notificiationBuilder.darkStyle();
-                notificiationBuilder.showConfirm();
+                //notificiationBuilder.showConfirm();
                 login(event);
             }
 

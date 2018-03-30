@@ -181,7 +181,6 @@ public class OffresViewController implements Initializable {
             JFXButton btn = new JFXButton();
             btn = (JFXButton) pane.getChildren().get(13);
             pane.getChildren().set(13, btn);
-
             btn.setOnAction((event) -> {
                 try {
                     CoVoiturage cov = new CoVoiturage();
