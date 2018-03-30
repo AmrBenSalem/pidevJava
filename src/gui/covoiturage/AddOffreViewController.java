@@ -44,12 +44,17 @@ import javafx.stage.Stage;
  * @author Justpro
  */
 import entities.Adresse;
+import entities.CoVoiturage;
+import entities.CoVoiturageDays;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import services.ServiceCoVoiturage;
 import util.GooglePlacesAPI;
 
 public class AddOffreViewController implements Initializable {
@@ -101,11 +106,17 @@ public class AddOffreViewController implements Initializable {
     private ProgressIndicator load;
     @FXML
     private AnchorPane parent;
+    
+    static Adresse origin;
+    static Adresse destination;
 
     static double originLat;
     static double originLng;
     static double destLat;
     static double destLng;
+    static String onoff = "off";
+    @FXML
+    private JFXButton buttonSubmit;
 
     /**
      * Initializes the controller class.
@@ -150,7 +161,7 @@ public class AddOffreViewController implements Initializable {
         searchBox2.getChildren().add(destinationTextField);
         container2.add(searchBox2, 0, 0);
         container2.setLayoutX(135);
-        container2.setLayoutY(290);
+        container2.setLayoutY(315);
 
         departTextField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (container.getChildren().size() > 1) { // if already contains a drop-down menu -> remove it 
@@ -173,11 +184,12 @@ public class AddOffreViewController implements Initializable {
     @FXML
     private void onOffAction(ActionEvent event) {
         if (check) {
-
+            onoff="off";
             daysPane.setVisible(false);
             datePane.setVisible(true);
             check = false;
         } else {
+            onoff="on";
             daysPane.setVisible(true);
             datePane.setVisible(false);
             check = true;
@@ -249,6 +261,7 @@ public class AddOffreViewController implements Initializable {
                     //System.out.println(option);
                     //System.out.println("ddeeeefffff");
                     textx.setText(lll);
+                    origin = option;
                     originLat = option.getLatitude();
                     originLng = option.getLongitude();
 
@@ -280,6 +293,7 @@ public class AddOffreViewController implements Initializable {
 
                     System.out.println(option);
                     textx.setText(lll);
+                    destination = option;
                     destLat = option.getLatitude();
                     destLng = option.getLongitude();
                     dropDownMenu.setVisible(false);
@@ -295,25 +309,35 @@ public class AddOffreViewController implements Initializable {
         return dropDownMenu; // at the end return the VBox (i.e. drop-down menu)
     }
 
-//    public static VBox populateDropDownMenu(String text, String[] options, TextField textx){
-//        VBox dropDownMenu = new VBox();
-//        dropDownMenu.setBackground(new Background(new BackgroundFill(Color.GREEN, null,null))); // colors just for example
-//        dropDownMenu.setAlignment(Pos.CENTER); // all these are optional and up to you
-//
-//        for(String option : options){ // loop through every String in the array
-//            // if the given text is not empty and doesn't consists of spaces only, as well as it's a part of one (or more) of the options
-//            if(!text.replace(" ", "").isEmpty() && option.toUpperCase().contains(text.toUpperCase())){ 
-//                Label label = new Label(option); // create a label and set the text 
-//                label.setOnMouseClicked((event) -> {
-//                    System.out.println(option);
-//                    textx.setText(option);
-//            });
-//                // you can add listener to the label here if you want
-//                // your user to be able to click on the options in the drop-down menu
-//                dropDownMenu.getChildren().add(label); // add the label to the VBox
-//            }
-//        }
-//
-//        return dropDownMenu; // at the end return the VBox (i.e. drop-down menu)
-//    }
+    @FXML
+    private void submitAdd(ActionEvent event) {
+        try {
+            ServiceCoVoiturage scov = new ServiceCoVoiturage();
+            System.out.println(quotidiennement.getText());
+            CoVoiturage cov = new CoVoiturage(5, "o", departTextField.getText(), destinationTextField.getText(), new Timestamp(System.currentTimeMillis()), onoff, Integer.parseInt(placeTextField.getText()), origin.getPlaceId(), destination.getPlaceId(),new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), origin.getLatitude(), origin.getLongitude());
+            if (onoff == "on"){
+                String lundi = null;
+                String mardi = null;
+                String mercredi = null;
+                String jeudi = null;
+                String vendredi=null;
+                String samedi = null;
+                if (lundiButton.isSelected()) lundi = "y";
+                if (mardiButton.isSelected()) mardi = "y";
+                if (mercrediButton.isSelected()) mercredi = "y";
+                if (jeudiButton.isSelected()) jeudi = "y";
+                if (vendrediButton.isSelected()) vendredi = "y";
+                if (samediButton.isSelected()) samedi = "y";
+                CoVoiturageDays cod = new CoVoiturageDays(lundi, mardi, mercredi,jeudi, vendredi, samedi, 0);
+                scov.addCoVoiturage(cov, cod);
+            } else {
+                scov.addCoVoiturage(cov);
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AddOffreViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
