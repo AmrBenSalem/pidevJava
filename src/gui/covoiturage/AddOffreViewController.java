@@ -48,6 +48,7 @@ import entities.CoVoiturage;
 import entities.CoVoiturageDays;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -56,6 +57,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import services.ServiceCoVoiturage;
 import util.GooglePlacesAPI;
+import util.TimeSpinner;
 
 public class AddOffreViewController implements Initializable {
 
@@ -106,7 +108,7 @@ public class AddOffreViewController implements Initializable {
     private ProgressIndicator load;
     @FXML
     private AnchorPane parent;
-    
+
     static Adresse origin;
     static Adresse destination;
 
@@ -117,18 +119,23 @@ public class AddOffreViewController implements Initializable {
     static String onoff = "off";
     @FXML
     private JFXButton buttonSubmit;
+    @FXML
+    private Pane timePane;
+    TimeSpinner timeSpinner;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        timeSpinner = new TimeSpinner();
+        timePane.getChildren().add(timeSpinner);
         drawerLeft.open();
         //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
 
         GridPane container = new GridPane();
         HBox searchBox = new HBox();
-        
+
         GridPane container2 = new GridPane();
         HBox searchBox2 = new HBox();
 
@@ -149,14 +156,13 @@ public class AddOffreViewController implements Initializable {
 
         container.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
         container2.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
-       
 
         parent.getChildren().add(container);
         searchBox.getChildren().add(departTextField);
         container.add(searchBox, 0, 0);
         container.setLayoutX(135);
         container.setLayoutY(230);
-        
+
         parent.getChildren().add(container2);
         searchBox2.getChildren().add(destinationTextField);
         container2.add(searchBox2, 0, 0);
@@ -178,18 +184,20 @@ public class AddOffreViewController implements Initializable {
             container2.add(populateDropDownMenuDest(newValue, destinationTextField), 0, 1); // then add the populated drop-down menu to the second row in the grid pane
 
         });
-
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+        timeSpinner.valueProperty().addListener((obs, oldTime, newTime)
+                -> System.out.println(formatter.format(newTime)));
     }
 
     @FXML
     private void onOffAction(ActionEvent event) {
         if (check) {
-            onoff="off";
+            onoff = "off";
             daysPane.setVisible(false);
             datePane.setVisible(true);
             check = false;
         } else {
-            onoff="on";
+            onoff = "on";
             daysPane.setVisible(true);
             datePane.setVisible(false);
             check = true;
@@ -264,8 +272,8 @@ public class AddOffreViewController implements Initializable {
                     origin = option;
                     originLat = option.getLatitude();
                     originLng = option.getLongitude();
-
                     dropDownMenu.setVisible(false);
+
                     setParams(originLat, originLng, destLat, destLng, parent);
 
                 });
@@ -273,6 +281,7 @@ public class AddOffreViewController implements Initializable {
                 // your user to be able to click on the options in the drop-down menu
                 dropDownMenu.getChildren().add(label); // add the label to the VBox
             }
+
         }
 
         return dropDownMenu; // at the end return the VBox (i.e. drop-down menu)
@@ -312,29 +321,41 @@ public class AddOffreViewController implements Initializable {
     @FXML
     private void submitAdd(ActionEvent event) {
         try {
+
             ServiceCoVoiturage scov = new ServiceCoVoiturage();
             System.out.println(quotidiennement.getText());
-            CoVoiturage cov = new CoVoiturage(5, "o", departTextField.getText(), destinationTextField.getText(), new Timestamp(System.currentTimeMillis()), onoff, Integer.parseInt(placeTextField.getText()), origin.getPlaceId(), destination.getPlaceId(),new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), origin.getLatitude(), origin.getLongitude());
-            if (onoff == "on"){
+            CoVoiturage cov = new CoVoiturage(5, "o", departTextField.getText(), destinationTextField.getText(), new Timestamp(System.currentTimeMillis()), onoff, Integer.parseInt(placeTextField.getText()), origin.getPlaceId(), destination.getPlaceId(), new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), origin.getLatitude(), origin.getLongitude());
+            if (onoff == "on") {
                 String lundi = null;
                 String mardi = null;
                 String mercredi = null;
                 String jeudi = null;
-                String vendredi=null;
+                String vendredi = null;
                 String samedi = null;
-                if (lundiButton.isSelected()) lundi = "y";
-                if (mardiButton.isSelected()) mardi = "y";
-                if (mercrediButton.isSelected()) mercredi = "y";
-                if (jeudiButton.isSelected()) jeudi = "y";
-                if (vendrediButton.isSelected()) vendredi = "y";
-                if (samediButton.isSelected()) samedi = "y";
-                CoVoiturageDays cod = new CoVoiturageDays(lundi, mardi, mercredi,jeudi, vendredi, samedi, 0);
+                if (lundiButton.isSelected()) {
+                    lundi = "y";
+                }
+                if (mardiButton.isSelected()) {
+                    mardi = "y";
+                }
+                if (mercrediButton.isSelected()) {
+                    mercredi = "y";
+                }
+                if (jeudiButton.isSelected()) {
+                    jeudi = "y";
+                }
+                if (vendrediButton.isSelected()) {
+                    vendredi = "y";
+                }
+                if (samediButton.isSelected()) {
+                    samedi = "y";
+                }
+                CoVoiturageDays cod = new CoVoiturageDays(lundi, mardi, mercredi, jeudi, vendredi, samedi, 0);
                 scov.addCoVoiturage(cov, cod);
             } else {
                 scov.addCoVoiturage(cov);
             }
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(AddOffreViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

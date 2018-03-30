@@ -42,6 +42,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import services.ServiceCoVoiturage;
+import util.TimeSpinner;
 
 
 /**
@@ -114,10 +115,13 @@ public class OffresViewController implements Initializable {
         Parent page = null;
         try {
             page = FXMLLoader.load(getClass().getResource("AddOffreView.fxml"));
+            
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         Scene scene = new Scene(page);
+        
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setResizable(true);
