@@ -42,12 +42,5 @@ public class OffreLineRController implements Initializable {
         // TODO
     }    
 
-    @FXML
-    private void UpdateAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void DeleteAction(ActionEvent event) {
-    }
     
 }

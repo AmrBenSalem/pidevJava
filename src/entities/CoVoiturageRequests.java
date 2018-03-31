@@ -27,6 +27,7 @@ public class CoVoiturageRequests {
     }
     
     public CoVoiturageRequests(int id,int idc, int user, String etat, Timestamp created) {
+        this.id=id;
         this.idc = idc;
         this.user = user;
         this.etat = etat;

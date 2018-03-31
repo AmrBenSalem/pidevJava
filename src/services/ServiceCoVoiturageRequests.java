@@ -47,14 +47,12 @@ public class ServiceCoVoiturageRequests {
     
     public void acceptRequestOffre(CoVoiturageRequests cov){
         try {
-            cov.setEtat("c");
             String req = "UPDATE co_voiturage_requests SET etat = ? WHERE `id` = ?";
             PreparedStatement pre = con.prepareStatement(req);
-            pre.setString(1,cov.getEtat());
+            pre.setString(1,"c");
+            System.out.println(cov.getId());
             pre.setInt(2,cov.getId());
-            
-            System.out.println(req);
-            pre.execute();
+            pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceCoVoiturageRequests.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -70,7 +68,7 @@ public class ServiceCoVoiturageRequests {
             pre.setInt(2,cov.getId());
             
             System.out.println(req);
-            pre.execute();
+            pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ServiceCoVoiturageRequests.class.getName()).log(Level.SEVERE, null, ex);
         }

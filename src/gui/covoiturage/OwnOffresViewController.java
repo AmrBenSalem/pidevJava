@@ -257,7 +257,7 @@ public class OwnOffresViewController implements Initializable {
                 
                 
                 /////hhhhhhhhhhhhhhhhhhhh
-                for (int j = 0; j < listOfRequestss.size(); j++) {
+            for (int j = 0; j < listOfRequestss.size(); j++) {
             
             Pane paneR = FXMLLoader.load(getClass().getResource("OffreLineR.fxml"));
 
@@ -279,51 +279,60 @@ public class OwnOffresViewController implements Initializable {
 
             CoVoiturageRequests offreR;
             offreR = listOfRequestss.get(j);
+
             userFieldR.setText(String.valueOf(offreR.getUser()));
-           
             dateFieldR.setText(String.valueOf(TimeAgo.toDuration(System.currentTimeMillis() - offreR.getCreated().getTime())));
-            etatFieldR.setText(String.valueOf(offreR.getEtat()));
+            
+            if (offreR.getEtat().equals("a")){
+                etatFieldR.setText("En attente");
+                
+            }
+            else if (offreR.getEtat().equals("c")){
+                etatFieldR.setText("Accepté");
+            }
+            else if  (offreR.getEtat().equals("r")) {
+                etatFieldR.setText("Refusé");
+                cr.deleteRequestOffre(offreR);
+            }
+            
             //etatField.setText(String.valueOf(offre.getOnetime()));
 
            
-            
             JFXButton btnUpdateeR = new JFXButton();
             btnUpdateeR = (JFXButton) paneR.getChildren().get(5);
             paneR.getChildren().set(5, btnUpdateeR);
             btnUpdateeR.setOnAction((event) -> {
-                try {
-                    CoVoiturage cov = new CoVoiturage();
-                    //System.out.println("bbbbbbbb" + offre.getId());
-                    cov = cs.readCoVoiturage(offre.getId());
-                    //cs.deleteCoVoiturage(cov);
-                    Refresh(event);
-                } catch (SQLException ex) {
-                    Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                cr.declineRequestOffre(offreR);
+                Refresh(event);
             });
             
             JFXButton btnDeleteR = new JFXButton();
             btnDeleteR = (JFXButton) paneR.getChildren().get(6);
             paneR.getChildren().set(6, btnDeleteR);
             btnDeleteR.setOnAction((event) -> {
-                try {
-                    CoVoiturage cov = new CoVoiturage();
-                    //System.out.println("bbbbbbbb" + offre.getId());
-                    cov = cs.readCoVoiturage(offre.getId());
-                    cs.deleteCoVoiturage(cov);
-                    Refresh(event);
-                } catch (SQLException ex) {
-                    Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                cr.acceptRequestOffre(offreR);
+                Refresh(event);
             });
+            
+            if (offreR.getEtat().equals("c")){
+                btnDeleteR.setVisible(false);
+                btnUpdateeR.setVisible(false);
+                System.out.println("aad,sihdsuifhidsfsnihel");
+                Label annuler = new Label("Annuler");
+                annuler.setLayoutX(pane.getChildren().get(6).getLayoutX());
+                annuler.setLayoutY(pane.getChildren().get(6).getLayoutY());
+                pane.getChildren().set(6, annuler);
+            } else if (offreR.getEtat().equals("r")){
+                btnDeleteR.setVisible(false);
+                btnUpdateeR.setVisible(false);
+            }
             
             
           
             
             
                 //request.setVisible(false);
-                btnDelete.setVisible(true);
-                btnUpdatee.setVisible(true);
+                
             
 
             testPaneSug.getChildren().add(paneR);
@@ -346,7 +355,7 @@ public class OwnOffresViewController implements Initializable {
     public void Refresh(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("OffresView.fxml"));
+            page = FXMLLoader.load(getClass().getResource("OwnOffresView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
