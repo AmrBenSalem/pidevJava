@@ -254,14 +254,90 @@ public class OwnOffresViewController implements Initializable {
             }
             if (listOfRequestss.size()>0){
                 counter = counter + listOfRequestss.size();
-                Pane paneR = FXMLLoader.load(getClass().getResource("OffreLine.fxml"));
-                testPaneSug.getChildren().add(paneR);
+                
+                
+                /////hhhhhhhhhhhhhhhhhhhh
+                for (int j = 0; j < listOfRequestss.size(); j++) {
+            
+            Pane paneR = FXMLLoader.load(getClass().getResource("OffreLineR.fxml"));
+
+            Label userFieldR = new Label();
+            userFieldR.setLayoutX(paneR.getChildren().get(1).getLayoutX());
+            userFieldR.setLayoutY(paneR.getChildren().get(1).getLayoutY());
+            paneR.getChildren().set(1, userFieldR);
+
+            Label dateFieldR = new Label();
+            dateFieldR.setLayoutX(paneR.getChildren().get(2).getLayoutX());
+            dateFieldR.setLayoutY(paneR.getChildren().get(2).getLayoutY());
+            paneR.getChildren().set(2, dateFieldR);
+
+            Label etatFieldR = new Label();
+            etatFieldR.setLayoutX(paneR.getChildren().get(4).getLayoutX());
+            etatFieldR.setLayoutY(paneR.getChildren().get(4).getLayoutY());
+            paneR.getChildren().set(4, etatFieldR);
+                        
+
+            CoVoiturageRequests offreR;
+            offreR = listOfRequestss.get(j);
+            userFieldR.setText(String.valueOf(offreR.getUser()));
+           
+            dateFieldR.setText(String.valueOf(TimeAgo.toDuration(System.currentTimeMillis() - offreR.getCreated().getTime())));
+            etatFieldR.setText(String.valueOf(offreR.getEtat()));
+            //etatField.setText(String.valueOf(offre.getOnetime()));
+
+           
+            
+            JFXButton btnUpdateeR = new JFXButton();
+            btnUpdateeR = (JFXButton) paneR.getChildren().get(5);
+            paneR.getChildren().set(5, btnUpdateeR);
+            btnUpdateeR.setOnAction((event) -> {
+                try {
+                    CoVoiturage cov = new CoVoiturage();
+                    //System.out.println("bbbbbbbb" + offre.getId());
+                    cov = cs.readCoVoiturage(offre.getId());
+                    //cs.deleteCoVoiturage(cov);
+                    Refresh(event);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+            
+            JFXButton btnDeleteR = new JFXButton();
+            btnDeleteR = (JFXButton) paneR.getChildren().get(6);
+            paneR.getChildren().set(6, btnDeleteR);
+            btnDeleteR.setOnAction((event) -> {
+                try {
+                    CoVoiturage cov = new CoVoiturage();
+                    //System.out.println("bbbbbbbb" + offre.getId());
+                    cov = cs.readCoVoiturage(offre.getId());
+                    cs.deleteCoVoiturage(cov);
+                    Refresh(event);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+            
+            
+          
+            
+            
+                //request.setVisible(false);
+                btnDelete.setVisible(true);
+                btnUpdatee.setVisible(true);
+            
+
+            testPaneSug.getChildren().add(paneR);
+            
+        }
+                //hhhhhhhhhhhhhhhhhhhhhhhh
+                
+//                testPaneSug.getChildren().add(paneR);
             }
             
-         
-
         }
-           vboxAnchorPaneSug.setMinHeight(54 * counter);
+        
+        
+        vboxAnchorPaneSug.setMinHeight(54 * counter);
         vboxAnchorPaneSug.setMaxHeight(54 * counter);
         vboxAnchorPaneSug.setPrefHeight(54 * counter);
 
