@@ -9,7 +9,7 @@
 
 <Pane fx:id="redPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="1013.0" style="-fx-background-color: white; -fx-border-color: #f0f0f0;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.covoiturage.OffreLineRController">
    <children>
-      <Label layoutX="108.0" layoutY="19.0" prefHeight="21.0" prefWidth="165.0" text="Demande de la part de :" textFill="#d00000">
+      <Label fx:id="demandeText" layoutX="108.0" layoutY="19.0" prefHeight="21.0" prefWidth="165.0" text="Demande de la part de :" textFill="#d00000">
          <font>
             <Font size="15.0" />
          </font>

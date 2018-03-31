@@ -33,6 +33,8 @@ public class OffreLineRController implements Initializable {
     private JFXButton buttonDelete;
     @FXML
     private Label dateTextField;
+    @FXML
+    private Label demandeText;
 
     /**
      * Initializes the controller class.

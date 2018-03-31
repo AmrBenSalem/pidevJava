@@ -46,6 +46,7 @@ import javafx.stage.Stage;
 import services.ServiceCoVoiturage;
 import util.TimeSpinner;
 import java.util.Date;
+import javafx.scene.input.MouseEvent;
 import services.ServiceCoVoiturageRequests;
 import util.TimeAgo;
 
@@ -314,14 +315,22 @@ public class OwnOffresViewController implements Initializable {
                 Refresh(event);
             });
             
+            
+
             if (offreR.getEtat().equals("c")){
                 btnDeleteR.setVisible(false);
                 btnUpdateeR.setVisible(false);
-                System.out.println("aad,sihdsuifhidsfsnihel");
-                Label annuler = new Label("Annuler");
-                annuler.setLayoutX(pane.getChildren().get(6).getLayoutX());
-                annuler.setLayoutY(pane.getChildren().get(6).getLayoutY());
-                pane.getChildren().set(6, annuler);
+                Label annuler = new Label();
+                annuler.setText("Annuler");
+                annuler.setLayoutX(paneR.getChildren().get(5).getLayoutX());
+                annuler.setLayoutY(paneR.getChildren().get(5).getLayoutY());
+                paneR.getChildren().set(5, annuler);
+                
+                annuler.setOnMouseClicked((event) -> {
+                    cr.deleteRequestOffre(offreR);
+                    Refresh(event);
+            });
+                
             } else if (offreR.getEtat().equals("r")){
                 btnDeleteR.setVisible(false);
                 btnUpdateeR.setVisible(false);
@@ -353,6 +362,21 @@ public class OwnOffresViewController implements Initializable {
     }
 
     public void Refresh(ActionEvent event) {
+        Parent page = null;
+        try {
+            page = FXMLLoader.load(getClass().getResource("OwnOffresView.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(page);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.show();
+    }
+    
+    public void Refresh(MouseEvent event) {
         Parent page = null;
         try {
             page = FXMLLoader.load(getClass().getResource("OwnOffresView.fxml"));
