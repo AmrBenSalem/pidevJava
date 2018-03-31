@@ -162,4 +162,18 @@ public class ServiceCoVoiturage {
         }
         return co;
     }
+    
+    public ArrayList<CoVoiturage> GetOwnCovoituragePerType(String type,int id) throws SQLException {
+        String req = "SELECT * FROM co_voiturage WHERE `type` = ? AND ( date > ? OR onetime = 'on' ) AND placedisponibles > 0 AND user = ? ORDER BY updated DESC , created DESC";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setString(1, type);
+        pre.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+        pre.setInt(3, id);
+        ResultSet rs = pre.executeQuery();
+        ArrayList<CoVoiturage> co = new ArrayList<>();
+        while (rs.next()) {
+            co.add(new CoVoiturage(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getTimestamp(6), rs.getString(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getTimestamp(11), rs.getTimestamp(12), rs.getDouble(13), rs.getDouble(14)));
+        }
+        return co;
+    }
 }

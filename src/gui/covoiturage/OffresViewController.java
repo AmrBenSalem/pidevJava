@@ -11,11 +11,13 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 import entities.CoVoiturage;
+import entities.CoVoiturageRequests;
 import gui.DashboardCoVoiturageController;
 import gui.LoginController;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -44,6 +46,7 @@ import javafx.stage.Stage;
 import services.ServiceCoVoiturage;
 import util.TimeSpinner;
 import java.util.Date;
+import services.ServiceCoVoiturageRequests;
 import util.TimeAgo;
 
 
@@ -66,8 +69,6 @@ public class OffresViewController implements Initializable {
     private Label pageLabel;
     @FXML
     private Pane CoVoiturage1;
-    @FXML
-    private Button buttonAddOffre;
     private TableView<CoVoiturage> offresTable;
     private TableColumn<?, ?> userOffresTable;
     private TableColumn<?, ?> departOffresTable;
@@ -84,6 +85,12 @@ public class OffresViewController implements Initializable {
     private AnchorPane vboxAnchorPane;
     @FXML
     private JFXButton redirectButtonCov;
+    @FXML
+    private JFXButton buttonAddOffre;
+    @FXML
+    private AnchorPane vboxAnchorPaneSug;
+    @FXML
+    private VBox testPaneSug;
 
     /**
      * Initializes the controller class.
@@ -166,16 +173,13 @@ public class OffresViewController implements Initializable {
             Label dateField = new Label();
             dateField.setLayoutX(pane.getChildren().get(8).getLayoutX());
             dateField.setLayoutY(pane.getChildren().get(8).getLayoutY());
-            pane.getChildren().set(12, dateField);
+            pane.getChildren().set(8, dateField);
 
             /*Label etatField = new Label();
             etatField.setLayoutX(pane.getChildren().get(9).getLayoutX());
             etatField.setLayoutY(pane.getChildren().get(9).getLayoutY());
             pane.getChildren().set(9, etatField);*/
-            JFXButton request = new JFXButton("Request");
-            request.setLayoutX(pane.getChildren().get(14).getLayoutX());
-            request.setLayoutY(pane.getChildren().get(14).getLayoutY());
-            pane.getChildren().set(14, request);
+            
             
 
             CoVoiturage offre;
@@ -191,6 +195,23 @@ public class OffresViewController implements Initializable {
             
             //etatField.setText(String.valueOf(offre.getOnetime()));
 
+            JFXButton request = new JFXButton("Request");
+            request = (JFXButton) pane.getChildren().get(14);
+            pane.getChildren().set(14, request);
+            request.setOnAction((event) -> {
+                try {
+                    CoVoiturageRequests cod = new CoVoiturageRequests(offre.getId(),5,"a",new Timestamp(System.currentTimeMillis()));
+                    ServiceCoVoiturageRequests scor = new ServiceCoVoiturageRequests();
+                    scor.addRequest(cod);
+                    //System.out.println("bbbbbbbb" + offre.getId());
+                    //cov = cs.readCoVoiturage(offre.getId());
+                    //cs.deleteCoVoiturage(cov);
+                    Refresh(event);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+            
             JFXButton btnUpdatee = new JFXButton();
             btnUpdatee = (JFXButton) pane.getChildren().get(12);
             pane.getChildren().set(12, btnUpdatee);
@@ -222,25 +243,14 @@ public class OffresViewController implements Initializable {
             });
             
             
-           // pane.getChildren().set(12, btnUpdate);
-            /*btnUpdate.setOnAction((event) -> {
-                try {
-                    CoVoiturage cov = new CoVoiturage();
-                    //System.out.println("bbbbbbbb" + offre.getId());
-                    cov = cs.readCoVoiturage(offre.getId());
-                    //cs.deleteCoVoiturage(cov);
-                    Refresh(event);
-                } catch (SQLException ex) {
-                    Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            });*/
+          
             
-            if (/*user TEST SAME*/ true){
+            if (/*user TEST SAME*/ false){
                 request.setVisible(false);
                 btnDelete.setVisible(true);
                 
             }else {
-                btnDelete.setVisible(false);
+                btnDelete.setVisible(true/*false*/);
                 if (/* USER HASN'T A REQUEST ALREADY */ true){
                    request.setVisible(true); 
                 } else {
