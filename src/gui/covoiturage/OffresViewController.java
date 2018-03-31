@@ -43,6 +43,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import services.ServiceCoVoiturage;
 import util.TimeSpinner;
+import java.util.Date;
+import util.TimeAgo;
 
 
 /**
@@ -166,29 +168,51 @@ public class OffresViewController implements Initializable {
             dateField.setLayoutY(pane.getChildren().get(8).getLayoutY());
             pane.getChildren().set(12, dateField);
 
-            Label etatField = new Label();
+            /*Label etatField = new Label();
             etatField.setLayoutX(pane.getChildren().get(9).getLayoutX());
             etatField.setLayoutY(pane.getChildren().get(9).getLayoutY());
-            pane.getChildren().set(9, etatField);
+            pane.getChildren().set(9, etatField);*/
+            JFXButton request = new JFXButton("Request");
+            request.setLayoutX(pane.getChildren().get(14).getLayoutX());
+            request.setLayoutY(pane.getChildren().get(14).getLayoutY());
+            pane.getChildren().set(14, request);
+            
 
             CoVoiturage offre;
             offre = listOfOffres.get(k);
             userField.setText(String.valueOf(offre.getUser()));
-
             departField.setText(String.valueOf(offre.getDepart()));
             // departField.setMaxSize(3, 3);
             destinationField.setText(String.valueOf(offre.getDestination()));
             //PrettyTime p = new PrettyTime();
-            dateField.setText(String.valueOf(offre.getDate()));
-            etatField.setText(String.valueOf(offre.getOnetime()));
+            //dateField.setText(String.valueOf(TimeAgo.toDuration(offre.getDate().getTime())));
+           
+            dateField.setText(String.valueOf(TimeAgo.toDuration(System.currentTimeMillis() - offre.getUpdated().getTime())));
+            
+            //etatField.setText(String.valueOf(offre.getOnetime()));
 
-            JFXButton btn = new JFXButton();
-            btn = (JFXButton) pane.getChildren().get(13);
-            pane.getChildren().set(13, btn);
-            btn.setOnAction((event) -> {
+            JFXButton btnUpdatee = new JFXButton();
+            btnUpdatee = (JFXButton) pane.getChildren().get(12);
+            pane.getChildren().set(12, btnUpdatee);
+            btnUpdatee.setOnAction((event) -> {
                 try {
                     CoVoiturage cov = new CoVoiturage();
-                    System.out.println("bbbbbbbb" + offre.getId());
+                    //System.out.println("bbbbbbbb" + offre.getId());
+                    cov = cs.readCoVoiturage(offre.getId());
+                    //cs.deleteCoVoiturage(cov);
+                    Refresh(event);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+            
+            JFXButton btnDelete = new JFXButton();
+            btnDelete = (JFXButton) pane.getChildren().get(13);
+            pane.getChildren().set(13, btnDelete);
+            btnDelete.setOnAction((event) -> {
+                try {
+                    CoVoiturage cov = new CoVoiturage();
+                    //System.out.println("bbbbbbbb" + offre.getId());
                     cov = cs.readCoVoiturage(offre.getId());
                     cs.deleteCoVoiturage(cov);
                     Refresh(event);
@@ -196,6 +220,35 @@ public class OffresViewController implements Initializable {
                     Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
+            
+            
+           // pane.getChildren().set(12, btnUpdate);
+            /*btnUpdate.setOnAction((event) -> {
+                try {
+                    CoVoiturage cov = new CoVoiturage();
+                    //System.out.println("bbbbbbbb" + offre.getId());
+                    cov = cs.readCoVoiturage(offre.getId());
+                    //cs.deleteCoVoiturage(cov);
+                    Refresh(event);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });*/
+            
+            if (/*user TEST SAME*/ true){
+                request.setVisible(false);
+                btnDelete.setVisible(true);
+                
+            }else {
+                btnDelete.setVisible(false);
+                if (/* USER HASN'T A REQUEST ALREADY */ true){
+                   request.setVisible(true); 
+                } else {
+                    request.setVisible(false);
+                }
+                
+                
+            }
 
             testPane.getChildren().add(pane);
 

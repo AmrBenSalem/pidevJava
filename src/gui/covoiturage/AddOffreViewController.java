@@ -48,6 +48,7 @@ import entities.CoVoiturage;
 import entities.CoVoiturageDays;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
@@ -117,6 +118,8 @@ public class AddOffreViewController implements Initializable {
     static double destLat;
     static double destLng;
     static String onoff = "off";
+    static String timee;
+    static LocalDateTime dt;
     @FXML
     private JFXButton buttonSubmit;
     @FXML
@@ -184,9 +187,14 @@ public class AddOffreViewController implements Initializable {
             container2.add(populateDropDownMenuDest(newValue, destinationTextField), 0, 1); // then add the populated drop-down menu to the second row in the grid pane
 
         });
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+        
+        /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss");
         timeSpinner.valueProperty().addListener((obs, oldTime, newTime)
-                -> System.out.println(formatter.format(newTime)));
+                -> timee=formatter.format(newTime));*/
+        DateTimeFormatter formatterr = DateTimeFormatter.ofPattern("hh:mm:ss");
+        timeSpinner.valueProperty().addListener((obs, oldTime, newTime)
+                -> dt=newTime.atDate(dateTextField.getValue()));
+        
     }
 
     @FXML
@@ -323,8 +331,13 @@ public class AddOffreViewController implements Initializable {
         try {
 
             ServiceCoVoiturage scov = new ServiceCoVoiturage();
-            System.out.println(quotidiennement.getText());
-            CoVoiturage cov = new CoVoiturage(5, "o", departTextField.getText(), destinationTextField.getText(), new Timestamp(System.currentTimeMillis()), onoff, Integer.parseInt(placeTextField.getText()), origin.getPlaceId(), destination.getPlaceId(), new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), origin.getLatitude(), origin.getLongitude());
+            
+            Timestamp ts = Timestamp.valueOf(dt);
+            System.out.println(ts);
+            //Timestamp t = new Timestamp(dateTextField.getValue().getYear(),dateTextField.getValue().getMonthValue(), dateTextField.getValue().getDayOfMonth(),, 0, 0, 0)
+            
+            
+            CoVoiturage cov = new CoVoiturage(5, "o", departTextField.getText(), destinationTextField.getText(),ts, onoff, Integer.parseInt(placeTextField.getText()), origin.getPlaceId(), destination.getPlaceId(), new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), origin.getLatitude(), origin.getLongitude());
             if (onoff == "on") {
                 String lundi = null;
                 String mardi = null;
