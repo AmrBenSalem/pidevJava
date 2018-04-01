@@ -25,6 +25,15 @@ public class CoVoiturageRequests {
         this.etat = etat;
         this.created = created;
     }
+    
+    public CoVoiturageRequests(int id,int idc, int user, String etat, Timestamp created) {
+        this.id=id;
+        this.idc = idc;
+        this.user = user;
+        this.etat = etat;
+        this.created = created;
+    }
+
 
     public int getId() {
         return id;

@@ -45,6 +45,8 @@ public class OffreLineController implements Initializable {
     private JFXButton buttonDelete;
     @FXML
     private JFXButton buttonUpdate;
+    @FXML
+    private JFXButton req;
    
 
     
