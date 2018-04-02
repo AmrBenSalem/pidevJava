@@ -18,24 +18,9 @@ import org.json.simple.parser.ParseException;
 import entities.Adresse;
 
 public class GooglePlacesAPI {
-    public enum TYPE {
-        REST("restaurant"), 
-        CAFE("cafe"),
-        PARK("park");
-
-        private String name;
-
-        TYPE(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
-    }
     
     private static final String URLString = "https://maps.googleapis.com/maps/api/place/#&key=";
-    private static final String KEY = "AIzaSyBwYcSUSj2uRzDIMclaDjzGE3eoHQur64Y";//"AIzaSyA8w507O9U90-M_IIeytsa4weIBO_yAjhI";
+    private static final String KEY ="AIzaSyA8w507O9U90-M_IIeytsa4weIBO_yAjhI"; //"AIzaSyBwYcSUSj2uRzDIMclaDjzGE3eoHQur64Y";
     
     public static List<Adresse> autoCompleteAddress(String input){
         try {
