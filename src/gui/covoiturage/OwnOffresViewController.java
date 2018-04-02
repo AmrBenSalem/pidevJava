@@ -14,6 +14,7 @@ import entities.CoVoiturage;
 import entities.CoVoiturageRequests;
 import gui.DashboardCoVoiturageController;
 import gui.LoginController;
+import static gui.covoiturage.OffresViewController.covInfo;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -188,6 +189,21 @@ public class OwnOffresViewController implements Initializable {
             
             //etatField.setText(String.valueOf(offre.getOnetime()));
 
+            
+            JFXButton btnInfo = new JFXButton();
+            btnInfo = (JFXButton) pane.getChildren().get(0);
+            pane.getChildren().set(0, btnInfo);
+            btnInfo.setOnAction((event) -> {
+                try {
+                    CoVoiturage cov = new CoVoiturage();
+                    covInfo = cs.readCoVoiturage(offre.getId());
+                    
+                    redirectToInfo(event);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+            
             JFXButton request = new JFXButton("Request");
             request = (JFXButton) pane.getChildren().get(14);
             pane.getChildren().set(14, request);
@@ -396,6 +412,21 @@ public class OwnOffresViewController implements Initializable {
         Parent page = null;
         try {
             page = FXMLLoader.load(getClass().getResource("CoVoiturageView.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(page);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.show();
+    }
+    
+    private void redirectToInfo(ActionEvent event) {
+        Parent page = null;
+        try {
+            page = FXMLLoader.load(getClass().getResource("InfoOffreView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
