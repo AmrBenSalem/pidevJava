@@ -24,9 +24,9 @@
       <Label fx:id="etatTextField" layoutX="717.0" layoutY="22.0" prefHeight="17.0" prefWidth="110.0" />
       <JFXButton fx:id="buttonUpdate" layoutX="918.0" layoutY="17.0" prefHeight="26.0" prefWidth="18.0" text=" ">
          <graphic>
-            <ImageView fitHeight="18.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="18.0" fitWidth="19.0" opacity="0.68" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../assets/sliders.png" />
+                  <Image url="@../../assets/img_25657.png" />
                </image>
             </ImageView>
          </graphic></JFXButton>
@@ -34,7 +34,7 @@
          <graphic>
             <ImageView fitHeight="18.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../assets/cancel.png" />
+                  <Image url="@../../assets/images.png" />
                </image>
             </ImageView>
          </graphic></JFXButton>

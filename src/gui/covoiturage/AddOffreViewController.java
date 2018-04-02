@@ -48,6 +48,7 @@ import entities.CoVoiturage;
 import entities.CoVoiturageDays;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javafx.geometry.Pos;
@@ -56,7 +57,10 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.util.converter.LocalDateTimeStringConverter;
+import javax.management.Notification;
 import services.ServiceCoVoiturage;
+import util.Capitals;
 import util.GooglePlacesAPI;
 import util.TimeSpinner;
 
@@ -113,13 +117,18 @@ public class AddOffreViewController implements Initializable {
     static Adresse origin;
     static Adresse destination;
 
-     double originLat;
-     double originLng;
-     double destLat;
-     double destLng;
+     static double originLat;
+     static double originLng;
+     static double destLat;
+     static double destLng;
+     static String origin_place_id;
+     static String dest_place_id;
+     
      String onoff = "off";
      String timee;
     static LocalDateTime dt;
+    
+    Capitals c = new Capitals() ;
     @FXML
     private JFXButton buttonSubmit;
     @FXML
@@ -131,6 +140,10 @@ public class AddOffreViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        
+        //System.out.println(c.getCapital());
+        
         timeSpinner = new TimeSpinner();
         timePane.getChildren().add(timeSpinner);
         drawerLeft.open();
@@ -150,12 +163,16 @@ public class AddOffreViewController implements Initializable {
         }
         daysPane.setVisible(false);
         datePane.setVisible(true);
-
-        originLat = 36.77159839999999;
-        originLng = 10.2768388;
-        destLat = 36.9173042;
-        destLng = 10.2852532;
+        
+        originLat = c.getCapital().getLatitude();
+        originLng = c.getCapital().getLongitude();
+        origin_place_id = c.getCapital().getPlaceId();
+        dest_place_id = "ChIJUe3GVHTL4hIRV9NcVrU6O2g";
+        destLat = 36.898392;
+        destLng = 10.189732;
         setParams(originLat, originLng, destLat, destLng, parent);
+        departTextField.setText("Votre emplacement");
+        destinationTextField.setText("ESPRIT, Ariana, Tunisie");
 
         container.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
         container2.setBackground(new Background(new BackgroundFill(Color.GRAY, null, null)));
@@ -171,6 +188,13 @@ public class AddOffreViewController implements Initializable {
         container2.add(searchBox2, 0, 0);
         container2.setLayoutX(135);
         container2.setLayoutY(315);
+        
+        /*dateTextField.setValue(LocalDate.now());
+        dt=timeSpinner.valueProperty().getValue().atDate(LocalDate.now());*/
+        
+        DateTimeFormatter formatterr = DateTimeFormatter.ofPattern("hh:mm:ss");
+        timeSpinner.valueProperty().addListener((obs, oldTime, newTime)
+                -> dt=newTime.atDate(dateTextField.getValue()));
 
         departTextField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             if (container.getChildren().size() > 1) { // if already contains a drop-down menu -> remove it 
@@ -191,9 +215,8 @@ public class AddOffreViewController implements Initializable {
         /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss");
         timeSpinner.valueProperty().addListener((obs, oldTime, newTime)
                 -> timee=formatter.format(newTime));*/
-        DateTimeFormatter formatterr = DateTimeFormatter.ofPattern("hh:mm:ss");
-        timeSpinner.valueProperty().addListener((obs, oldTime, newTime)
-                -> dt=newTime.atDate(dateTextField.getValue()));
+        
+        
         
     }
 
@@ -277,7 +300,7 @@ public class AddOffreViewController implements Initializable {
                     //System.out.println(option);
                     //System.out.println("ddeeeefffff");
                     textx.setText(lll);
-                    origin = option;
+                    origin_place_id = option.getPlaceId();
                     originLat = option.getLatitude();
                     originLng = option.getLongitude();
                     dropDownMenu.setVisible(false);
@@ -310,7 +333,7 @@ public class AddOffreViewController implements Initializable {
 
                     System.out.println(option);
                     textx.setText(lll);
-                    destination = option;
+                    dest_place_id = option.getPlaceId();
                     destLat = option.getLatitude();
                     destLng = option.getLongitude();
                     dropDownMenu.setVisible(false);
@@ -332,14 +355,28 @@ public class AddOffreViewController implements Initializable {
 
             ServiceCoVoiturage scov = new ServiceCoVoiturage();
             Timestamp ts = null;
-            if (onoff == "off"){
+            if (onoff.equals("off")){
                  ts = Timestamp.valueOf(dt);
+            }
+            System.out.println(departTextField.getText());
+            System.out.println(destinationTextField.getText());
+            System.out.println(ts);
+            System.out.println(onoff);
+            System.out.println(placeTextField.getText());
+            System.out.println(origin_place_id);
+            System.out.println(dest_place_id);
+            System.out.println(originLat);
+            System.out.println(originLng);
+            
+            
+            if (departTextField.getText().equals("Votre emplacement")){
+                departTextField.setText(c.getCapital().getCity()+","+c.getCapital().getCountry());
             }
             //Timestamp t = new Timestamp(dateTextField.getValue().getYear(),dateTextField.getValue().getMonthValue(), dateTextField.getValue().getDayOfMonth(),, 0, 0, 0)
             
             
-            CoVoiturage cov = new CoVoiturage(5, "o", departTextField.getText(), destinationTextField.getText(),ts, onoff, Integer.parseInt(placeTextField.getText()), origin.getPlaceId(), destination.getPlaceId(), new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), origin.getLatitude(), origin.getLongitude());
-            if (onoff == "on") {
+            CoVoiturage cov = new CoVoiturage(5, "o", departTextField.getText(), destinationTextField.getText(),ts, onoff, Integer.parseInt(placeTextField.getText()), origin_place_id, dest_place_id, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), originLat, originLng);
+            if ("on".equals(onoff)) {
                 String lundi = null;
                 String mardi = null;
                 String mercredi = null;
@@ -370,6 +407,8 @@ public class AddOffreViewController implements Initializable {
                 scov.addCoVoiturage(cov);
             }
 
+            redirectToOffres(event);
+            
         } catch (SQLException ex) {
             Logger.getLogger(AddOffreViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
