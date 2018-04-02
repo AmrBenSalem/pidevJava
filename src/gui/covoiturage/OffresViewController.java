@@ -10,10 +10,13 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
+import com.maxmind.geoip2.DatabaseReader;
+import com.maxmind.geoip2.model.CityResponse;
 import entities.CoVoiturage;
 import entities.CoVoiturageRequests;
 import gui.DashboardCoVoiturageController;
 import gui.LoginController;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -98,25 +101,29 @@ public class OffresViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        try {
-            cs = new ServiceCoVoiturage();
-        } catch (SQLException ex) {
-            Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            Instance();
-        } catch (IOException ex) {
-            Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        drawerLeft.open();
-        //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
-
-        try {
-            VBox box = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
-            drawerLeft.setSidePane(box);
-        } catch (IOException ex) {
-            Logger.getLogger(DashboardCoVoiturageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      
+           
+            
+            try {
+                cs = new ServiceCoVoiturage();
+            } catch (SQLException ex) {
+                Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                Instance();
+            } catch (IOException ex) {
+                Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            drawerLeft.open();
+            //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
+            
+            try {
+                VBox box = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
+                drawerLeft.setSidePane(box);
+            } catch (IOException ex) {
+                Logger.getLogger(DashboardCoVoiturageController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
     }
 
     @FXML
