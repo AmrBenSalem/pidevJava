@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.lynden.gmapsfx.GoogleMapView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="anchor" prefHeight="600.0" prefWidth="1110.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Event.ViewEventController">
+   <children>
+      <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="1110.0">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1109.0">
+               <children>
+                  <JFXDrawer fx:id="drawerLeft" prefHeight="600.0" prefWidth="127.0">
+                     <children>
+                        <Pane fx:id="CoVoiturage" prefHeight="448.0" prefWidth="983.0" style="-fx-background-color: #f0f0f0;" />
+                     </children>
+                  </JFXDrawer>
+                  <JFXDrawer fx:id="drawerTop" layoutX="127.0" prefHeight="97.0" prefWidth="983.0" style="-fx-background-color: pink;" />
+                  <Pane layoutX="127.0" layoutY="97.0" prefHeight="56.0" prefWidth="983.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label fx:id="pageLabel1" layoutX="34.0" layoutY="11.0" prefHeight="27.0" prefWidth="242.0" text="Consulter un évenement">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="CoVoiturage1" layoutX="128.0" layoutY="153.0" prefHeight="448.0" prefWidth="983.0" style="-fx-background-color: #f0f0f0;">
+                     <children>
+                        <ImageView fx:id="image" fitHeight="248.0" fitWidth="314.0" layoutX="25.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label layoutX="34.0" layoutY="280.0" prefHeight="17.0" prefWidth="96.0" text="Titre" />
+                        <JFXTextField fx:id="titre" layoutX="34.0" layoutY="309.0" />
+                        <Label layoutX="34.0" layoutY="340.0" text="Description" />
+                        <JFXTextArea fx:id="description" layoutX="34.0" layoutY="360.0" prefHeight="67.0" prefWidth="330.0" />
+                        <JFXButton fx:id="participer" layoutX="518.0" layoutY="381.0" prefHeight="25.0" prefWidth="78.0" text="Participer" />
+                        <Label layoutX="518.0" layoutY="280.0" text="Nombre de places" />
+                        <JFXTextField fx:id="nbmax" layoutX="518.0" layoutY="296.0" />
+                        <GoogleMapView fx:id="map" layoutX="364.0" layoutY="23.0" prefHeight="248.0" prefWidth="308.0" />
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
