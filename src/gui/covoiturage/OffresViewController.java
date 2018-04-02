@@ -94,15 +94,13 @@ public class OffresViewController implements Initializable {
     private AnchorPane vboxAnchorPaneSug;
     @FXML
     private VBox testPaneSug;
-
+    public static CoVoiturage covInfo;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-      
-           
             
             try {
                 cs = new ServiceCoVoiturage();
@@ -156,9 +154,9 @@ public class OffresViewController implements Initializable {
         vboxAnchorPane.setMinHeight(54 * listOfOffres.size());
         vboxAnchorPane.setMaxHeight(54 * listOfOffres.size());
         vboxAnchorPane.setPrefHeight(54 * listOfOffres.size());
-       for (int x = 0; x < panee.getChildren().size() ; x++){
-           System.out.println(x+"  "+panee.getChildren().get(x).toString());
-       }
+//       for (int x = 0; x < panee.getChildren().size() ; x++){
+//           System.out.println(x+"  "+panee.getChildren().get(x).toString());
+//       }
         for (int k = 0; k < listOfOffres.size(); k++) {
             Pane pane = FXMLLoader.load(getClass().getResource("OffreLine.fxml"));
 
@@ -218,6 +216,22 @@ public class OffresViewController implements Initializable {
                     Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
+            
+            JFXButton btnInfo = new JFXButton();
+            btnInfo = (JFXButton) pane.getChildren().get(0);
+            pane.getChildren().set(0, btnInfo);
+            btnInfo.setOnAction((event) -> {
+                try {
+                    CoVoiturage cov = new CoVoiturage();
+                    covInfo = cs.readCoVoiturage(offre.getId());
+                    
+                    redirectToInfo(event);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+            
+            
             
             JFXButton btnUpdatee = new JFXButton();
             btnUpdatee = (JFXButton) pane.getChildren().get(12);
@@ -293,6 +307,21 @@ public class OffresViewController implements Initializable {
         Parent page = null;
         try {
             page = FXMLLoader.load(getClass().getResource("CoVoiturageView.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(page);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.show();
+    }
+    
+    private void redirectToInfo(ActionEvent event) {
+        Parent page = null;
+        try {
+            page = FXMLLoader.load(getClass().getResource("InfoOffreView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }

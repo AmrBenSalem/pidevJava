@@ -113,12 +113,12 @@ public class AddOffreViewController implements Initializable {
     static Adresse origin;
     static Adresse destination;
 
-    static double originLat;
-    static double originLng;
-    static double destLat;
-    static double destLng;
-    static String onoff = "off";
-    static String timee;
+     double originLat;
+     double originLng;
+     double destLat;
+     double destLng;
+     String onoff = "off";
+     String timee;
     static LocalDateTime dt;
     @FXML
     private JFXButton buttonSubmit;
@@ -331,9 +331,10 @@ public class AddOffreViewController implements Initializable {
         try {
 
             ServiceCoVoiturage scov = new ServiceCoVoiturage();
-            
-            Timestamp ts = Timestamp.valueOf(dt);
-            System.out.println(ts);
+            Timestamp ts = null;
+            if (onoff == "off"){
+                 ts = Timestamp.valueOf(dt);
+            }
             //Timestamp t = new Timestamp(dateTextField.getValue().getYear(),dateTextField.getValue().getMonthValue(), dateTextField.getValue().getDayOfMonth(),, 0, 0, 0)
             
             

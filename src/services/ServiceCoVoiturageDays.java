@@ -5,12 +5,15 @@
  */
 package services;
 
+import entities.CoVoiturage;
 import entities.CoVoiturageDays;
 import entities.CoVoiturageRequests;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.DataSource;
@@ -23,8 +26,12 @@ public class ServiceCoVoiturageDays {
     public Connection con = DataSource.getInstance().getConnection();
     public Statement st;
     
-    public ServiceCoVoiturageDays() throws SQLException{
-        st = con.createStatement();
+    public ServiceCoVoiturageDays(){
+        try {
+            st = con.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCoVoiturageDays.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void addDays(CoVoiturageDays cov) {
@@ -43,6 +50,23 @@ public class ServiceCoVoiturageDays {
         } catch (SQLException ex) {
             Logger.getLogger(ServiceCoVoiturage.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public CoVoiturageDays GetCovoiturageDays(CoVoiturage cov) {
+        try {
+            String req = "SELECT * FROM `co_voiturage_days` WHERE `idc` = ?";
+            PreparedStatement pre = con.prepareStatement(req);
+            pre.setInt(1, cov.getId());
+            ResultSet rs = pre.executeQuery();
+            ArrayList<CoVoiturageRequests> co = new ArrayList<>();
+            
+            rs.next();
+            
+            return new CoVoiturageDays(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4),  rs.getString(5) ,  rs.getString(6),rs.getString(7),rs.getInt(8));
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCoVoiturageDays.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
 }
