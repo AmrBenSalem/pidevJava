@@ -26,7 +26,8 @@ public class Pidev {
         try {
             ServiceCoVoiturage scov = new ServiceCoVoiturage();
             CoVoiturage cc = scov.readCoVoiturage(cov.getId());
-            System.out.println(cc.toString());
+            scov.addCoVoiturage(cov);
+            //System.out.println(cc.toString());
         } catch (SQLException ex) {
             Logger.getLogger(Pidev.class.getName()).log(Level.SEVERE, null, ex);
         }
