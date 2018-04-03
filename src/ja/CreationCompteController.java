@@ -37,6 +37,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import util.BCrypt;
 
 /**
  * FXML Controller class
@@ -198,7 +199,7 @@ public class CreationCompteController implements Initializable {
             UserCRUD a = new UserCRUD();
             if (this.controleSaisie()) {
                 
-                User u1= new User(usernameTF.getText(), Date.valueOf(dateNaissance.getValue()), (String) sexe.getValue(), classe.getText(), telephone.getText(), mailTF.getText(),  a.MD5(passwordTF.getText()),  nomTF.getText(), prenomTF.getText());
+                User u1= new User(usernameTF.getText(), Date.valueOf(dateNaissance.getValue()), (String) sexe.getValue(), classe.getText(), telephone.getText(), mailTF.getText(), BCrypt.hashpw(passwordTF.getText(),BCrypt.gensalt(13)),  nomTF.getText(), prenomTF.getText());
 
                 //User u = new User(usernameTF.getText(), mailTF.getText(), a.MD5(passwordTF.getText()), nomTF.getText(), prenomTF.getText());
                 a.ajouterUser(u1);

@@ -171,7 +171,7 @@ public class UserCRUD implements IUserService {
             String reqUpdate = "update user set password=? where id=?";
             PreparedStatement ps = myconnection.prepareStatement(reqUpdate);
           //  ps.setString(1, u.getEmail()); 
-            ps.setString(1, BCrypt.hashpw(newMdp,BCrypt.gensalt()));   
+            ps.setString(1, BCrypt.hashpw(newMdp,BCrypt.gensalt(13)));   
           //  ps.setString(3, u.getNom());
          //   ps.setString(4, u.getPrenom());
             ps.setInt(2,id);

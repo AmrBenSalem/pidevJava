@@ -63,7 +63,7 @@ public class LeftMenuController implements Initializable {
             case "b2":
                 Parent page = null;
                 try {
-                    page = FXMLLoader.load(getClass().getResource("covoiturage/CovoiturageView.fxml"));
+                 page = FXMLLoader.load(getClass().getResource("covoiturage/CovoiturageView.fxml"));
                 } catch (IOException ex) {
                     Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -75,7 +75,17 @@ public class LeftMenuController implements Initializable {
                 break;
 
             case "b3":
-                //  DashboardCoVoiturageController.CoVoituragePaneInit.setVisible(false);
+                Parent Objet = null;
+                try {
+                 page = FXMLLoader.load(getClass().getResource("ja/ObjetView.fxml"));
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Scene Objetscene = new Scene(Objet);
+                Stage Objetstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Objetstage.hide();
+                Objetstage.setScene(Objetscene);
+                Objetstage.show();
                 break;
 
             case "b4":

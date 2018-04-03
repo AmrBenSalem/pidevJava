@@ -41,11 +41,7 @@ public class AuthentificationController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-         
-    }
+ 
 
     @FXML
     private TextField userNameTF;
@@ -64,6 +60,12 @@ public class AuthentificationController implements Initializable {
     private Hyperlink mdpoublieB;
     @FXML
     private Label loginL;
+    
+       @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        
+         loginL.setText("");
+    }
 
     @FXML
     void creer(ActionEvent event) throws IOException {
@@ -124,12 +126,12 @@ public class AuthentificationController implements Initializable {
     void verifier(ActionEvent event) throws SQLException, UnsupportedEncodingException, NoSuchAlgorithmException, IOException {
         String username = userNameTF.getText();
         String password = passewordTF.getText();
+         
         UserCRUD a = new UserCRUD();
-
         if (!a.uniqueUserName(username)) {
-            if ((Validation.textValidation(userNameTF, loginL, "* un ou plusieurs champs sont vides !"))) {
-                User u = a.recevoirUser(username, loginL);
-
+            if ((Validation.textValidation(userNameTF,loginL,"* un ou plusieurs champs sont vides !"))) {
+                User u = a.recevoirUser(username,loginL);
+                  
                 System.out.println(password);
                 if ((BCrypt.checkpw(password,u.getPassword())) && (u.getEnabled() == 1) && (u.getUserName().equals(username))) {
                     System.out.println("success !");
@@ -137,7 +139,7 @@ public class AuthentificationController implements Initializable {
 
                     if (u.getRoles().equals("a:0:{}")) {
                         System.out.println("user");
-                        Parent root = FXMLLoader.load(getClass().getResource("/ja/FXMLDocument.fxml"));
+                        Parent root = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
 
                         Scene scene = new Scene(root);
 

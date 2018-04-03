@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package util;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -35,7 +34,7 @@ public class DataSource {
         }
         return data;
     }
-    
+
     public Connection getConnection(){
         return con;
     }

@@ -1,14 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-package util;
-/**
- *
- * @author Bader
- */
 // Copyright (c) 2006 Damien Miller <djm@mindrot.org>
 //
 // Permission to use, copy, modify, and distribute this software for any
@@ -23,11 +12,10 @@ package util;
 // ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 // OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+package util;
+
 import java.io.UnsupportedEncodingException;
-
 import java.security.SecureRandom;
-
-import java.util.Arrays;
 
 /**
  * BCrypt implements OpenBSD-style Blowfish password hashing using
@@ -67,10 +55,10 @@ import java.util.Arrays;
  * <p>
  * The amount of work increases exponentially (2**log_rounds), so 
  * each increment is twice as much work. The default log_rounds is
- * 10, and the valid range is 4 to 31.
+ * 10, and the valid range is 4 to 30.
  *
  * @author Damien Miller
- * @version 0.3
+ * @version 0.2
  */
 public class BCrypt {
 	// BCrypt parameters
@@ -347,7 +335,9 @@ public class BCrypt {
 		0xb74e6132, 0xce77e25b, 0x578fdfe3, 0x3ac372e6
 	};
 
-	// bcrypt IV: "OrpheanBeholderScryDoubt"
+	// bcrypt IV: "OrpheanBeholderScryDoubt". The C implementation calls
+	// this "ciphertext", but it is really plaintext or an IV. We keep
+	// the name to make code comparison easier.
 	static private final int bf_crypt_ciphertext[] = {
 		0x4f727068, 0x65616e42, 0x65686f6c,
 		0x64657253, 0x63727944, 0x6f756274
@@ -397,7 +387,7 @@ public class BCrypt {
 	private static String encode_base64(byte d[], int len)
 		throws IllegalArgumentException {
 		int off = 0;
-		StringBuilder rs = new StringBuilder();
+		StringBuffer rs = new StringBuffer();
 		int c1, c2;
 
 		if (len <= 0 || len > d.length)
@@ -450,7 +440,7 @@ public class BCrypt {
 	 */
 	private static byte[] decode_base64(String s, int maxolen)
 		throws IllegalArgumentException {
-		StringBuilder rs = new StringBuilder();
+		StringBuffer rs = new StringBuffer();
 		int off = 0, slen = s.length(), olen = 0;
 		byte ret[];
 		byte c1, c2, c3, c4, o;
@@ -523,50 +513,20 @@ public class BCrypt {
 	 * @param data	the string to extract the data from
 	 * @param offp	a "pointer" (as a one-entry array) to the
 	 * current offset into data
-	 * @param signp	a "pointer" (as a one-entry array) to the
-	 * cumulative flag for non-benign sign extension
-	 * @return	correct and buggy next word of material from data as int[2]
+	 * @return	the next word of material from data
 	 */
-	private static int[] streamtowords(byte data[], int offp[], int signp[]) {
+	private static int streamtoword(byte data[], int offp[]) {
 		int i;
-		int words[] = { 0, 0 };
+		int word = 0;
 		int off = offp[0];
-		int sign = signp[0];
 
 		for (i = 0; i < 4; i++) {
-			words[0] = (words[0] << 8) | (data[off] & 0xff);
-			words[1] = (words[1] << 8) | (int)data[off]; // sign extension bug
-			if (i > 0) sign |= words[1] & 0x80;
+			word = (word << 8) | (data[off] & 0xff);
 			off = (off + 1) % data.length;
 		}
 
 		offp[0] = off;
-		signp[0] = sign;
-		return words;
-	}
-
-	/**
-	 * Cycically extract a word of key material
-	 * @param data	the string to extract the data from
-	 * @param offp	a "pointer" (as a one-entry array) to the
-	 * current offset into data
-	 * @return	the next word of material from data
-	 */
-	private static int streamtoword(byte data[], int offp[]) {
-		int signp[] = { 0 };
-		return streamtowords(data, offp, signp)[0];
-	}
-
-	/**
-	 * Cycically extract a word of key material, with sign-extension bug
-	 * @param data	the string to extract the data from
-	 * @param offp	a "pointer" (as a one-entry array) to the
-	 * current offset into data
-	 * @return	the next word of material from data
-	 */
-	private static int streamtoword_bug(byte data[], int offp[]) {
-		int signp[] = { 0 };
-		return streamtowords(data, offp, signp)[1];
+		return word;
 	}
 
 	/**
@@ -580,20 +540,15 @@ public class BCrypt {
 	/**
 	 * Key the Blowfish cipher
 	 * @param key	an array containing the key
-	 * @param sign_ext_bug	true to implement the 2x bug
-	 * @param safety		bit 16 is set when the safety measure is requested
 	 */
-	private void key(byte key[], boolean sign_ext_bug, int safety) {
+	private void key(byte key[]) {
 		int i;
 		int koffp[] = { 0 };
 		int lr[] = { 0, 0 };
 		int plen = P.length, slen = S.length;
 
 		for (i = 0; i < plen; i++)
-			if (!sign_ext_bug)
-				P[i] = P[i] ^ streamtoword(key, koffp);
-			else
-				P[i] = P[i] ^ streamtoword_bug(key, koffp);
+			P[i] = P[i] ^ streamtoword(key, koffp);
 
 		for (i = 0; i < plen; i += 2) {
 			encipher(lr, 0);
@@ -614,53 +569,15 @@ public class BCrypt {
 	 * http://www.openbsd.org/papers/bcrypt-paper.ps
 	 * @param data	salt information
 	 * @param key	password information
-	 * @param sign_ext_bug	true to implement the 2x bug
-	 * @param safety		bit 16 is set when the safety measure is requested
 	 */
-	private void ekskey(byte data[], byte key[],
-			boolean sign_ext_bug, int safety) {
+	private void ekskey(byte data[], byte key[]) {
 		int i;
 		int koffp[] = { 0 }, doffp[] = { 0 };
 		int lr[] = { 0, 0 };
 		int plen = P.length, slen = S.length;
-		int signp[] = { 0 }; // non-benign sign-extension flag
-		int diff = 0;        // zero iff correct and buggy are same
 
-		for (i = 0; i < plen; i++) {
-			int words[] = streamtowords(key, koffp, signp);
-			diff |= words[0] ^ words[1];
-			P[i] = P[i] ^ words[sign_ext_bug ? 1 : 0];
-		}
-
-		int sign = signp[0];
-
-		/*
-		 * At this point, "diff" is zero iff the correct and buggy algorithms produced
-		 * exactly the same result.  If so and if "sign" is non-zero, which indicates
-		 * that there was a non-benign sign extension, this means that we have a
-		 * collision between the correctly computed hash for this password and a set of
-		 * passwords that could be supplied to the buggy algorithm.  Our safety measure
-		 * is meant to protect from such many-buggy to one-correct collisions, by
-		 * deviating from the correct algorithm in such cases.  Let's check for this.
-		 */
-		diff |= diff >> 16; /* still zero iff exact match */
-		diff &= 0xffff; /* ditto */
-		diff += 0xffff; /* bit 16 set iff "diff" was non-zero (on non-match) */
-		sign <<= 9; /* move the non-benign sign extension flag to bit 16 */
-		sign &= ~diff & safety; /* action needed? */
-
-		/*
-		 * If we have determined that we need to deviate from the correct algorithm,
-		 * flip bit 16 in initial expanded key.  (The choice of 16 is arbitrary, but
-		 * let's stick to it now.  It came out of the approach we used above, and it's
-		 * not any worse than any other choice we could make.)
-		 *
-		 * It is crucial that we don't do the same to the expanded key used in the main
-		 * Eksblowfish loop.  By doing it to only one of these two, we deviate from a
-		 * state that could be directly specified by a password to the buggy algorithm
-		 * (and to the fully correct one as well, but that's a side-effect).
-		 */
-		P[0] ^= sign;
+		for (i = 0; i < plen; i++)
+			P[i] = P[i] ^ streamtoword(key, koffp);
 
 		for (i = 0; i < plen; i += 2) {
 			lr[0] ^= streamtoword(data, doffp);
@@ -686,28 +603,26 @@ public class BCrypt {
 	 * @param salt	the binary salt to hash with the password
 	 * @param log_rounds	the binary logarithm of the number
 	 * of rounds of hashing to apply
-	 * @param sign_ext_bug	true to implement the 2x bug
-	 * @param safety		bit 16 is set when the safety measure is requested
+	 * @param cdata         the plaintext to encrypt
 	 * @return	an array containing the binary hashed password
 	 */
-	private byte[] crypt_raw(byte password[], byte salt[], int log_rounds,
-			boolean sign_ext_bug, int safety) {
+	public byte[] crypt_raw(byte password[], byte salt[], int log_rounds,
+	    int cdata[]) {
 		int rounds, i, j;
-		int cdata[] = (int[])bf_crypt_ciphertext.clone();
 		int clen = cdata.length;
 		byte ret[];
 
-		if (log_rounds < 4 || log_rounds > 31)
+		if (log_rounds < 4 || log_rounds > 30)
 			throw new IllegalArgumentException ("Bad number of rounds");
 		rounds = 1 << log_rounds;
 		if (salt.length != BCRYPT_SALT_LEN)
 			throw new IllegalArgumentException ("Bad salt length");
 
 		init_key();
-		ekskey(salt, password, sign_ext_bug, safety);
-		for (i = 0; i < rounds; i++) {
-			key(password, sign_ext_bug, safety);
-			key(salt, false, safety);
+		ekskey(salt, password);
+		for (i = 0; i != rounds; i++) {
+			key(password);
+			key(salt);
 		}
 
 		for (i = 0; i < 64; i++) {
@@ -733,31 +648,12 @@ public class BCrypt {
 	 * @return	the hashed password
 	 */
 	public static String hashpw(String password, String salt) {
-		byte passwordb[];
-
-		try {
-			passwordb = password.getBytes("UTF-8");
-		} catch (UnsupportedEncodingException uee) {
-			throw new AssertionError("UTF-8 is not supported");
-		}
-
-		return hashpw(passwordb, salt);
-	}
-
-	/**
-	 * Hash a password using the OpenBSD bcrypt scheme
-	 * @param passwordb	the password to hash, as a byte array
-	 * @param salt	the salt to hash with (perhaps generated
-	 * using BCrypt.gensalt)
-	 * @return	the hashed password
-	 */
-	public static String hashpw(byte passwordb[], String salt) {
 		BCrypt B;
 		String real_salt;
-		byte saltb[], hashed[];
+		byte passwordb[], saltb[], hashed[];
 		char minor = (char)0;
 		int rounds, off = 0;
-		StringBuilder rs = new StringBuilder();
+		StringBuffer rs = new StringBuffer();
 
 		if (salt.charAt(0) != '$' || salt.charAt(1) != '2')
 			throw new IllegalArgumentException ("Invalid salt version");
@@ -765,8 +661,7 @@ public class BCrypt {
 			off = 3;
 		else {
 			minor = salt.charAt(2);
-			if ((minor != 'a' && minor != 'x' && minor != 'y' && minor != 'b')
-					|| salt.charAt(3) != '$')
+			if (minor != 'y' || salt.charAt(3) != '$')
 				throw new IllegalArgumentException ("Invalid salt revision");
 			off = 4;
 		}
@@ -777,20 +672,28 @@ public class BCrypt {
 		rounds = Integer.parseInt(salt.substring(off, off + 2));
 
 		real_salt = salt.substring(off + 3, off + 25);
+		try {
+			passwordb = (password + (minor >= 'y' ? "\000" : "")).getBytes("UTF-8");
+		} catch (UnsupportedEncodingException uee) {
+			throw new AssertionError("UTF-8 is not supported");
+		}
+
 		saltb = decode_base64(real_salt, BCRYPT_SALT_LEN);
 
-		if (minor >= 'a') // add null terminator
-			passwordb = Arrays.copyOf(passwordb, passwordb.length + 1);
-
 		B = new BCrypt();
-		hashed = B.crypt_raw(passwordb, saltb, rounds, minor == 'x', minor == 'a' ? 0x10000 : 0);
+		hashed = B.crypt_raw(passwordb, saltb, rounds,
+		    (int[])bf_crypt_ciphertext.clone());
 
 		rs.append("$2");
-		if (minor >= 'a')
+		if (minor >= 'y')
 			rs.append(minor);
 		rs.append("$");
 		if (rounds < 10)
 			rs.append("0");
+		if (rounds > 30) {
+			throw new IllegalArgumentException(
+			    "rounds exceeds maximum (30)");
+		}
 		rs.append(Integer.toString(rounds));
 		rs.append("$");
 		rs.append(encode_base64(saltb, saltb.length));
@@ -801,35 +704,25 @@ public class BCrypt {
 
 	/**
 	 * Generate a salt for use with the BCrypt.hashpw() method
-	 * @param prefix		the prefix value (default $2y)
 	 * @param log_rounds	the log2 of the number of rounds of
 	 * hashing to apply - the work factor therefore increases as
 	 * 2**log_rounds.
 	 * @param random		an instance of SecureRandom to use
 	 * @return	an encoded salt value
-	 * @exception IllegalArgumentException if prefix or log_rounds is invalid
 	 */
-	public static String gensalt(String prefix, int log_rounds, SecureRandom random)
-		throws IllegalArgumentException {
-		StringBuilder rs = new StringBuilder();
+	public static String gensalt(int log_rounds, SecureRandom random) {
+		StringBuffer rs = new StringBuffer();
 		byte rnd[] = new byte[BCRYPT_SALT_LEN];
-
-		if (!prefix.startsWith("$2") ||
-				(prefix.charAt(2) != 'a' && prefix.charAt(2) != 'y' &&
-				 prefix.charAt(2) != 'b')) {
-			throw new IllegalArgumentException ("Invalid prefix");
-		}
-		if (log_rounds < 4 || log_rounds > 31) {
-			throw new IllegalArgumentException ("Invalid log_rounds");
-		}
 
 		random.nextBytes(rnd);
 
-		rs.append("$2");
-		rs.append(prefix.charAt(2));
-		rs.append("$");
+		rs.append("$2y$");
 		if (log_rounds < 10)
 			rs.append("0");
+		if (log_rounds > 30) {
+			throw new IllegalArgumentException(
+			    "log_rounds exceeds maximum (30)");
+		}
 		rs.append(Integer.toString(log_rounds));
 		rs.append("$");
 		rs.append(encode_base64(rnd, rnd.length));
@@ -838,42 +731,12 @@ public class BCrypt {
 
 	/**
 	 * Generate a salt for use with the BCrypt.hashpw() method
-	 * @param prefix		the prefix value (default $2y)
 	 * @param log_rounds	the log2 of the number of rounds of
 	 * hashing to apply - the work factor therefore increases as
 	 * 2**log_rounds.
 	 * @return	an encoded salt value
-	 * @exception IllegalArgumentException if prefix or log_rounds is invalid
 	 */
-	public static String gensalt(String prefix, int log_rounds)
-		throws IllegalArgumentException {
-		return gensalt(prefix, log_rounds, new SecureRandom());
-	}
-
-	/**
-	 * Generate a salt for use with the BCrypt.hashpw() method
-	 * @param log_rounds	the log2 of the number of rounds of
-	 * hashing to apply - the work factor therefore increases as
-	 * 2**log_rounds.
-	 * @param random		an instance of SecureRandom to use
-	 * @return	an encoded salt value
-	 * @exception IllegalArgumentException if log_rounds is invalid
-	 */
-	public static String gensalt(int log_rounds, SecureRandom random)
-		throws IllegalArgumentException {
-		return gensalt("$2y", log_rounds, random);
-	}
-
-	/**
-	 * Generate a salt for use with the BCrypt.hashpw() method
-	 * @param log_rounds	the log2 of the number of rounds of
-	 * hashing to apply - the work factor therefore increases as
-	 * 2**log_rounds.
-	 * @return	an encoded salt value
-	 * @exception IllegalArgumentException if log_rounds is invalid
-	 */
-	public static String gensalt(int log_rounds)
-		throws IllegalArgumentException {
+	public static String gensalt(int log_rounds) {
 		return gensalt(log_rounds, new SecureRandom());
 	}
 
@@ -895,17 +758,20 @@ public class BCrypt {
 	 * @return	true if the passwords match, false otherwise
 	 */
 	public static boolean checkpw(String plaintext, String hashed) {
-		return (hashed.compareTo(hashpw(plaintext, hashed)) == 0);
-	}
-
-	/**
-	 * Check that a plaintext byte[] password matches a previously hashed
-	 * one
-	 * @param plaintext	the plaintext password to verify
-	 * @param hashed	the previously-hashed password
-	 * @return	true if the passwords match, false otherwise
-	 */
-	public static boolean checkpw(byte[] plaintext, String hashed) {
-		return (hashed.compareTo(hashpw(plaintext, hashed)) == 0);
+		byte hashed_bytes[];
+		byte try_bytes[];
+		try {
+			String try_pw = hashpw(plaintext, hashed);
+			hashed_bytes = hashed.getBytes("UTF-8");
+			try_bytes = try_pw.getBytes("UTF-8");
+		} catch (UnsupportedEncodingException uee) {
+			return false;
+		}
+		if (hashed_bytes.length != try_bytes.length)
+			return false;
+		byte ret = 0;
+		for (int i = 0; i < try_bytes.length; i++)
+			ret |= hashed_bytes[i] ^ try_bytes[i];
+		return ret == 0;
 	}
 }
