@@ -127,7 +127,6 @@ public class AuthentificationController implements Initializable {
         UserCRUD a = new UserCRUD();
 
         if (!a.uniqueUserName(username)) {
-            if ((Validation.textValidation(userNameTF, loginL, "* un ou plusieurs champs sont vides !"))) {
                 User u = a.recevoirUser(username, loginL);
 
                 System.out.println(password);
@@ -137,7 +136,7 @@ public class AuthentificationController implements Initializable {
 
                     if (u.getRoles().equals("a:0:{}")) {
                         System.out.println("user");
-                        Parent root = FXMLLoader.load(getClass().getResource("/ja/FXMLDocument.fxml"));
+                        Parent root = FXMLLoader.load(getClass().getResource("/gui/CoVoiturageView.fxml"));
 
                         Scene scene = new Scene(root);
 
@@ -161,14 +160,10 @@ public class AuthentificationController implements Initializable {
 
                 } else if (u.getEnabled() != 1) {
                     System.out.println("disabled");
-                } else {
-                    loginL.setText("* verifier vos information !");
-                }
+                } 
 
-            }
-        } else {
-            loginL.setText("* verifier vos information !");
-        }
+            
+        } 
         /*String MDPtest=a.recevoirMDPavecUserName(username);
        if ((MDPtest.equals(password))&&(!MDPtest.equals("")))
        {
