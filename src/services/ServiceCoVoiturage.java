@@ -109,6 +109,39 @@ public class ServiceCoVoiturage {
         System.out.println(req);
         pre.execute();
     }
+    
+    public void updateCoVoiturage(CoVoiturage cov , CoVoiturageDays cod) throws SQLException {
+        String req = "UPDATE co_voiturage SET `user` = ?, `type` = ?, `depart` = ?, `destination` = ?, `date` = ?, `onetime` = ?, `placedisponibles` = ?, `depart_id` = ?, `destination_id` = ?, `created` = ?, `updated` = ?, `depart_lat` = ?, `depart_lng` = ? WHERE `id` = ?";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1, cov.getUser());
+        pre.setString(2, cov.getType());
+        pre.setString(3, cov.getDepart());
+        pre.setString(4, cov.getDestination());
+        pre.setTimestamp(5, cov.getDate());
+        pre.setString(6, cov.getOnetime());
+        pre.setInt(7, cov.getPlacedisponibles());
+        pre.setString(8, cov.getDepart_id());
+        pre.setString(9, cov.getDestination_id());
+        pre.setTimestamp(10, cov.getCreated());
+        pre.setTimestamp(11, new Timestamp(System.currentTimeMillis()));
+        pre.setDouble(12, cov.getDepart_lat());
+        pre.setDouble(13, cov.getDepart_lng());
+        pre.setInt(14, cov.getId());
+        System.out.println(req);
+        pre.executeUpdate();
+        
+        ResultSet rs = pre.getGeneratedKeys();
+            rs.next();
+            int idc = rs.getInt(1);
+            ServiceCoVoiturageDays scod = new ServiceCoVoiturageDays();
+            cod.setIdc(idc);
+            if (scod.GetCovoiturageDays(cov) == null){
+              scod.addDays(cod);  
+            } else {
+                scod.update(cod);
+            }
+            
+    }
 
     public void deleteCoVoiturage(CoVoiturage cov) throws SQLException {
         String req = "DELETE FROM co_voiturage_requests WHERE `idc` = ? ";

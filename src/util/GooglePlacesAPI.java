@@ -20,7 +20,7 @@ import entities.Adresse;
 public class GooglePlacesAPI {
     
     private static final String URLString = "https://maps.googleapis.com/maps/api/place/#&key=";
-    private static final String KEY ="AIzaSyA8w507O9U90-M_IIeytsa4weIBO_yAjhI"; //"AIzaSyBwYcSUSj2uRzDIMclaDjzGE3eoHQur64Y"; 
+    private static final String KEY = "AIzaSyA8w507O9U90-M_IIeytsa4weIBO_yAjhI"; //"AIzaSyBwYcSUSj2uRzDIMclaDjzGE3eoHQur64Y"; 
     
     public static List<Adresse> autoCompleteAddress(String input){
         try {
@@ -66,7 +66,7 @@ public class GooglePlacesAPI {
     public Adresse getAdress(String input){
         try {
             input = input.replace(" ", "+");
-            String preparedURL = URLString.replace("#", "autocomplete/json?input="+input+"&types=(regions)&language=fr")+KEY;
+            String preparedURL = URLString.replace("#", "autocomplete/json?input="+input+"&language=fr")+KEY;
             String content = HTTPConnector.connect(preparedURL);
             if(content != null){
                 JSONObject jsonObject = null;

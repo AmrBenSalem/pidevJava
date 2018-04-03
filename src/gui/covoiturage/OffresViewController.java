@@ -154,6 +154,8 @@ public class OffresViewController implements Initializable {
 //       for (int x = 0; x < panee.getChildren().size() ; x++){
 //           System.out.println(x+"  "+panee.getChildren().get(x).toString());
 //       }
+        if (listOfOffres.size() > 0)
+        {
         for (int k = 0; k < listOfOffres.size(); k++) {
             Pane pane = FXMLLoader.load(getClass().getResource("OffreLine.fxml"));
 
@@ -227,7 +229,7 @@ public class OffresViewController implements Initializable {
                 //System.out.println("bbbbbbbb" + offre.getId());
                 cov = cs.readCoVoiturage(offre.getId());
                 //cs.deleteCoVoiturage(cov);
-                Refresh(event);
+                redirectToUpdate(event);
             });
 
             JFXButton btnDelete = new JFXButton();
@@ -348,8 +350,8 @@ public class OffresViewController implements Initializable {
                 CoVoiturage cov = new CoVoiturage();
                 //System.out.println("bbbbbbbb" + offre.getId());
                 cov = cs.readCoVoiturage(offre.getId());
-                //cs.deleteCoVoiturage(cov);
-                Refresh(event);
+                covInfo = cs.readCoVoiturage(offre.getId());
+                redirectToUpdate(event);
             });
 
             JFXButton btnDelete = new JFXButton();
@@ -383,6 +385,12 @@ public class OffresViewController implements Initializable {
 
             testPaneSug.getChildren().add(pane);
 
+        }
+        } else {
+            Pane pane = FXMLLoader.load(getClass().getResource("OffreLine_1.fxml"));
+            testPaneSug.getChildren().add(pane);
+            Pane paneR = FXMLLoader.load(getClass().getResource("OffreLine_1.fxml"));
+            testPane.getChildren().add(paneR);
         }
 
     }
@@ -422,6 +430,21 @@ public class OffresViewController implements Initializable {
         Parent page = null;
         try {
             page = FXMLLoader.load(getClass().getResource("InfoOffreView.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(page);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.show();
+    }
+    
+    private void redirectToUpdate(ActionEvent event) {
+        Parent page = null;
+        try {
+            page = FXMLLoader.load(getClass().getResource("UpdateOffreView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }

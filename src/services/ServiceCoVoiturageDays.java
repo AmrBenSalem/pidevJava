@@ -68,5 +68,23 @@ public class ServiceCoVoiturageDays {
         }
         return null;
     }
+
+    void update(CoVoiturageDays cov) {
+        try {
+            String req = "UPDATE co_voiturage_days  SET `lundi` = ?, `mardi` = ?, `mercredi` = ?, `jeudi` = ?, `vendredi` = ?, `samedi` = ? WHERE id = ?";
+            PreparedStatement pre = con.prepareStatement(req);
+            pre.setString(1,cov.getLundi());
+            pre.setString(2,cov.getMardi());
+            pre.setString(3,cov.getMercredi());
+            pre.setString(4,cov.getJeudi());
+            pre.setString(5,cov.getVendredi());
+            pre.setString(6,cov.getSamedi());
+            pre.setInt(7,cov.getId());
+   
+            pre.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCoVoiturage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }
