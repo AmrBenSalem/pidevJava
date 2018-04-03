@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane id="AnchorPane" fx:id="parent" prefHeight="600.0" prefWidth="1110.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.covoiturage.AddOffreViewController">
+<AnchorPane id="AnchorPane" fx:id="parent" prefHeight="600.0" prefWidth="1110.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.covoiturage.UpdateOffreViewController">
    <children>
       <JFXDrawer fx:id="drawerLeft" prefHeight="600.0" prefWidth="86.0">
          <children>
@@ -23,7 +23,7 @@
       <JFXDrawer fx:id="drawerTop" layoutX="85.0" prefHeight="97.0" prefWidth="1026.0" style="-fx-background-color: #ef6262;" />
       <Pane layoutX="83.0" layoutY="96.0" prefHeight="56.0" prefWidth="1028.0" style="-fx-background-color: white;">
          <children>
-            <Label fx:id="pageLabel" layoutX="14.0" prefHeight="2.0" prefWidth="183.0" text="Ajouter un offre">
+            <Label fx:id="pageLabel" layoutX="14.0" prefHeight="2.0" prefWidth="183.0" text="Modifier un offre">
                <font>
                   <Font name="SansSerif Regular" size="24.0" />
                </font>
@@ -32,7 +32,7 @@
             <Label layoutX="98.0" layoutY="32.0" opacity="0.35" text="/" />
             <JFXButton fx:id="redirectButtonCov1" layoutX="103.0" layoutY="28.0" onAction="#redirectToOffres" style="-fx-background-color: transparent;" text="Offres" textFill="#ec4444" />
             <Label layoutX="149.0" layoutY="32.0" opacity="0.35" text="/" />
-            <Label layoutX="157.0" layoutY="32.0" opacity="0.6" text="Ajouter un offre" />
+            <Label layoutX="157.0" layoutY="32.0" opacity="0.6" text="Modifier un offre" />
          </children>
       </Pane>
       <Pane fx:id="CoVoiturage1" layoutX="83.0" layoutY="152.0" prefHeight="448.0" prefWidth="1025.0" style="-fx-background-color: #f0f0f0;">

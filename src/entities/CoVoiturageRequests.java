@@ -100,6 +100,11 @@ public class CoVoiturageRequests {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "CoVoiturageRequests{" + "id=" + id + ", idc=" + idc + ", user=" + user + ", etat=" + etat + ", created=" + created + '}';
+    }
     
     
     

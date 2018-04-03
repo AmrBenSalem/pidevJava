@@ -30,6 +30,19 @@ public class CoVoiturageDays {
         this.idc = idc;
     }
 
+    public CoVoiturageDays(int id, String lundi, String mardi, String mercredi, String jeudi, String vendredi, String samedi, int idc) {
+        this.id = id;
+        this.lundi = lundi;
+        this.mardi = mardi;
+        this.mercredi = mercredi;
+        this.jeudi = jeudi;
+        this.vendredi = vendredi;
+        this.samedi = samedi;
+        this.idc = idc;
+    }
+    
+    
+
     public int getId() {
         return id;
     }
