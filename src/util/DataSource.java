@@ -4,40 +4,39 @@
  * and open the template in the editor.
  */
 package util;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
  *
- * @author Justpro
+ * @author bader
  */
 public class DataSource {
-    private static DataSource data;
-    private Connection con;
-    public String user = "root";
-    public String password ="";
-    public String url = "jdbc:mysql://localhost:3306/entreaide";
+    private static DataSource instance;
+    String url = "jdbc:mysql://localhost:3306/pidevv";
+    String login = "root";
+    String pwd = "";
+    Connection cnx;
     
-    private DataSource(){
+    private DataSource() {
         try {
-            con = DriverManager.getConnection(url, user, password);
-            System.out.println("Connexion établie");
+            cnx = DriverManager.getConnection(url, login, pwd);
+            System.out.println("Connexion etablie!");
         } catch (SQLException ex) {
-            System.out.println("Connexion non établie");
+            System.err.println(ex.getMessage());
         }
-    }
-    
-    public static DataSource getInstance(){
-        if ( data == null ){
-            data = new DataSource();
-        }
-        return data;
     }
     
     public Connection getConnection(){
-        return con;
+        return cnx;
+    }
+
+    public static DataSource getInstance() {
+        if (instance == null) {
+            instance = new DataSource();
+        }
+        return instance;
     }
     
 }

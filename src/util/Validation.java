@@ -33,7 +33,7 @@ public class Validation {
     b=false;
     mag=errorMessage;
     }
-   lb.setText(mag);
+    lb.setText(mag);
     return b;
     
     }

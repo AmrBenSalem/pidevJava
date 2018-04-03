@@ -20,11 +20,11 @@ import util.DataSource;
  * @author bader
  */
 public class ObjetCRUD {
-    Connection cnx = DataSource.getInstance().getConnection();
+    Connection con = DataSource.getInstance().getConnection();
      public void ajouterObjet(Objet o){
         try {
             String requete = "INSERT INTO objet (user,Type,Description,Date,Nature,Lieu,Photo,enable) VALUES (?,?,?,?,?,?,?,?)";
-            PreparedStatement pst = cnx.prepareStatement(requete);
+            PreparedStatement pst = con.prepareStatement(requete, Statement.RETURN_GENERATED_KEYS);
             pst.setInt(1, o.getUser());
             pst.setString(2, o.getType());
             pst.setString(3, o.getDescription());
@@ -51,19 +51,19 @@ public class ObjetCRUD {
         try {
            
             String requete2 = "SELECT * FROM objet";
-            Statement st = cnx.createStatement();
+            Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(requete2);
             
             while(rs.next()){
                 Objet o = new Objet();
-                o.setDescription(rs.getString(1));
-                o.setNature(rs.getString(2));
+                o.setUser(rs.getInt(2));
                 o.setType(rs.getString(3));
-                o.setPhoto(rs.getString(4));
-                o.setLieu(rs.getString(5));
-                o.setUser(rs.getInt(6));
-                o.setEnable(rs.getBoolean(7));
-                o.setDate(rs.getDate(8));
+                o.setDescription(rs.getString(4));
+                o.setDate(rs.getDate(5));
+                o.setNature(rs.getString(6));
+                o.setLieu(rs.getString(7));
+                o.setPhoto(rs.getString(8));
+                o.setEnable(rs.getBoolean(9));
                    
                 myList.add(o);
             }
@@ -74,11 +74,67 @@ public class ObjetCRUD {
         return myList;
     }
          
+         public List<Objet> affichobjperd(){
+         List<Objet> myList = new ArrayList<Objet>();
+        try {
+           
+            String requete2 = "SELECT * FROM objet where Nature='Objet Perdu' and enable=1";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(requete2);
+            
+            while(rs.next()){
+                Objet o = new Objet();
+                o.setUser(rs.getInt(2));
+                o.setType(rs.getString(3));
+                o.setDescription(rs.getString(4));
+                o.setDate(rs.getDate(5));
+                o.setNature(rs.getString(6));
+                o.setLieu(rs.getString(7));
+                o.setPhoto(rs.getString(8));
+                o.setEnable(rs.getBoolean(9));
+                   
+                myList.add(o);
+            }
+            
+        } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+        }
+        return myList;
+    }
+        public List<Objet> affichobjtrouv(){
+         List<Objet> myList = new ArrayList<Objet>();
+        try {
+           
+            String requete2 = "SELECT * FROM objet where Nature='Objet Trouvé' and enable=1";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(requete2);
+            
+            while(rs.next()){
+                Objet o = new Objet();
+                o.setUser(rs.getInt(2));
+                o.setType(rs.getString(3));
+                o.setDescription(rs.getString(4));
+                o.setDate(rs.getDate(5));
+                o.setNature(rs.getString(6));
+                o.setLieu(rs.getString(7));
+                o.setPhoto(rs.getString(8));
+                o.setEnable(rs.getBoolean(9));
+                   
+                myList.add(o);
+            }
+            
+        } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+        }
+        return myList;
+    }
+         
+         
          public void supprimerColocation(Objet o,int id){
         try {
             String requete = "DELETE FROM"
                     + " objet WHERE id=?";
-            PreparedStatement pst = cnx.prepareStatement(requete);
+            PreparedStatement pst = con.prepareStatement(requete);
             pst.setInt(1, id);
             pst.executeUpdate();
             System.out.println("Objet supprimé");
@@ -91,7 +147,7 @@ public class ObjetCRUD {
          public void modifierColocation(Objet o,int id){
         try {
             String requete = "UPDATE  objet SET Nature=? WHERE id=?";
-            PreparedStatement pst = cnx.prepareStatement(requete);
+            PreparedStatement pst = con.prepareStatement(requete);
             pst.setInt(2,id);
             pst.setString(1, o.getNature());
            
