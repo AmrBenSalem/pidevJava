@@ -13,30 +13,30 @@ import java.sql.SQLException;
  * @author bader
  */
 public class DataSource {
-    private static DataSource instance;
-    String url = "jdbc:mysql://localhost:3306/pidevv";
-    String login = "root";
-    String pwd = "";
-    Connection cnx;
+    private static DataSource data;
+    private Connection con;
+    public String user = "root";
+    public String password ="";
+    public String url = "jdbc:mysql://localhost:3306/entreaide";
     
-    private DataSource() {
+    private DataSource(){
         try {
-            cnx = DriverManager.getConnection(url, login, pwd);
-            System.out.println("Connexion etablie!");
+            con = DriverManager.getConnection(url, user, password);
+            System.out.println("Connexion établie");
         } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
+            System.out.println("Connexion non établie");
         }
     }
     
-    public Connection getConnection(){
-        return cnx;
+    public static DataSource getInstance(){
+        if ( data == null ){
+            data = new DataSource();
+        }
+        return data;
     }
 
-    public static DataSource getInstance() {
-        if (instance == null) {
-            instance = new DataSource();
-        }
-        return instance;
+    public Connection getConnection(){
+        return con;
     }
     
 }
