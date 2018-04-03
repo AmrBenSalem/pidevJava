@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author bader
+ * @author Justpro
  */
 public class DataSource {
     private static DataSource data;
