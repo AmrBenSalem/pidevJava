@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="redPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="1013.0" style="-fx-background-color: white; -fx-border-color: #f0f0f0;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.covoiturage.OffreLine_1Controller">
+   <children>
+      <Label fx:id="userTextField" layoutX="35.0" layoutY="21.0" text="Aucun résultat trouvé" />
+   </children>
+</Pane>

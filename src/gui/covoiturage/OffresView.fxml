@@ -17,12 +17,12 @@
          <children>
             <Pane layoutX="8.0" layoutY="202.0" prefHeight="42.0" prefWidth="1011.0" style="-fx-background-color: #ffc870;">
                <children>
-                  <Label layoutX="46.0" layoutY="7.0" text="Offres" textFill="WHITE">
+                  <Label layoutX="14.0" layoutY="7.0" text="Offres" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="19.0" />
+                        <Font size="19.0" />
                      </font>
                   </Label>
-                  <JFXButton fx:id="buttonAddOffre" buttonType="RAISED" layoutX="943.0" layoutY="7.0" onAction="#AddOffreAction" prefHeight="33.0" prefWidth="55.0" style="-fx-background-color: #ffc870;" text=" ">
+                  <JFXButton fx:id="buttonAddOffre" layoutX="961.0" layoutY="5.0" onAction="#AddOffreAction" style="-fx-background-color: #ffc870; -fx-border-color: transparent;" text=" ">
                      <graphic>
                         <ImageView fitHeight="28.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -44,18 +44,18 @@
             </ScrollPane>
             <Pane layoutX="8.0" layoutY="7.0" prefHeight="42.0" prefWidth="1011.0" style="-fx-background-color: #ffc870;">
                <children>
-                  <Label layoutX="46.0" layoutY="7.0" text="Les offres les plus proches" textFill="WHITE">
+                  <Label layoutX="14.0" layoutY="7.0" text="Les offres les plus proches" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="19.0" />
+                        <Font size="19.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
             <ScrollPane layoutX="9.0" layoutY="49.0" prefHeight="145.0" prefWidth="1011.0">
                <content>
-                  <AnchorPane fx:id="vboxAnchorPaneSug" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="953.0" style="-fx-background-color: white;">
+                  <AnchorPane fx:id="vboxAnchorPaneSug" minHeight="-Infinity" minWidth="-Infinity" prefHeight="143.0" prefWidth="999.0" style="-fx-background-color: white;">
                      <children>
-                        <VBox fx:id="testPaneSug" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="999.0" />
+                        <VBox fx:id="testPaneSug" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="999.0" />
                      </children>
                   </AnchorPane>
                </content>

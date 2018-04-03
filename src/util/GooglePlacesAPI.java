@@ -20,12 +20,13 @@ import entities.Adresse;
 public class GooglePlacesAPI {
     
     private static final String URLString = "https://maps.googleapis.com/maps/api/place/#&key=";
-    private static final String KEY ="AIzaSyA8w507O9U90-M_IIeytsa4weIBO_yAjhI"; //"AIzaSyBwYcSUSj2uRzDIMclaDjzGE3eoHQur64Y";
+    private static final String KEY = "AIzaSyA8w507O9U90-M_IIeytsa4weIBO_yAjhI"; //"AIzaSyBwYcSUSj2uRzDIMclaDjzGE3eoHQur64Y"; 
     
     public static List<Adresse> autoCompleteAddress(String input){
         try {
+            //&types=(regions)
             input = input.replace(" ", "+");
-            String preparedURL = URLString.replace("#", "autocomplete/json?input="+input+"&types=(regions)&language=fr")+KEY;
+            String preparedURL = URLString.replace("#", "autocomplete/json?input="+input+"&language=fr")+KEY;
             String content = HTTPConnector.connect(preparedURL);
             if(content != null){
                 JSONObject jsonObject = null;
@@ -54,6 +55,44 @@ public class GooglePlacesAPI {
                     
                 }
                 return addresses;
+            }
+            return null;
+        } catch (IOException ex) {
+            Logger.getLogger(GooglePlacesAPI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public Adresse getAdress(String input){
+        try {
+            input = input.replace(" ", "+");
+            String preparedURL = URLString.replace("#", "autocomplete/json?input="+input+"&language=fr")+KEY;
+            String content = HTTPConnector.connect(preparedURL);
+            if(content != null){
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = JSONParserUtils.extractor(new StringReader(content.toString()));
+                } catch (ParseException ex) {
+                    Logger.getLogger(GooglePlacesAPI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                JSONArray addressArray = (JSONArray) jsonObject.get("predictions");
+                List<Adresse> addresses = new ArrayList<>();
+               
+                    Adresse address = new Adresse();
+                    
+                    JSONObject jsonAddress = (JSONObject) addressArray.get(0);
+                    address.setPlaceId((String)jsonAddress.get("place_id"));
+                    
+                    JSONArray addressTerms = (JSONArray)jsonAddress.get("terms");
+                    address.setCity((String)((JSONObject)addressTerms.get(0)).get("value"));
+                    address.setCountry((String)((JSONObject)addressTerms.get(addressTerms.size()-1)).get("value"));
+                    try {
+                        address = getPlaceDetails(address);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(GooglePlacesAPI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                   return address;
+
             }
             return null;
         } catch (IOException ex) {
