@@ -92,8 +92,6 @@ public class InfoOffreViewController implements Initializable {
     @FXML
     private ProgressIndicator load;
     @FXML
-    private JFXButton buttonSubmit;
-    @FXML
     private Label labelPlaceDispo;
 
     /**
@@ -204,8 +202,5 @@ public class InfoOffreViewController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    private void submitAdd(ActionEvent event) {
-    }
 
 }

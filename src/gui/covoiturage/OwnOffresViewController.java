@@ -279,7 +279,7 @@ public class OwnOffresViewController implements Initializable {
                     CoVoiturageRequests offreR;
                     offreR = listOfRequestss.get(j);
 
-                    userFieldR.setText(String.valueOf(offreR.getUser()));
+                    userFieldR.setText(String.valueOf(SUser.getUser(offreR.getUser()).getUserName()));
                     dateFieldR.setText(String.valueOf(TimeAgo.toDuration(System.currentTimeMillis() - offreR.getCreated().getTime())));
 
                     if (offreR.getEtat().equals("a")) {
@@ -387,7 +387,7 @@ public class OwnOffresViewController implements Initializable {
             etatField.setLayoutX(pane.getChildren().get(9).getLayoutX());
             etatField.setLayoutY(pane.getChildren().get(9).getLayoutY());
             pane.getChildren().set(9, etatField);*/
-        userField.setText(String.valueOf(offre.getUser()));
+        userField.setText(String.valueOf(SUser.getUser(offre.getUser()).getUserName()));
         departField.setText(String.valueOf(offre.getDepart()));
         // departField.setMaxSize(3, 3);
         destinationField.setText(String.valueOf(offre.getDestination()));
@@ -413,9 +413,9 @@ public class OwnOffresViewController implements Initializable {
         if (offreR.getEtat().equals("c") || offreR.getEtat().equals("a")) {
             Label annuler = new Label();
             annuler.setText("Annuler");
-            annuler.setLayoutX(pane.getChildren().get(14).getLayoutX());
-            annuler.setLayoutY(pane.getChildren().get(14).getLayoutY());
-            pane.getChildren().set(14, annuler);
+            annuler.setLayoutX(pane.getChildren().get(13).getLayoutX());
+            annuler.setLayoutY(pane.getChildren().get(13).getLayoutY());
+            pane.getChildren().set(13, annuler);
             annuler.setOnMouseClicked((event) -> {
                 cr.deleteRequestOffre(offreR);
                 Refresh(event);
