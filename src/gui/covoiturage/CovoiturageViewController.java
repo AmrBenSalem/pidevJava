@@ -6,6 +6,7 @@
 package gui.covoiturage;
 
 import com.jfoenix.controls.JFXDrawer;
+import entities.Session;
 import gui.DashboardCoVoiturageController;
 import static gui.DashboardCoVoiturageController.CoVoituragePaneInit;
 import gui.LoginController;
@@ -62,10 +63,11 @@ public class CovoiturageViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         CoVoiturageP=CoVoiturage;
         drawerLeft.open();
       //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
-       
+        System.out.println(Session.getUser());
         
         try {
             VBox box = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
