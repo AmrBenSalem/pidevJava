@@ -246,14 +246,16 @@ public class OwnOffresViewController implements Initializable {
 
             ArrayList<CoVoiturageRequests> listOfRequestss = new ArrayList<>();
             try {
-                listOfRequestss.addAll(cr.GetOwnCovoiturageRequests(Session.getUser().getId(), offre.getId()/* USER */));
+                listOfRequestss.addAll(cr.GetOwnCovoiturageRequestsIdc(offre.getId()/* USER */));
+                System.out.println(listOfRequestss.size());
                 //System.out.println("aaa");
             } catch (SQLException ex) {
                 Logger.getLogger(OwnOffresViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            System.out.println("bbbbbbbbbbbbb");
             if (listOfRequestss.size() > 0) {
                 counter = counter + listOfRequestss.size();
-
+                System.out.println("aaaaaaaaaaaaaaaa");
                 /////hhhhhhhhhhhhhhhhhhhh
                 for (int j = 0; j < listOfRequestss.size(); j++) {
 
@@ -344,14 +346,13 @@ public class OwnOffresViewController implements Initializable {
         
         ArrayList<CoVoiturageRequests> listOfRequestss = new ArrayList<>();
         try {
-            listOfRequestss.addAll(cr.GetOwnCovoiturageRequests(Session.getUser().getId()/* USER */));
+            listOfRequestss.addAll(cr.GetOwnCovoiturageRequests(user.getId()/* USER */));
             //System.out.println("aaa");
         } catch (SQLException ex) {
             Logger.getLogger(OwnOffresViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (listOfRequestss.size()>0){
-        
         CoVoiturageRequests offreR = listOfRequestss.get(0);
         CoVoiturage offre = cs.readCoVoiturage(offreR.getIdc());
         System.out.println(offreR);

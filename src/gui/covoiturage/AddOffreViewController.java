@@ -52,6 +52,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
@@ -90,7 +91,7 @@ public class AddOffreViewController implements Initializable {
     @FXML
     private Pane datePane;
     @FXML
-    private DatePicker dateTextField;
+    private DatePicker dateTextField = new DatePicker(LocalDate.now()); 
     @FXML
     private Pane daysPane;
     @FXML
@@ -142,7 +143,7 @@ public class AddOffreViewController implements Initializable {
     private JFXButton buttonSubmit;
     @FXML
     private Pane timePane;
-    TimeSpinner timeSpinner = new TimeSpinner();
+    TimeSpinner timeSpinner;
     @FXML
     private Label errorLabel;
     public User user = Session.getUser();
@@ -155,11 +156,10 @@ public class AddOffreViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         //System.out.println(c.getCapital());
-        timeSpinner = new TimeSpinner();
+        timeSpinner = new TimeSpinner(LocalTime.now());
         timePane.getChildren().add(timeSpinner);
         drawerLeft.open();
         //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
-
         try {
             VBox box = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
             drawerLeft.setSidePane(box);
