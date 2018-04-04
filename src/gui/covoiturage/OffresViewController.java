@@ -228,9 +228,8 @@ public class OffresViewController implements Initializable {
             pane.getChildren().set(12, btnUpdatee);
             btnUpdatee.setOnAction((event) -> {
                 CoVoiturage cov = new CoVoiturage();
-                //System.out.println("bbbbbbbb" + offre.getId());
                 cov = cs.readCoVoiturage(offre.getId());
-                //cs.deleteCoVoiturage(cov);
+                covInfo = cs.readCoVoiturage(offre.getId());
                 redirectToUpdate(event);
             });
 
@@ -240,7 +239,6 @@ public class OffresViewController implements Initializable {
             btnDelete.setOnAction((event) -> {
                 try {
                     CoVoiturage cov = new CoVoiturage();
-                    //System.out.println("bbbbbbbb" + offre.getId());
                     cov = cs.readCoVoiturage(offre.getId());
                     cs.deleteCoVoiturage(cov);
                     Refresh(event);
@@ -350,7 +348,6 @@ public class OffresViewController implements Initializable {
             pane.getChildren().set(12, btnUpdatee);
             btnUpdatee.setOnAction((event) -> {
                 CoVoiturage cov = new CoVoiturage();
-                //System.out.println("bbbbbbbb" + offre.getId());
                 cov = cs.readCoVoiturage(offre.getId());
                 covInfo = cs.readCoVoiturage(offre.getId());
                 redirectToUpdate(event);
@@ -362,7 +359,6 @@ public class OffresViewController implements Initializable {
             btnDelete.setOnAction((event) -> {
                 try {
                     CoVoiturage cov = new CoVoiturage();
-                    //System.out.println("bbbbbbbb" + offre.getId());
                     cov = cs.readCoVoiturage(offre.getId());
                     cs.deleteCoVoiturage(cov);
                     Refresh(event);

@@ -130,6 +130,7 @@ public class AuthentificationController implements Initializable {
          
         UserCRUD a = new UserCRUD();
         if (!a.uniqueUserName(username)) {
+
             if ((Validation.textValidation(userNameTF,loginL,"* un ou plusieurs champs sont vides !"))) {
                 User u = a.recevoirUser(username,loginL);
                   
