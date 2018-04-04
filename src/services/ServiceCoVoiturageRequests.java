@@ -105,6 +105,18 @@ public class ServiceCoVoiturageRequests {
         return co;
     }
     
+    public ArrayList<CoVoiturageRequests> GetOwnCovoiturageRequestsIdc(int idc) throws SQLException {
+        String req = "SELECT * FROM co_voiturage_requests WHERE idc = ? ORDER BY etat DESC , created DESC";
+        PreparedStatement pre = con.prepareStatement(req);
+        pre.setInt(1, idc);
+        ResultSet rs = pre.executeQuery();
+        ArrayList<CoVoiturageRequests> co = new ArrayList<>();
+        while (rs.next()) {
+            co.add(new CoVoiturageRequests(rs.getInt(1),rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getTimestamp(5)));
+        }
+        return co;
+    }
+    
     public ArrayList<CoVoiturageRequests> GetOwnCovoiturageRequests(int id,int idc) throws SQLException {
         String req = "SELECT * FROM co_voiturage_requests WHERE user = ? AND idc = ? ORDER BY etat DESC , created DESC";
         PreparedStatement pre = con.prepareStatement(req);

@@ -270,16 +270,16 @@ public class OffresViewController implements Initializable {
         }
 
         ArrayList<CoVoiturageSuggestion> listOfSugg = new ArrayList<>();
-
+   
+            
         for (int k = 0; k < listOfOffres.size(); k++) {
-            /* TEST 3la el user*/
+            
             double lat = abs(abs(c.getCapital().getLatitude()) - abs(listOfOffres.get(k).getDepart_lat()));
             double lng = abs(abs(c.getCapital().getLongitude()) - abs(listOfOffres.get(k).getDepart_lng()));
             double value = lat + lng;
-            listOfSugg.add(new CoVoiturageSuggestion(listOfOffres.get(k).getId(), "", listOfOffres.get(k).getUser(), listOfOffres.get(k).getDepart(), listOfOffres.get(k).getDestination(), value, listOfOffres.get(k).getUpdated()));
+            listOfSugg.add(new CoVoiturageSuggestion(listOfOffres.get(k).getId(), Session.getUser().getUserName(), listOfOffres.get(k).getUser(), listOfOffres.get(k).getDepart(), listOfOffres.get(k).getDestination(), value, listOfOffres.get(k).getUpdated()));
         }
         Collections.sort(listOfSugg, new CoVoiturageSuggestion());
-
         int j = 0;
         ServiceCoVoiturageRequests scor = new ServiceCoVoiturageRequests();
         for (int k = 0; k < listOfSugg.size(); k++) {

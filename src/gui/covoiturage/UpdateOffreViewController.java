@@ -143,9 +143,11 @@ public class UpdateOffreViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         //System.out.println(c.getCapital());
-        if (onoff.equals("off")){
+        System.out.println("aa");
+        if (cov.getOnetime().equals("off")){
              timeSpinner= new TimeSpinner(cov.getDate().toLocalDateTime().toLocalTime());
         }
+        System.out.println("bb");
         timePane.getChildren().add(timeSpinner);
         drawerLeft.open();
         //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
@@ -175,10 +177,11 @@ public class UpdateOffreViewController implements Initializable {
         destLng = a.getLongitude();
         
         setParams(originLat, originLng, destLat, destLng, parent);
-        
-        if (onoff.equals("off")){
+        System.out.println("before");
+        if (cov.getOnetime().equals("off")){
             dateTextField.setValue(cov.getDate().toLocalDateTime().toLocalDate());
         }
+        System.out.println("after");
         
         departTextField.setText(cov.getDepart());
         destinationTextField.setText(cov.getDestination());

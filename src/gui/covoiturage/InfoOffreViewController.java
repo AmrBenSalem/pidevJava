@@ -92,8 +92,6 @@ public class InfoOffreViewController implements Initializable {
     @FXML
     private ProgressIndicator load;
     @FXML
-    private JFXButton buttonSubmit;
-    @FXML
     private Label labelPlaceDispo;
 
     /**
@@ -117,7 +115,7 @@ public class InfoOffreViewController implements Initializable {
         labelDepart.setText(cov.getDepart());
         labelDestination.setText(cov.getDestination());
         if (cov.getOnetime().equals("on")) {
-            labelQuotidiennement.setText("Non");
+            labelQuotidiennement.setText("Oui");
             labelDate.setText("Les jours : ");
             ServiceCoVoiturageDays scod = new ServiceCoVoiturageDays();
             System.out.println(cov);
@@ -144,7 +142,7 @@ public class InfoOffreViewController implements Initializable {
             labelDateD.setText(days);
 
         } else {
-            labelQuotidiennement.setText("Oui");
+            labelQuotidiennement.setText("Non");
             labelDateD.setText(String.valueOf(cov.getDate()));
         }
         labelPlaceDispo.setText(String.valueOf(cov.getPlacedisponibles()));
@@ -204,8 +202,5 @@ public class InfoOffreViewController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    private void submitAdd(ActionEvent event) {
-    }
 
 }
