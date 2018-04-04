@@ -7,6 +7,7 @@ package services;
 
 import entities.CoVoiturage;
 import entities.CoVoiturageRequests;
+import entities.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,8 +27,12 @@ public class ServiceCoVoiturageRequests {
     public Connection con = DataSource.getInstance().getConnection();
     public Statement st;
     
-    public ServiceCoVoiturageRequests() throws SQLException{
-        st = con.createStatement();
+    public ServiceCoVoiturageRequests(){
+        try {
+            st = con.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCoVoiturageRequests.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void addRequest(CoVoiturageRequests cov) {
@@ -115,17 +120,39 @@ public class ServiceCoVoiturageRequests {
         return co;
     }
     
-    public ArrayList<CoVoiturageRequests> GetOwnCovoiturageRequests() throws SQLException {
-        String req = "SELECT * FROM co_voiturage_requests ORDER BY etat DESC , created DESC";
-        PreparedStatement pre = con.prepareStatement(req);
-        ResultSet rs = pre.executeQuery();
-        ArrayList<CoVoiturageRequests> co = new ArrayList<>();
-        
-        while (rs.next()) {
-            co.add(new CoVoiturageRequests(rs.getInt(1),rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getTimestamp(5)));
+    public ArrayList<CoVoiturageRequests> GetOwnCovoiturageRequests() {
+        try {
+            String req = "SELECT * FROM co_voiturage_requests ORDER BY etat DESC , created DESC";
+            PreparedStatement pre = con.prepareStatement(req);
+            ResultSet rs = pre.executeQuery();
+            ArrayList<CoVoiturageRequests> co = new ArrayList<>();
+            
+            while (rs.next()) {
+                co.add(new CoVoiturageRequests(rs.getInt(1),rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getTimestamp(5)));
+            }
+            
+            return co;
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCoVoiturageRequests.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return co;
+        return null;
+    }
+    
+    public boolean hasRequests(User user){
+        try {
+            String req = "SELECT * FROM co_voiturage_requests WHERE user = ? ";
+            PreparedStatement pre = con.prepareStatement(req);
+            pre.setInt(1, user.getId());
+            ResultSet rs = pre.executeQuery();
+            ArrayList<CoVoiturageRequests> co = new ArrayList<>();
+            
+            if (rs.next()){
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ServiceCoVoiturageRequests.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     
 }

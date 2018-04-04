@@ -46,6 +46,8 @@ import javafx.stage.Stage;
 import entities.Adresse;
 import entities.CoVoiturage;
 import entities.CoVoiturageDays;
+import entities.Session;
+import entities.User;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -60,6 +62,7 @@ import javafx.scene.paint.Color;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import javax.management.Notification;
 import services.ServiceCoVoiturage;
+import services.UserCRUD;
 import util.Capitals;
 import util.GooglePlacesAPI;
 import util.TimeSpinner;
@@ -142,6 +145,8 @@ public class AddOffreViewController implements Initializable {
     TimeSpinner timeSpinner = new TimeSpinner();
     @FXML
     private Label errorLabel;
+    public User user = Session.getUser();
+    public UserCRUD SUser = new UserCRUD();
 
     /**
      * Initializes the controller class.
@@ -406,8 +411,8 @@ public class AddOffreViewController implements Initializable {
                 departTextField.setText(c.getCapital().getCity() + "," + c.getCapital().getCountry());
             }
             //Timestamp t = new Timestamp(dateTextField.getValue().getYear(),dateTextField.getValue().getMonthValue(), dateTextField.getValue().getDayOfMonth(),, 0, 0, 0)
-
-            CoVoiturage cov = new CoVoiturage(5, "o", departTextField.getText(), destinationTextField.getText(), ts, onoff, Integer.parseInt(placeTextField.getText()), origin_place_id, dest_place_id, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), originLat, originLng);
+            
+            CoVoiturage cov = new CoVoiturage(Session.getUser().getId(), "o", departTextField.getText(), destinationTextField.getText(), ts, onoff, Integer.parseInt(placeTextField.getText()), origin_place_id, dest_place_id, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), originLat, originLng);
             if ("on".equals(onoff)) {
                 String lundi = null;
                 String mardi = null;

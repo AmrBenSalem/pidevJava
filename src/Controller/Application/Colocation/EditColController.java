@@ -278,7 +278,7 @@ public class EditColController implements Initializable, MapComponentInitialized
         };
 
         //Add a marker to the map
-        map.addMouseEventHandler(UIEventType.click, mouseClick);
+     //   map.addMouseEventHandler(UIEventType.click, mouseClick);
  MarkerOptions markerOptions = new MarkerOptions();
 
                 markerOptions.position(new LatLong(colocation.getX(), colocation.getY()))

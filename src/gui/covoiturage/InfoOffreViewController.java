@@ -109,52 +109,51 @@ public class InfoOffreViewController implements Initializable {
             Logger.getLogger(DashboardCoVoiturageController.class.getName()).log(Level.SEVERE, null, ex);
         }
         CoVoiturage cov = OffresViewController.covInfo;
-        
-        for (int x = 0; x < CoVoiturage1.getChildren().size() ; x++){
-           System.out.println(x+"  "+CoVoiturage1.getChildren().get(x).toString());
+
+        for (int x = 0; x < CoVoiturage1.getChildren().size(); x++) {
+            System.out.println(x + "  " + CoVoiturage1.getChildren().get(x).toString());
         }
-        
+
         labelDepart.setText(cov.getDepart());
         labelDestination.setText(cov.getDestination());
-        if (cov.getOnetime().equals("on")){
+        if (cov.getOnetime().equals("on")) {
             labelQuotidiennement.setText("Non");
             labelDate.setText("Les jours : ");
             ServiceCoVoiturageDays scod = new ServiceCoVoiturageDays();
             System.out.println(cov);
             CoVoiturageDays cod = scod.GetCovoiturageDays(cov);
-            String days = "" ;
-            if (cod.getLundi() != null){
-                days=days+" Lundi";
+            String days = "";
+            if (cod.getLundi() != null) {
+                days = days + " Lundi";
             }
-            if (cod.getMardi() != null){
-                days=days+" Mardi";
-            } 
-            if (cod.getMercredi() != null){
-                days=days+" Mercredi";
-            } 
-            if (cod.getJeudi() != null){
-                days=days+" Jeudi";
+            if (cod.getMardi() != null) {
+                days = days + " Mardi";
             }
-            if (cod.getVendredi() != null){
-                days=days+" Vendredi";
-            } 
-            if (cod.getSamedi() != null){
-                days=days+" Samedi";
+            if (cod.getMercredi() != null) {
+                days = days + " Mercredi";
+            }
+            if (cod.getJeudi() != null) {
+                days = days + " Jeudi";
+            }
+            if (cod.getVendredi() != null) {
+                days = days + " Vendredi";
+            }
+            if (cod.getSamedi() != null) {
+                days = days + " Samedi";
             }
             labelDateD.setText(days);
-            labelPlaceDispo.setText( String.valueOf(cov.getPlacedisponibles()));
-            
+
         } else {
-            labelDateD.setText( String.valueOf(cov.getDate()));
+            labelQuotidiennement.setText("Oui");
+            labelDateD.setText(String.valueOf(cov.getDate()));
         }
-        
-        
+        labelPlaceDispo.setText(String.valueOf(cov.getPlacedisponibles()));
+
         List<Adresse> opt = GooglePlacesAPI.autoCompleteAddress(cov.getDestination());
-        setParams(cov.getDepart_lat(), cov.getDepart_lng(),opt.get(0).getLatitude(), opt.get(0).getLongitude(), parent);
-        
-        
-    }   
-    
+        setParams(cov.getDepart_lat(), cov.getDepart_lng(), opt.get(0).getLatitude(), opt.get(0).getLongitude(), parent);
+
+    }
+
     public void setParams(double originLat, double originLng, double destLat, double destLng, AnchorPane parent) {
 
         this.parent = parent;
@@ -208,5 +207,5 @@ public class InfoOffreViewController implements Initializable {
     @FXML
     private void submitAdd(ActionEvent event) {
     }
-    
+
 }
