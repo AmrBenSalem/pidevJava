@@ -14,7 +14,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.Date;
-import java.sql.Time;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,9 +36,9 @@ import services.ObjetCRUD;
  *
  * @author bader
  */
-public class ObjetController implements Initializable {
-
-    @FXML
+public class ajoutObjPerdController implements Initializable {
+    
+        @FXML
     private Label UserID;
 
     @FXML
@@ -48,8 +47,6 @@ public class ObjetController implements Initializable {
     @FXML
     private Label Lieu;
 
-    @FXML
-    private Label Nature;
 
     @FXML
     private Label Type;
@@ -76,9 +73,7 @@ public class ObjetController implements Initializable {
     @FXML
     private DatePicker Dat;
     
-    @FXML
-    private ChoiceBox<String> Nat;
-    
+        
     @FXML
     private ChoiceBox<String> Typ;
     
@@ -93,7 +88,7 @@ public class ObjetController implements Initializable {
     
     private File file1;
     
-    @FXML 
+        @FXML 
     protected void handleButtonAction(ActionEvent event) {
         
         Window owner = Ajout.getScene().getWindow();
@@ -108,40 +103,14 @@ public class ObjetController implements Initializable {
                 Logger.getLogger(ObjetController.class.getName()).log(Level.SEVERE, null, ex);
             }
         
-        Objet o1= new Objet(1,Typ.getValue(),Desc.getText(),Date.valueOf(Dat.getValue()),Nat.getValue(),Lieux.getText(),tof.getText(),false);
+        Objet o1= new Objet(1,Typ.getValue(),Desc.getText(),Date.valueOf(Dat.getValue()),"Objet Perdu",Lieux.getText(),tof.getText(),false);
         ObjetCRUD o=new ObjetCRUD();
         o.ajouterObjet(o1);
           
    }
-  
-/*
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }*/
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-      Typ.setItems(FXCollections.observableArrayList(
-      new String("Ordinateur"),
-      new String("Chargeur"),
-      new String("Telephone"),
-      new String("Papier"),
-      new String("CIN"),
-      new String("Autres")     
-      ));
-      //Typ.isFocused();
-      
-      
-      Nat.setItems(FXCollections.observableArrayList(
-      new String("Objet Perdu"),
-      new String("Objet Trouvé") 
-      ));
-      //Nat.setDisable(false);
-      
-    }
-    @FXML
+    
+    
+        @FXML
     public void chooseImage(ActionEvent ev)
     {
         Window owner = tof.getScene().getWindow();
@@ -157,10 +126,24 @@ public class ObjetController implements Initializable {
                     "Inserer une image de type PNG , JPG ou JPEG");
             image.setText(null);
         }*/
-    
-    
-    
+         
     
     }
 
+     @Override
+    public void initialize(URL url, ResourceBundle rb) {
+     
+      Typ.setItems(FXCollections.observableArrayList(
+      new String("Ordinateur"),
+      new String("Chargeur"),
+      new String("Telephone"),
+      new String("Papier"),
+      new String("CIN"),
+      new String("Autres")     
+      ));
+      //Nat.setDisable(false);
+      
+    }
+
+    
 }

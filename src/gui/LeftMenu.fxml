@@ -32,9 +32,9 @@
                </image></ImageView>
          </graphic>
       </Button>
-      <Button fx:id="b3" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ChangeViewAction" prefHeight="100.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" text=" ">
+      <Button fx:id="b3" contentDisplay="TOP" mnemonicParsing="false" onAction="#ChangeViewAction" prefHeight="100.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" text="Les Objets" textFill="#cd2a2a">
          <graphic>
-            <ImageView fitHeight="49.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="67.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/diamond.png" />
                </image></ImageView>

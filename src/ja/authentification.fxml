@@ -5,16 +5,22 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ja.AuthentificationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="600.0" style="-fx-background-color: #494646;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ja.AuthentificationController">
    <children>
-      <TextField id="userNameTF" fx:id="userNameTF" layoutX="151.0" layoutY="14.0" />
-      <Label layoutX="34.0" layoutY="18.0" text="Nom d'utilisateur" />
-      <PasswordField id="passewordTF" fx:id="passewordTF" layoutX="151.0" layoutY="68.0" />
-      <Label layoutX="36.0" layoutY="72.0" text="Mot de Passe" />
-      <Button id="accederB" fx:id="accederB" layoutX="392.0" layoutY="39.0" mnemonicParsing="false" onAction="#verifier" text="Accéder au compte" />
-      <Hyperlink id="mdpHT" fx:id="mdpoublieB" layoutX="20.0" layoutY="177.0" onAction="#mdpoB" text="Vous avez oublié votre mot de passe ? " />
-      <Hyperlink id="creerHT" fx:id="creerB" layoutX="445.0" layoutY="177.0" onAction="#creer" text="S'inscrire" />
+      <TextField id="userNameTF" fx:id="userNameTF" alignment="CENTER" layoutX="239.0" layoutY="114.0" promptText="UserName" style="-fx-border-width: 0px 0px 3px 0px; -fx-border-color: white; -fx-background-color: transaprent;" />
+      <PasswordField id="passewordTF" fx:id="passewordTF" alignment="CENTER" layoutX="239.0" layoutY="163.0" promptText="Password" style="-fx-border-width: 0px 0px 3px 0px; -fx-background-color: transaprent; -fx-border-color: white;" />
+      <Button id="accederB" fx:id="accederB" layoutX="214.0" layoutY="220.0" mnemonicParsing="false" onAction="#verifier" prefHeight="44.0" prefWidth="200.0" style="-fx-background-color: #8c2b2b;" text="Accéder au compte" textFill="WHITE" />
+      <Hyperlink id="mdpHT" fx:id="mdpoublieB" layoutX="206.0" layoutY="292.0" onAction="#mdpoB" text="Vous avez oublié votre mot de passe ? " />
+      <Hyperlink id="creerHT" fx:id="creerB" layoutX="286.0" layoutY="326.0" onAction="#creer" text="S'inscrire" />
+      <ImageView fitHeight="81.0" fitWidth="78.0" layoutX="271.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/logo.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="loginL" layoutX="14.0" layoutY="120.0" />
    </children>
 </AnchorPane>

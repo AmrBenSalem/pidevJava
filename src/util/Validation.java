@@ -24,18 +24,27 @@ public class Validation {
         return b;
 
     }
-
-    public static boolean textValidation(TextField tf, Label lb, String errorMessage) {
-
-        boolean b = true;
-        String mag = null;
-        if (!textValidation(tf)) {
-            b = false;
-            mag = errorMessage;
-        }
-        lb.setText(mag);
-        return b;
-
+    public static boolean textValidation(TextField tf ,Label lb,String errorMessage){
+    
+    boolean b=true;
+    String mag=null;
+    if (!textValidation(tf)){
+    b=false;
+    mag=errorMessage;
+    }
+    lb.setText(mag);
+    return b;
+    
+    }
+    
+    public static boolean textalphabet(TextField tf ,Label lb,String errorMessage)
+    {
+    boolean isAlphabet =true;
+    
+    String validationString=null;
+    if(!tf.getText().matches("[a-z A-Z]+")){
+    isAlphabet=false;
+    
     }
 
     public static boolean textalphabet(TextField tf, Label lb, String errorMessage) {
