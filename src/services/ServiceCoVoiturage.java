@@ -130,11 +130,8 @@ public class ServiceCoVoiturage {
         System.out.println(req);
         pre.executeUpdate();
         
-        ResultSet rs = pre.getGeneratedKeys();
-            rs.next();
-            int idc = rs.getInt(1);
             ServiceCoVoiturageDays scod = new ServiceCoVoiturageDays();
-            cod.setIdc(idc);
+            cod.setIdc(cov.getId());
             if (scod.GetCovoiturageDays(cov) == null){
               scod.addDays(cod);  
             } else {
