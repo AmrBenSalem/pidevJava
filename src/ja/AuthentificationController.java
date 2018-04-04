@@ -60,7 +60,6 @@ public class AuthentificationController implements Initializable {
     private Hyperlink mdpoublieB;
     @FXML
     private Label loginL;
-    static User user;
     
        @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -130,7 +129,6 @@ public class AuthentificationController implements Initializable {
          
         UserCRUD a = new UserCRUD();
         if (!a.uniqueUserName(username)) {
-
             if ((Validation.textValidation(userNameTF,loginL,"* un ou plusieurs champs sont vides !"))) {
                 User u = a.recevoirUser(username,loginL);
                   
@@ -142,7 +140,7 @@ public class AuthentificationController implements Initializable {
 
                     if (u.getRoles().equals("a:0:{}")) {
                         System.out.println("user");
-                        Parent root = FXMLLoader.load(getClass().getResource("/ja/ObjetView.fxml"));
+                        Parent root = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
 
                         Scene scene = new Scene(root);
 
@@ -154,8 +152,8 @@ public class AuthentificationController implements Initializable {
                     } else {
                         System.out.println("admin");
                         Parent root = FXMLLoader.load(getClass().getResource("/ja/Admin.fxml"));
-
-                        Scene scene = new Scene(root);
+ 
+                       Scene scene = new Scene(root);
 
                         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
@@ -166,10 +164,14 @@ public class AuthentificationController implements Initializable {
 
                 } else if (u.getEnabled() != 1) {
                     System.out.println("disabled");
-                } 
+                } else {
+                    loginL.setText("* verifier vos information !");
+                }
 
-            
-        } 
+            }
+        } else {
+            loginL.setText("* verifier vos information !");
+        }
         /*String MDPtest=a.recevoirMDPavecUserName(username);
        if ((MDPtest.equals(password))&&(!MDPtest.equals("")))
        {
@@ -216,5 +218,4 @@ public class AuthentificationController implements Initializable {
        }*/
     }
 
-    }
 }

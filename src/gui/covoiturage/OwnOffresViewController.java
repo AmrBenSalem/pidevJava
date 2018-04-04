@@ -180,7 +180,7 @@ public class OwnOffresViewController implements Initializable {
             pane.getChildren().set(9, etatField);*/
             CoVoiturage offre;
             offre = listOfOffres.get(k);
-            userField.setText(String.valueOf(offre.getUser()));
+            userField.setText(String.valueOf(SUser.getUser(offre.getUser()).getUserName()));
             departField.setText(String.valueOf(offre.getDepart()));
             // departField.setMaxSize(3, 3);
             destinationField.setText(String.valueOf(offre.getDestination()));

@@ -134,7 +134,7 @@ public class UpdateOffreViewController implements Initializable {
     private JFXButton buttonSubmit;
     @FXML
     private Pane timePane;
-    TimeSpinner timeSpinner = new TimeSpinner(cov.getDate().toLocalDateTime().toLocalTime());
+    TimeSpinner timeSpinner = new TimeSpinner();
 
     /**
      * Initializes the controller class.
@@ -143,7 +143,9 @@ public class UpdateOffreViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         //System.out.println(c.getCapital());
-        
+        if (onoff.equals("off")){
+             timeSpinner= new TimeSpinner(cov.getDate().toLocalDateTime().toLocalTime());
+        }
         timePane.getChildren().add(timeSpinner);
         drawerLeft.open();
         //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
