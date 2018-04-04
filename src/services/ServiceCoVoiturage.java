@@ -186,7 +186,12 @@ public class ServiceCoVoiturage {
     }
 
     public ArrayList<CoVoiturage> GetCovoituragePerType(String type) throws SQLException {
-        String req = "SELECT * FROM co_voiturage WHERE `type` = ? AND ( date > ? OR onetime = 'on' ) AND placedisponibles > 0 ORDER BY updated DESC , created DESC";
+        String req ;
+        if (type.equals("d")){
+            req = "SELECT * FROM co_voiturage WHERE `type` = ? AND ( date > ? OR onetime = 'on' ) ORDER BY updated DESC , created DESC";
+        } else {
+            req = "SELECT * FROM co_voiturage WHERE `type` = ? AND ( date > ? OR onetime = 'on' ) AND placedisponibles > 0 ORDER BY updated DESC , created DESC"; 
+        }
         PreparedStatement pre = con.prepareStatement(req);
         pre.setString(1, type);
         pre.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
@@ -199,7 +204,12 @@ public class ServiceCoVoiturage {
     }
     
     public ArrayList<CoVoiturage> GetOwnCovoituragePerType(String type,int id) throws SQLException {
-        String req = "SELECT * FROM co_voiturage WHERE `type` = ? AND ( date > ? OR onetime = 'on' ) AND placedisponibles > 0 AND user = ? ORDER BY updated DESC , created DESC";
+        String req;
+        if (type.equals("d")){
+            req = "SELECT * FROM co_voiturage WHERE `type` = ? AND ( date > ? OR onetime = 'on' ) AND user = ? ORDER BY updated DESC , created DESC";
+        } else {
+            req = "SELECT * FROM co_voiturage WHERE `type` = ? AND ( date > ? OR onetime = 'on' ) AND placedisponibles > 0 AND user = ? ORDER BY updated DESC , created DESC";
+        }
         PreparedStatement pre = con.prepareStatement(req);
         pre.setString(1, type);
         pre.setTimestamp(2, new Timestamp(System.currentTimeMillis()));

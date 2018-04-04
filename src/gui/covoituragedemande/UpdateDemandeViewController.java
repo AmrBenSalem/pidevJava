@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.covoiturage;
+package gui.covoituragedemande;
 
+import gui.covoiturage.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXToggleButton;
@@ -64,7 +65,7 @@ import util.Capitals;
 import util.GooglePlacesAPI;
 import util.TimeSpinner;
 
-public class UpdateOffreViewController implements Initializable {
+public class UpdateDemandeViewController implements Initializable {
 
     @FXML
     private JFXDrawer drawerLeft;
@@ -82,8 +83,6 @@ public class UpdateOffreViewController implements Initializable {
     private TextField departTextField;
     @FXML
     private TextField destinationTextField;
-    @FXML
-    private TextField placeTextField;
     @FXML
     private Pane datePane;
     @FXML
@@ -127,7 +126,7 @@ public class UpdateOffreViewController implements Initializable {
      String onoff = "off";
      String timee;
     static LocalDateTime dt;
-    CoVoiturage cov = OffresViewController.covInfo;
+    CoVoiturage cov = DemandesViewController.covInfo;
     
     Capitals c = new Capitals() ;
     @FXML
@@ -177,7 +176,6 @@ public class UpdateOffreViewController implements Initializable {
         
         setParams(originLat, originLng, destLat, destLng, parent);
         
-        placeTextField.setText(Integer.toString(cov.getPlacedisponibles()));
         
         if (cov.getOnetime().equals("off")){
             dateTextField.setValue(cov.getDate().toLocalDateTime().toLocalDate());
@@ -251,7 +249,7 @@ public class UpdateOffreViewController implements Initializable {
     private void redirectToCoVoiturage(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("CoVoiturageView.fxml"));
+            page = FXMLLoader.load(getClass().getResource("/gui/covoiturage/CoVoiturageView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -264,10 +262,10 @@ public class UpdateOffreViewController implements Initializable {
     }
 
     @FXML
-    private void redirectToOffres(ActionEvent event) {
+    private void redirectToDemandes(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("OffresView.fxml"));
+            page = FXMLLoader.load(getClass().getResource("DemandesView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -384,7 +382,7 @@ public class UpdateOffreViewController implements Initializable {
             //Timestamp t = new Timestamp(dateTextField.getValue().getYear(),dateTextField.getValue().getMonthValue(), dateTextField.getValue().getDayOfMonth(),, 0, 0, 0)
             
             
-            CoVoiturage covr = new CoVoiturage(cov.getId(),cov.getUser(), "o", departTextField.getText(), destinationTextField.getText(),ts, onoff, Integer.parseInt(placeTextField.getText()), origin_place_id, dest_place_id, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), originLat, originLng);
+            CoVoiturage covr = new CoVoiturage(cov.getId(),cov.getUser(), "d", departTextField.getText(), destinationTextField.getText(),ts, onoff, 0, origin_place_id, dest_place_id, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), originLat, originLng);
             if ("on".equals(onoff)) {
                 String lundi = null;
                 String mardi = null;
@@ -415,10 +413,10 @@ public class UpdateOffreViewController implements Initializable {
             } else {
                 scov.updateCoVoiturage(covr);
             }
-            redirectToOffres(event);
+            redirectToDemandes(event);
             
         } catch (SQLException ex) {
-            Logger.getLogger(AddOffreViewController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddDemandeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
