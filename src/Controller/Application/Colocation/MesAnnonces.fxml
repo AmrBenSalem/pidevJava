@@ -6,15 +6,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Application.Colocation.MesAnnoncesController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="771.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Application.Colocation.MesAnnoncesController">
    <children>
-      <TableView fx:id="tableAnnonce" layoutX="-1.0" layoutY="7.0" prefHeight="391.0" prefWidth="600.0">
+      <TableView fx:id="tableAnnonce" layoutX="-1.0" layoutY="7.0" prefHeight="391.0" prefWidth="761.0">
         <columns>
           <TableColumn fx:id="colNature" prefWidth="108.0" text="Nature" />
           <TableColumn fx:id="colTitre" minWidth="0.0" prefWidth="105.0" text="Titre" />
             <TableColumn fx:id="colType" prefWidth="130.0" text="Type" />
             <TableColumn fx:id="colVille" minWidth="0.0" prefWidth="131.0" text="Ville" />
             <TableColumn fx:id="colLoyer" prefWidth="126.0" text="Loyer" />
+            <TableColumn fx:id="colDelete" prefWidth="82.0" />
+            <TableColumn fx:id="colEdit" prefWidth="78.0" />
         </columns>
       </TableView>
    </children>
