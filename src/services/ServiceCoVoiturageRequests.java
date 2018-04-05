@@ -26,6 +26,7 @@ import util.DataSource;
 public class ServiceCoVoiturageRequests {
     public Connection con = DataSource.getInstance().getConnection();
     public Statement st;
+    ServiceCoVoiturage scov = new ServiceCoVoiturage();
     
     public ServiceCoVoiturageRequests(){
         try {
@@ -43,6 +44,7 @@ public class ServiceCoVoiturageRequests {
             pre.setInt(2,cov.getUser());
             pre.setString(3,cov.getEtat());
             pre.setTimestamp(4,cov.getCreated());
+            
    
             pre.execute();
         } catch (SQLException ex) {
@@ -52,6 +54,11 @@ public class ServiceCoVoiturageRequests {
     
     public void acceptRequestOffre(CoVoiturageRequests cov){
         try {
+            if (scov.readCoVoiturage(cov.getIdc()).getType().equals("o") &&  scov.hasPlaceDisponible(cov.getIdc())){
+                CoVoiturage c = scov.readCoVoiturage(cov.getIdc());
+                c.setPlacedisponibles(c.getPlacedisponibles()-1);
+                scov.updateCoVoiturage(c);
+            }
             String req = "UPDATE co_voiturage_requests SET etat = ? WHERE `id` = ?";
             PreparedStatement pre = con.prepareStatement(req);
             pre.setString(1,"c");
@@ -82,6 +89,11 @@ public class ServiceCoVoiturageRequests {
     
     public void deleteRequestOffre(CoVoiturageRequests cov){
         try {
+            if (scov.readCoVoiturage(cov.getIdc()).getType().equals("o") ){
+                CoVoiturage c = scov.readCoVoiturage(cov.getIdc());
+                c.setPlacedisponibles(c.getPlacedisponibles()+1);
+                scov.updateCoVoiturage(c);
+            }
             String req = "DELETE FROM co_voiturage_requests WHERE `id` = ?";
             PreparedStatement pre = con.prepareStatement(req);
             pre.setInt(1,cov.getId());

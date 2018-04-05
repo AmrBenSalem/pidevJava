@@ -115,7 +115,7 @@ public class CovoiturageViewController implements Initializable {
     private void DisplayDemandeAction(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("DemandesView.fxml"));
+            page = FXMLLoader.load(getClass().getResource("/gui/covoituragedemande/DemandesView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -131,7 +131,7 @@ public class CovoiturageViewController implements Initializable {
     private void DisplayOwnDemandesAction(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("OwnDemandesView.fxml"));
+            page = FXMLLoader.load(getClass().getResource("/gui/covoituragedemande/OwnDemandesView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -38,8 +39,6 @@ import javafx.stage.Stage;
 public class AddDemandeViewController implements Initializable {
 
     @FXML
-    private AnchorPane anchor;
-    @FXML
     private JFXDrawer drawerLeft;
     @FXML
     private Pane CoVoiturage;
@@ -53,8 +52,6 @@ public class AddDemandeViewController implements Initializable {
     private TextField departTextField;
     @FXML
     private TextField destinationTextField;
-    @FXML
-    private TextField placeTextField;
     @FXML
     private Pane datePane;
     @FXML
@@ -81,6 +78,16 @@ public class AddDemandeViewController implements Initializable {
     private JFXButton redirectButtonCov;
     @FXML
     private JFXButton redirectButtonCov1;
+    @FXML
+    private AnchorPane parent;
+    @FXML
+    private Pane timePane;
+    @FXML
+    private ProgressIndicator load;
+    @FXML
+    private JFXButton buttonSubmit;
+    @FXML
+    private Label errorLabel;
 
     /**
      * Initializes the controller class.
@@ -124,6 +131,10 @@ public class AddDemandeViewController implements Initializable {
         stage.setScene(scene);
         stage.setResizable(true);
         stage.show();
+    }
+
+    @FXML
+    private void submitAdd(ActionEvent event) {
     }
     
 }
