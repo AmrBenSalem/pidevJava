@@ -106,11 +106,7 @@ public class OwnDemandesViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        try {
-            cs = new ServiceCoVoiturage();
-        } catch (SQLException ex) {
-            Logger.getLogger(DemandesViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        cs = new ServiceCoVoiturage();
         cr = new ServiceCoVoiturageRequests();
         try {
             Instance();

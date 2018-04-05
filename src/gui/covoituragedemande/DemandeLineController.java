@@ -59,11 +59,7 @@ public class DemandeLineController implements Initializable {
         // TODO
         DemandesViewController.littlePane = redPane;
         
-        try {
-            cs = new ServiceCoVoiturage();
-        } catch (SQLException ex) {
-            Logger.getLogger(DemandeLineController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        cs = new ServiceCoVoiturage();
     }
 
     

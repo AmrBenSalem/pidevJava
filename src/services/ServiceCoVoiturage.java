@@ -26,7 +26,7 @@ public class ServiceCoVoiturage {
 
     public Connection con = DataSource.getInstance().getConnection();
 
-    public ServiceCoVoiturage() throws SQLException {
+    public ServiceCoVoiturage() {
 
     }
 
@@ -220,6 +220,14 @@ public class ServiceCoVoiturage {
             co.add(new CoVoiturage(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getTimestamp(6), rs.getString(7), rs.getInt(8), rs.getString(9), rs.getString(10), rs.getTimestamp(11), rs.getTimestamp(12), rs.getDouble(13), rs.getDouble(14)));
         }
         return co;
+    }
+    
+    public boolean hasPlaceDisponible(int id){
+        CoVoiturage cov = this.readCoVoiturage(id);
+        if (cov.getPlacedisponibles() > 0){
+            return true;
+        }
+        return false;
     }
     
 

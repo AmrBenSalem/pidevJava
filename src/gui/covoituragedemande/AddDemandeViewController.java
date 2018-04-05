@@ -385,64 +385,55 @@ public class AddDemandeViewController implements Initializable {
                 }
             }
         }
-        try {
-
-            ServiceCoVoiturage scov = new ServiceCoVoiturage();
-            Timestamp ts = null;
-            if (onoff.equals("off")) {
-                ts = Timestamp.valueOf(dt);
-            }
-            System.out.println(departTextField.getText());
-            System.out.println(destinationTextField.getText());
-            System.out.println(ts);
-            System.out.println(onoff);
-            System.out.println(origin_place_id);
-            System.out.println(dest_place_id);
-            System.out.println(originLat);
-            System.out.println(originLng);
-
-            if (departTextField.getText().equals("Votre emplacement")) {
-                departTextField.setText(c.getCapital().getCity() + "," + c.getCapital().getCountry());
-            }
-            //Timestamp t = new Timestamp(dateTextField.getValue().getYear(),dateTextField.getValue().getMonthValue(), dateTextField.getValue().getDayOfMonth(),, 0, 0, 0)
-            
-            CoVoiturage cov = new CoVoiturage(Session.getUser().getId(), "d", departTextField.getText(), destinationTextField.getText(), ts, onoff, 0, origin_place_id, dest_place_id, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), originLat, originLng);
-            if ("on".equals(onoff)) {
-                String lundi = null;
-                String mardi = null;
-                String mercredi = null;
-                String jeudi = null;
-                String vendredi = null;
-                String samedi = null;
-                if (lundiButton.isSelected()) {
-                    lundi = "y";
-                }
-                if (mardiButton.isSelected()) {
-                    mardi = "y";
-                }
-                if (mercrediButton.isSelected()) {
-                    mercredi = "y";
-                }
-                if (jeudiButton.isSelected()) {
-                    jeudi = "y";
-                }
-                if (vendrediButton.isSelected()) {
-                    vendredi = "y";
-                }
-                if (samediButton.isSelected()) {
-                    samedi = "y";
-                }
-                CoVoiturageDays cod = new CoVoiturageDays(lundi, mardi, mercredi, jeudi, vendredi, samedi, 0);
-                scov.addCoVoiturage(cov, cod);
-            } else {
-                scov.addCoVoiturage(cov);
-            }
-
-            redirectToDemandes(event);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(AddDemandeViewController.class.getName()).log(Level.SEVERE, null, ex);
+        ServiceCoVoiturage scov = new ServiceCoVoiturage();
+        Timestamp ts = null;
+        if (onoff.equals("off")) {
+            ts = Timestamp.valueOf(dt);
         }
+        System.out.println(departTextField.getText());
+        System.out.println(destinationTextField.getText());
+        System.out.println(ts);
+        System.out.println(onoff);
+        System.out.println(origin_place_id);
+        System.out.println(dest_place_id);
+        System.out.println(originLat);
+        System.out.println(originLng);
+        if (departTextField.getText().equals("Votre emplacement")) {
+            departTextField.setText(c.getCapital().getCity() + "," + c.getCapital().getCountry());
+        }
+        //Timestamp t = new Timestamp(dateTextField.getValue().getYear(),dateTextField.getValue().getMonthValue(), dateTextField.getValue().getDayOfMonth(),, 0, 0, 0)
+        CoVoiturage cov = new CoVoiturage(Session.getUser().getId(), "d", departTextField.getText(), destinationTextField.getText(), ts, onoff, 0, origin_place_id, dest_place_id, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), originLat, originLng);
+        if ("on".equals(onoff)) {
+            String lundi = null;
+            String mardi = null;
+            String mercredi = null;
+            String jeudi = null;
+            String vendredi = null;
+            String samedi = null;
+            if (lundiButton.isSelected()) {
+                lundi = "y";
+            }
+            if (mardiButton.isSelected()) {
+                mardi = "y";
+            }
+            if (mercrediButton.isSelected()) {
+                mercredi = "y";
+            }
+            if (jeudiButton.isSelected()) {
+                jeudi = "y";
+            }
+            if (vendrediButton.isSelected()) {
+                vendredi = "y";
+            }
+            if (samediButton.isSelected()) {
+                samedi = "y";
+            }
+            CoVoiturageDays cod = new CoVoiturageDays(lundi, mardi, mercredi, jeudi, vendredi, samedi, 0);
+            scov.addCoVoiturage(cov, cod);
+        } else {
+            scov.addCoVoiturage(cov);
+        }
+        redirectToDemandes(event);
     }
 
 }

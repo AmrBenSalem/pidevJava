@@ -61,6 +61,8 @@ import javafx.scene.paint.Color;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import javax.management.Notification;
 import services.ServiceCoVoiturage;
+import services.ServiceCoVoiturageDays;
+import services.ServiceCoVoiturageRequests;
 import util.Capitals;
 import util.GooglePlacesAPI;
 import util.TimeSpinner;
@@ -145,7 +147,6 @@ public class UpdateDemandeViewController implements Initializable {
         if (cov.getOnetime().equals("off")){
              timeSpinner= new TimeSpinner(cov.getDate().toLocalDateTime().toLocalTime());
         }
-        System.out.println("bb");
         timePane.getChildren().add(timeSpinner);
         drawerLeft.open();
         //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
@@ -179,6 +180,18 @@ public class UpdateDemandeViewController implements Initializable {
         
         if (cov.getOnetime().equals("off")){
             dateTextField.setValue(cov.getDate().toLocalDateTime().toLocalDate());
+        } else {
+            onoff = "on";
+            daysPane.setVisible(true);
+            datePane.setVisible(false);
+            check = false;
+            ServiceCoVoiturageDays scor = new ServiceCoVoiturageDays();
+            if (scor.GetCovoiturageDays(cov).getLundi() != null) lundiButton.setSelected(true);
+            if (scor.GetCovoiturageDays(cov).getMardi() != null) mardiButton.setSelected(true);
+            if (scor.GetCovoiturageDays(cov).getMercredi()!= null) mercrediButton.setSelected(true);
+            if (scor.GetCovoiturageDays(cov).getJeudi()!= null) jeudiButton.setSelected(true);
+            if (scor.GetCovoiturageDays(cov).getVendredi() != null) vendrediButton.setSelected(true);
+            if (scor.GetCovoiturageDays(cov).getSamedi() != null) samediButton.setSelected(true);
         }
         
         departTextField.setText(cov.getDepart());
