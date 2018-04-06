@@ -146,26 +146,26 @@ show_info.setStyle("-fx-background-color: #f7e4d9;");
 
     @FXML
     private void recherche_onClick(ActionEvent event) {
-            gridevent.getChildren().clear();
-            ServiceEvent se = new ServiceEvent();
-            List<Event> events = new ArrayList<>();
+        gridevent.getChildren().clear();
+        ServiceEvent se = new ServiceEvent();
+        List<Event> events = new ArrayList<>();
         try {
-            events= se.selectEvent();
+            events = se.selectEvent();
         } catch (SQLException ex) {
             Logger.getLogger(ListEventController.class.getName()).log(Level.SEVERE, null, ex);
         }
-            int j = 0;
-            int k = 0;
-            int y=0;
-            ColumnConstraints colConstraint = new ColumnConstraints(120);
-            colConstraint.setHalignment(HPos.LEFT);
+        int j = 0;
+        int k = 0;
+        int y = 0;
+        ColumnConstraints colConstraint = new ColumnConstraints(120);
+        colConstraint.setHalignment(HPos.LEFT);
 
-            RowConstraints rowConstraints = new RowConstraints(130);
-            rowConstraints.setValignment(VPos.CENTER);
-            for (Event e : events) {
-            
-                if (e.getTitre().toLowerCase().contains(recherche_input.getText().toLowerCase())
-                        || e.getDescription().toLowerCase().equals(recherche_input.getText().toLowerCase())) {
+        RowConstraints rowConstraints = new RowConstraints(130);
+        rowConstraints.setValignment(VPos.CENTER);
+        for (Event e : events) {
+
+            if (e.getTitre().toLowerCase().contains(recherche_input.getText().toLowerCase())
+                    || e.getDescription().toLowerCase().contains(recherche_input.getText().toLowerCase())) {
                 
              
                   //  System.out.println("ok !!!!");
