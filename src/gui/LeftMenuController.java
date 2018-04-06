@@ -75,13 +75,14 @@ public class LeftMenuController implements Initializable {
                 break;
 
             case "b3":
-                Parent Objet = null;
+                Parent objet = null;
                 try {
-                 page = FXMLLoader.load(getClass().getResource("ja/ObjetView.fxml"));
-                } catch (IOException ex) {
+                 objet = FXMLLoader.load(getClass().getResource("/ja/ObjetView.fxml"));
+                } 
+                catch (IOException ex) {
                     Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                Scene Objetscene = new Scene(Objet);
+                Scene Objetscene = new Scene(objet);
                 Stage Objetstage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Objetstage.hide();
                 Objetstage.setScene(Objetscene);

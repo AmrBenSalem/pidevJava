@@ -151,8 +151,8 @@ public class AuthentificationController implements Initializable {
                     } else {
                         System.out.println("admin");
                         Parent root = FXMLLoader.load(getClass().getResource("/ja/Admin.fxml"));
-
-                        Scene scene = new Scene(root);
+ 
+                       Scene scene = new Scene(root);
 
                         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 

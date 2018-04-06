@@ -40,26 +40,33 @@ import services.ObjetCRUD;
 public class ajoutObjTrouvController implements Initializable {
     
     
+    @FXML
     private TextArea Lieux;
   
      
+    @FXML
     private TextArea Desc;
     
     
+    @FXML
     private DatePicker Dat;
     
        
+    @FXML
     private ChoiceBox<String> Typ;
     
+    @FXML
     private Button Ajout;
     
     
+    @FXML
     private TextField tof;
     
     private File file1;
     @FXML
-    private ListView<?> listOT;
+    private Button Parcourir;
     
+    @FXML
     protected void handleButtonAction(ActionEvent event) {
         
         Window owner = Ajout.getScene().getWindow();
@@ -85,6 +92,7 @@ public class ajoutObjTrouvController implements Initializable {
     
     
     
+    @FXML
     public void chooseImage(ActionEvent ev)
     {
         Window owner = tof.getScene().getWindow();

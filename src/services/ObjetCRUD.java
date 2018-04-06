@@ -73,17 +73,17 @@ public class ObjetCRUD {
         }
         return myList;
     }
-         
          public List<Objet> affichobjperd(){
          List<Objet> myList = new ArrayList<Objet>();
         try {
            
-            String requete2 = "SELECT * FROM objet where Nature='Objet Perdu' and enable=1";
+            String requete2 = "SELECT * FROM objet where Nature like 'Objet Perdu' and enable=1";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(requete2);
-            
             while(rs.next()){
+                
                 Objet o = new Objet();
+                o.setId(rs.getInt(1));
                 o.setUser(rs.getInt(2));
                 o.setType(rs.getString(3));
                 o.setDescription(rs.getString(4));
@@ -105,12 +105,13 @@ public class ObjetCRUD {
          List<Objet> myList = new ArrayList<Objet>();
         try {
            
-            String requete2 = "SELECT * FROM objet where Nature='Objet Trouvé' and enable=1";
+            String requete2 = "SELECT * FROM objet where Nature like 'Objet Trouvé' and enable=1";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(requete2);
-            
             while(rs.next()){
+                
                 Objet o = new Objet();
+                o.setId(rs.getInt(1));
                 o.setUser(rs.getInt(2));
                 o.setType(rs.getString(3));
                 o.setDescription(rs.getString(4));
@@ -130,10 +131,9 @@ public class ObjetCRUD {
     }
          
          
-         public void supprimerColocation(Objet o,int id){
+         public void supprimerObjet(Objet o,int id){
         try {
-            String requete = "DELETE FROM"
-                    + " objet WHERE id=?";
+            String requete = "DELETE FROM objet WHERE id=?";
             PreparedStatement pst = con.prepareStatement(requete);
             pst.setInt(1, id);
             pst.executeUpdate();
@@ -144,13 +144,16 @@ public class ObjetCRUD {
         }
     }
          
-         public void modifierColocation(Objet o,int id){
+         public void modifierObjet(Objet o,int id){
         try {
-            String requete = "UPDATE  objet SET Nature=? WHERE id=?";
+            String requete = "UPDATE `objet` SET Type=?,Description=? ,Date=?,Lieu=?,Photo=? WHERE id=?";
             PreparedStatement pst = con.prepareStatement(requete);
-            pst.setInt(2,id);
-            pst.setString(1, o.getNature());
-           
+            pst.setString(1, o.getType());
+            pst.setString(2, o.getDescription());
+            pst.setDate(3, new java.sql.Date(o.getDate().getTime()));
+            pst.setString(4, o.getLieu());
+            pst.setString(5, o.getPhoto());
+            pst.setInt(6,id);
             pst.executeUpdate();
             System.out.println("Objet modifié");
             
@@ -158,5 +161,26 @@ public class ObjetCRUD {
             System.err.println(ex.getMessage());
         }
     }
+         
+         public Objet getByID(int id) throws SQLException{
+          Objet o = new Objet();
+             String requete2 = "SELECT * FROM objet where id=?";
+             PreparedStatement pre=con.prepareStatement(requete2);
+             pre.setInt(1,id);
+             ResultSet rs=pre.executeQuery();
+             while(rs.next()){
+             o.setDate(rs.getDate("Date"));
+             o.setDescription(rs.getString("Description"));
+             o.setEnable(rs.getBoolean("Enable"));
+             o.setId(rs.getInt("Id"));
+             o.setLieu(rs.getString("Lieu"));
+             o.setNature(rs.getString("Nature"));
+             o.setPhoto(rs.getString("Photo"));
+             o.setType(rs.getString("Type"));
+             o.setUser(rs.getInt("User"));
+             }
+             
+             return o;
+         }
     
 }

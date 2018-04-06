@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ja.ModifObjTrouvController">
+   <children>
+      <Label layoutX="35.0" layoutY="57.0" text="Photo" />
+      <Label layoutX="40.0" layoutY="118.0" prefHeight="25.0" prefWidth="22.0" text="Lieu" />
+      <Label layoutX="37.0" layoutY="195.0" prefHeight="17.0" prefWidth="28.0" text="Type" />
+      <Label layoutX="35.0" layoutY="262.0" prefHeight="17.0" prefWidth="32.0" text="Date" />
+      <Label layoutX="31.0" layoutY="306.0" text="Description" />
+      <ChoiceBox fx:id="Typ" layoutX="126.0" layoutY="191.0" prefWidth="150.0" />
+      <DatePicker fx:id="Dat" layoutX="124.0" layoutY="258.0" />
+      <TextArea fx:id="Desc" layoutX="124.0" layoutY="312.0" prefHeight="75.0" prefWidth="200.0" />
+      <TextArea fx:id="Lieux" layoutX="126.0" layoutY="111.0" prefHeight="17.0" prefWidth="200.0" />
+      <Button fx:id="Ajout" layoutX="516.0" layoutY="430.0" mnemonicParsing="false" onAction="#Modifier" prefHeight="25.0" prefWidth="75.0" text="Modifier" />
+      <TextField id="tof" fx:id="tof" layoutX="124.0" layoutY="45.0" prefHeight="25.0" prefWidth="200.0" />
+      <Button id="Parcourir" fx:id="Parcourir" layoutX="348.0" layoutY="45.0" mnemonicParsing="false" onAction="#chooseImage" text="Parcourir" />
+   </children>
+</AnchorPane>

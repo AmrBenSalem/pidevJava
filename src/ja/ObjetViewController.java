@@ -96,7 +96,7 @@ public class ObjetViewController implements Initializable {
     private void affichObjTrouvAction(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("affichObjTrouvView.fxml"));
+            page = FXMLLoader.load(getClass().getResource("affichObjTrouv.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
