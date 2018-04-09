@@ -46,10 +46,13 @@ import javafx.stage.Stage;
 import entities.Adresse;
 import entities.CoVoiturage;
 import entities.CoVoiturageDays;
+import entities.Session;
+import entities.User;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javafx.geometry.Pos;
 import javafx.scene.layout.Background;
@@ -60,6 +63,7 @@ import javafx.scene.paint.Color;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import javax.management.Notification;
 import services.ServiceCoVoiturage;
+import services.UserCRUD;
 import util.Capitals;
 import util.GooglePlacesAPI;
 import util.TimeSpinner;
@@ -87,7 +91,7 @@ public class AddOffreViewController implements Initializable {
     @FXML
     private Pane datePane;
     @FXML
-    private DatePicker dateTextField;
+    private DatePicker dateTextField = new DatePicker(LocalDate.now()); 
     @FXML
     private Pane daysPane;
     @FXML
@@ -139,9 +143,11 @@ public class AddOffreViewController implements Initializable {
     private JFXButton buttonSubmit;
     @FXML
     private Pane timePane;
-    TimeSpinner timeSpinner = new TimeSpinner();
+    TimeSpinner timeSpinner;
     @FXML
     private Label errorLabel;
+    public User user = Session.getUser();
+    public UserCRUD SUser = new UserCRUD();
 
     /**
      * Initializes the controller class.
@@ -150,11 +156,10 @@ public class AddOffreViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         //System.out.println(c.getCapital());
-        timeSpinner = new TimeSpinner();
+        timeSpinner = new TimeSpinner(LocalTime.now());
         timePane.getChildren().add(timeSpinner);
         drawerLeft.open();
         //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
-
         try {
             VBox box = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
             drawerLeft.setSidePane(box);
@@ -385,65 +390,56 @@ public class AddOffreViewController implements Initializable {
             errorLabel.setVisible(true);
             return;
         }
-        try {
-
-            ServiceCoVoiturage scov = new ServiceCoVoiturage();
-            Timestamp ts = null;
-            if (onoff.equals("off")) {
-                ts = Timestamp.valueOf(dt);
-            }
-            System.out.println(departTextField.getText());
-            System.out.println(destinationTextField.getText());
-            System.out.println(ts);
-            System.out.println(onoff);
-            System.out.println(placeTextField.getText());
-            System.out.println(origin_place_id);
-            System.out.println(dest_place_id);
-            System.out.println(originLat);
-            System.out.println(originLng);
-
-            if (departTextField.getText().equals("Votre emplacement")) {
-                departTextField.setText(c.getCapital().getCity() + "," + c.getCapital().getCountry());
-            }
-            //Timestamp t = new Timestamp(dateTextField.getValue().getYear(),dateTextField.getValue().getMonthValue(), dateTextField.getValue().getDayOfMonth(),, 0, 0, 0)
-
-            CoVoiturage cov = new CoVoiturage(5, "o", departTextField.getText(), destinationTextField.getText(), ts, onoff, Integer.parseInt(placeTextField.getText()), origin_place_id, dest_place_id, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), originLat, originLng);
-            if ("on".equals(onoff)) {
-                String lundi = null;
-                String mardi = null;
-                String mercredi = null;
-                String jeudi = null;
-                String vendredi = null;
-                String samedi = null;
-                if (lundiButton.isSelected()) {
-                    lundi = "y";
-                }
-                if (mardiButton.isSelected()) {
-                    mardi = "y";
-                }
-                if (mercrediButton.isSelected()) {
-                    mercredi = "y";
-                }
-                if (jeudiButton.isSelected()) {
-                    jeudi = "y";
-                }
-                if (vendrediButton.isSelected()) {
-                    vendredi = "y";
-                }
-                if (samediButton.isSelected()) {
-                    samedi = "y";
-                }
-                CoVoiturageDays cod = new CoVoiturageDays(lundi, mardi, mercredi, jeudi, vendredi, samedi, 0);
-                scov.addCoVoiturage(cov, cod);
-            } else {
-                scov.addCoVoiturage(cov);
-            }
-
-            redirectToOffres(event);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(AddOffreViewController.class.getName()).log(Level.SEVERE, null, ex);
+        ServiceCoVoiturage scov = new ServiceCoVoiturage();
+        Timestamp ts = null;
+        if (onoff.equals("off")) {
+            ts = Timestamp.valueOf(dt);
         }
+        System.out.println(departTextField.getText());
+        System.out.println(destinationTextField.getText());
+        System.out.println(ts);
+        System.out.println(onoff);
+        System.out.println(placeTextField.getText());
+        System.out.println(origin_place_id);
+        System.out.println(dest_place_id);
+        System.out.println(originLat);
+        System.out.println(originLng);
+        if (departTextField.getText().equals("Votre emplacement")) {
+            departTextField.setText(c.getCapital().getCity() + "," + c.getCapital().getCountry());
+        }
+        //Timestamp t = new Timestamp(dateTextField.getValue().getYear(),dateTextField.getValue().getMonthValue(), dateTextField.getValue().getDayOfMonth(),, 0, 0, 0)
+        CoVoiturage cov = new CoVoiturage(Session.getUser().getId(), "o", departTextField.getText(), destinationTextField.getText(), ts, onoff, Integer.parseInt(placeTextField.getText()), origin_place_id, dest_place_id, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), originLat, originLng);
+        if ("on".equals(onoff)) {
+            String lundi = null;
+            String mardi = null;
+            String mercredi = null;
+            String jeudi = null;
+            String vendredi = null;
+            String samedi = null;
+            if (lundiButton.isSelected()) {
+                lundi = "y";
+            }
+            if (mardiButton.isSelected()) {
+                mardi = "y";
+            }
+            if (mercrediButton.isSelected()) {
+                mercredi = "y";
+            }
+            if (jeudiButton.isSelected()) {
+                jeudi = "y";
+            }
+            if (vendrediButton.isSelected()) {
+                vendredi = "y";
+            }
+            if (samediButton.isSelected()) {
+                samedi = "y";
+            }
+            CoVoiturageDays cod = new CoVoiturageDays(lundi, mardi, mercredi, jeudi, vendredi, samedi, 0);
+            scov.addCoVoiturage(cov, cod);
+        } else {
+            scov.addCoVoiturage(cov);
+        }
+        redirectToOffres(event);
     }
 
 }

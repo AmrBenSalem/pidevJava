@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.covoiturage;
+package gui.covoituragedemande;
 
+import gui.covoiturage.*;
 import com.jfoenix.controls.JFXButton;
 import entities.CoVoiturage;
 import java.net.URL;
@@ -26,7 +27,7 @@ import services.ServiceCoVoiturage;
  *
  * @author Justpro
  */
-public class OffreLineController implements Initializable {
+public class DemandeLineController implements Initializable {
 
     @FXML
     public Pane redPane;
@@ -56,7 +57,7 @@ public class OffreLineController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        OffresViewController.littlePane = redPane;
+        DemandesViewController.littlePane = redPane;
         
         cs = new ServiceCoVoiturage();
     }

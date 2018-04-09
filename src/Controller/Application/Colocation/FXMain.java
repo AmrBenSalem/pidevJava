@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ja;
+package Controller.Application.Colocation;
 
+import gui.*;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,17 +17,18 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author bader
+ * @author Justpro
  */
-public class Ja extends Application {
-    
+public class FXMain extends Application {
     @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("authentification.fxml"));        
-        Scene scene = new Scene(root);        
+    public void start(Stage stage) throws IOException {
+   
+        Parent root = FXMLLoader.load(getClass().getResource("ListeDemande.fxml"));
+        Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setResizable(true);
         stage.show();
-    }
+       }
 
     /**
      * @param args the command line arguments

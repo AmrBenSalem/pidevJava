@@ -15,6 +15,15 @@ import java.text.DateFormat;
  */
 public class Session {
      private static int IdThisUser=0;
+     public static User user;
+
+    public static User getUser() {
+        return user;
+    }
+
+    public static void setUser(User user) {
+        Session.user = user;
+    }
      private static Date DateThisDay;    
      public static int idLocal;
      public static int idAnnonce;

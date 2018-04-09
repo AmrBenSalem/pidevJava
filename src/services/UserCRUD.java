@@ -33,9 +33,13 @@ public class UserCRUD implements IUserService {
     Statement ste ;
     Connection myconnection;
     
-        public UserCRUD() throws SQLException {
-        myconnection = DataSource.getInstance().getConnection();
-        ste = myconnection.createStatement();
+        public UserCRUD() {
+        try {
+            myconnection = DataSource.getInstance().getConnection();
+            ste = myconnection.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override
@@ -241,12 +245,12 @@ public class UserCRUD implements IUserService {
     }
         public User getUser(int id) {
         try {
-          String req = "select username,email,password,nom,prenom,enabled,id from user where id=?";
+          String req = "select id,username,email,password ,enabled ,nom,prenom from user where id=?";
             PreparedStatement ps = myconnection.prepareStatement(req);
             ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
                     while (rs.next()) {
-                User user = new User( rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getInt(6),rs.getInt(7));
+                User user = new User( rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6),rs.getString(7));
                 return user;
             }
                     

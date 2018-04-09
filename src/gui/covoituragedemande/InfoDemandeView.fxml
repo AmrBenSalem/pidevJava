@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane id="AnchorPane" fx:id="parent" prefHeight="600.0" prefWidth="1110.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.covoiturage.InfoOffreViewController">
+<AnchorPane id="AnchorPane" fx:id="parent" prefHeight="600.0" prefWidth="1110.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.covoituragedemande.InfoDemandeViewController">
    <children>
       <JFXDrawer fx:id="drawerLeft" prefHeight="600.0" prefWidth="86.0">
          <children>
@@ -27,9 +27,9 @@
             </Label>
             <JFXButton fx:id="redirectButtonCov" layoutX="11.0" layoutY="27.0" onAction="#redirectToCoVoiturage" style="-fx-background-color: transparent;" text="Co-Voiturage" textFill="#ec4444" />
             <Label layoutX="98.0" layoutY="32.0" opacity="0.35" text="/" />
-            <JFXButton fx:id="redirectButtonCov1" layoutX="103.0" layoutY="28.0" onAction="#redirectToOffres" style="-fx-background-color: transparent;" text="Offres" textFill="#ec4444" />
-            <Label layoutX="149.0" layoutY="32.0" opacity="0.35" text="/" />
-            <Label layoutX="157.0" layoutY="32.0" opacity="0.6" text="Informations" />
+            <JFXButton fx:id="redirectButtonCov1" layoutX="103.0" layoutY="28.0" onAction="#redirectToDemandes" style="-fx-background-color: transparent;" text="Demandes" textFill="#ec4444" />
+            <Label layoutX="170.0" layoutY="27.0" opacity="0.35" prefHeight="27.0" prefWidth="11.0" text="/" />
+            <Label layoutX="181.0" layoutY="32.0" opacity="0.6" text="Informations" />
          </children>
       </Pane>
       <Pane fx:id="CoVoiturage1" layoutX="83.0" layoutY="152.0" prefHeight="448.0" prefWidth="1025.0" style="-fx-background-color: #f0f0f0;">
@@ -73,16 +73,6 @@
             <Label fx:id="labelDateD" layoutX="48.0" layoutY="277.0" prefHeight="16.0" prefWidth="312.0" text="Date" textFill="#000000ab">
                <font>
                   <Font name="Arial" size="13.0" />
-               </font>
-            </Label>
-            <Label layoutX="48.0" layoutY="314.0" prefHeight="21.0" prefWidth="156.0" text="Places disponibles" textFill="#ec4444">
-               <font>
-                  <Font name="Arial" size="17.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelPlaceDispo" layoutX="48.0" layoutY="341.0" text="Date" textFill="#000000ab">
-               <font>
-                  <Font name="Arial" size="17.0" />
                </font>
             </Label>
             <Pane fx:id="daysPane" layoutX="49.0" layoutY="247.0" prefHeight="67.0" prefWidth="277.0" visible="false">

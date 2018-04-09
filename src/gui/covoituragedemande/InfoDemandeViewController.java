@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gui.covoiturage;
+package gui.covoituragedemande;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
@@ -45,7 +45,7 @@ import util.GooglePlacesAPI;
  *
  * @author Justpro
  */
-public class InfoOffreViewController implements Initializable {
+public class InfoDemandeViewController implements Initializable {
 
     @FXML
     private AnchorPane parent;
@@ -91,8 +91,6 @@ public class InfoOffreViewController implements Initializable {
     private CheckBox mardiButton;
     @FXML
     private ProgressIndicator load;
-    @FXML
-    private Label labelPlaceDispo;
 
     /**
      * Initializes the controller class.
@@ -106,7 +104,7 @@ public class InfoOffreViewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(DashboardCoVoiturageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        CoVoiturage cov = OffresViewController.covInfo;
+        CoVoiturage cov = DemandesViewController.covInfo;
 
         for (int x = 0; x < CoVoiturage1.getChildren().size(); x++) {
             System.out.println(x + "  " + CoVoiturage1.getChildren().get(x).toString());
@@ -145,7 +143,6 @@ public class InfoOffreViewController implements Initializable {
             labelQuotidiennement.setText("Non");
             labelDateD.setText(String.valueOf(cov.getDate()));
         }
-        labelPlaceDispo.setText(String.valueOf(cov.getPlacedisponibles()));
 
         List<Adresse> opt = GooglePlacesAPI.autoCompleteAddress(cov.getDestination());
         setParams(cov.getDepart_lat(), cov.getDepart_lng(), opt.get(0).getLatitude(), opt.get(0).getLongitude(), parent);
@@ -174,7 +171,7 @@ public class InfoOffreViewController implements Initializable {
     private void redirectToCoVoiturage(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("CoVoiturageView.fxml"));
+            page = FXMLLoader.load(getClass().getResource("/gui/covoiturage/CoVoiturageView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -187,10 +184,10 @@ public class InfoOffreViewController implements Initializable {
     }
 
     @FXML
-    private void redirectToOffres(ActionEvent event) {
+    private void redirectToDemandes(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("OffresView.fxml"));
+            page = FXMLLoader.load(getClass().getResource("DemandesView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }

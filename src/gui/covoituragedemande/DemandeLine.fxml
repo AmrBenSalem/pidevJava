@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="redPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="1013.0" style="-fx-background-color: white; -fx-border-color: #f0f0f0;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.covoiturage.OffreLineController">
+<Pane fx:id="redPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="1013.0" style="-fx-background-color: white; -fx-border-color: #f0f0f0;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.covoituragedemande.DemandeLineController">
    <children>
       <JFXButton layoutX="1.0" layoutY="17.0" onAction="#InfoAction" prefHeight="26.0" prefWidth="5.0" text=" ">
          <graphic>

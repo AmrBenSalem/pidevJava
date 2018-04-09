@@ -50,6 +50,16 @@ public class User {
         this.prenom = prenom;
     }
 
+    public User(int id, String userName, String email, String password, int enabled, String nom, String prenom) {
+        this.id = id;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.enabled = enabled;
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+
  
 
     public Date getDateNaissance() {
