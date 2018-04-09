@@ -18,4 +18,7 @@ public interface IEvent {
     public  void updateEvent( Event e,int id)throws SQLException;
     public  void supprimerEvent( int id)throws SQLException;
     public  List<Event> selectEvent()throws SQLException;
+    public List<Event> listEventsUser(int iduser)throws SQLException;
+    public void approuverEvent(int idevent) throws SQLException;
+    public void participer(int avis,int idevent,int iduser);
 }

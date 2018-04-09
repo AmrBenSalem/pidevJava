@@ -38,17 +38,18 @@ public class Validation {
     
     }
     
-    public static boolean textalphabet(TextField tf ,Label lb,String errorMessage)
-    {
-    boolean isAlphabet =true;
     
-    String validationString=null;
-    if(!tf.getText().matches("[a-z A-Z]+")){
-    isAlphabet=false;
-    
-    }
-    lb.setText(errorMessage);
-       // System.out.println(tf.getText().matches("[a-z A-Z]+"));
+
+    public static boolean textalphabet(TextField tf, Label lb, String errorMessage) {
+        boolean isAlphabet = true;
+
+        String validationString = null;
+        if (!tf.getText().matches("[a-z A-Z]+")) {
+            isAlphabet = false;
+
+        }
+        lb.setText(errorMessage);
+        // System.out.println(tf.getText().matches("[a-z A-Z]+"));
         return isAlphabet;
     
 }

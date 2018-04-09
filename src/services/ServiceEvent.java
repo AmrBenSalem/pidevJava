@@ -6,7 +6,9 @@
 package services;
 
 import IServices.IEvent;
+import entities.Avis;
 import entities.Event;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.management.Notification;
+import org.controlsfx.control.Notifications;
 import util.DataSource;
 
 /**
@@ -58,8 +62,8 @@ public class ServiceEvent implements IEvent{
         pre.setInt(9,e.getEnable()); 
         pre.setString(10, e.getCategorie());
         pre.setDate(11,e.getCreatedAt());
-        pre.setDouble(12,e.getX());
-        pre.setDouble(13, e.getY());
+        pre.setDouble(12,10);
+        pre.setDouble(13, 36);
         
 
         
@@ -88,8 +92,8 @@ public class ServiceEvent implements IEvent{
                 pre.setInt(9,e.getEnable()); 
                 pre.setString(10, e.getCategorie());
                 pre.setDate(11,e.getCreatedAt());
-                pre.setDouble(12,e.getX());
-                pre.setDouble(13, e.getY());
+                pre.setDouble(12,36.805945026056);
+                pre.setDouble(13, 10.180844954492);
                 pre.setInt(14,id);
 
 
@@ -105,19 +109,21 @@ public class ServiceEvent implements IEvent{
                  Statement pre=con.createStatement();
                  pre.executeUpdate(req);
                   System.out.println("Event supprimer");
+                 
+                  
         }
 
     public  List<Event> selectEvent() throws SQLException
       {
        List<Event> list=new ArrayList<>();
          
-            String req="SELECT * FROM Event";
+            String req="SELECT * FROM Event where enable='"+1+"' ";
             PreparedStatement ste= con.prepareStatement(req);
             ResultSet result=ste.executeQuery();
             
             while(result.next())
             {
-            Event e= new Event (result.getInt("id"),result.getString("titre"),result.getString("description")
+            Event e= new Event (result.getInt("id"),result.getInt("user"),result.getString("titre"),result.getString("description")
                     ,result.getDate("dateDebut"),result.getDate("dateFin")
                     ,result.getString("lieu"),result.getString("photo")
                     ,result.getInt("nb_max"),result.getInt("enable"),result.getString("categorie"),result.getDate("createdAt"),result.getDouble("x"),result.getDouble("y"));
@@ -146,8 +152,8 @@ public class ServiceEvent implements IEvent{
                   e.setDateDebut(result.getDate(5));
                   e.setDateFin(result.getDate(6));
                   e.setLieu(result.getString(7));
-                  e.setX(result.getDouble(8));
-                  e.setY(result.getDouble(9));
+                  e.setX(36.805945026056);
+                  e.setY(10.180844954492);
                   e.setPhoto(result.getString(10));
                   e.setNb_max(result.getInt(11));
                   e.setEnable(result.getInt(12));
@@ -160,6 +166,50 @@ public class ServiceEvent implements IEvent{
         }
         return e;
      }
+    
+    @Override
+    public List<Event> listEventsUser(int iduser) throws SQLException {
+        
+        List<Event> list=new ArrayList<>();
+         
+            String req="SELECT * FROM Event where user="+iduser;
+            PreparedStatement ste= con.prepareStatement(req);
+            ResultSet result=ste.executeQuery();
+            
+            while(result.next())
+            {
+            Event e= new Event (result.getInt("id"),result.getInt("user"),result.getString("titre"),result.getString("description")
+                    ,result.getDate("dateDebut"),result.getDate("dateFin")
+                    ,result.getString("lieu"),result.getString("photo")
+                    ,result.getInt("nb_max"),result.getInt("enable"),result.getString("categorie"),result.getDate("createdAt"),result.getDouble("x"),result.getDouble("y"));
+            list.add(e);
+            }
+           
+       return list;
+        
+    }
+    
+    
+    public void participer(int avis,int idevent,int iduser){
+        
+        ServiceAvis sa = new ServiceAvis();
+        Avis a = new Avis();
+        a.setIdevent(idevent);
+        a.setIduser(iduser);
+        a.setAvis(0);
+        
+        sa.ajouterParticipation(avis,idevent,iduser);
+        
+    }
+    
+    public void approuverEvent(int idevent) throws SQLException{
+        
+        String req = "Update  `Event` set enable='"+1+"' WHERE id="+idevent;
+                 Statement pre=con.createStatement();
+                 pre.executeUpdate(req);
+                  System.out.println("Event Approuvé");
+        
+    }
 
     
 }

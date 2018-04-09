@@ -6,27 +6,21 @@
 package Controller.Event;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import entities.Event;
 import java.net.URL;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.web.WebView;
-import services.ServiceEvent;
+import org.controlsfx.control.Rating;
 
 /**
  * FXML Controller class
@@ -36,9 +30,7 @@ import services.ServiceEvent;
 public class ShowEventController implements Initializable {
 
     @FXML
-    private JFXDrawer drawerLeft;
-    @FXML
-    private Pane CoVoiturage;
+    private AnchorPane container_ajout;
     @FXML
     private JFXDrawer drawerTop;
     @FXML
@@ -47,8 +39,6 @@ public class ShowEventController implements Initializable {
     private JFXButton redirectButtonCov;
     @FXML
     private Pane CoVoiturage1;
-    @FXML
-    private WebView webView;
     @FXML
     private Pane datePane;
     @FXML
@@ -66,45 +56,28 @@ public class ShowEventController implements Initializable {
     @FXML
     private JFXTextField lieu;
     @FXML
+    private JFXButton photo;
+    @FXML
     private JFXTextField nbmax;
     @FXML
-    private JFXTextField x;
+    private JFXComboBox<?> categorie;
     @FXML
-    private JFXTextField y;
+    private JFXButton ajout;
     @FXML
-    private JFXButton modifier;
+    private Label lab_erreur;
     @FXML
-    private JFXTextField categorie;
+    private Label warning;
     @FXML
-    private JFXButton supprimer;
-    @FXML
-    private ImageView photo;
+    private Rating rate;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        rate.setVisible(true);
+        rate.setRating(5);
         // TODO
-        titre.setEditable(false);
-        description.setEditable(false);
-        datedebut.setEditable(false);
-        datefin.setEditable(false);
-        nbmax.setEditable(false);
-        x.setEditable(false);
-        y.setEditable(false);
-        
-        Event e = new Event();
-        ServiceEvent se = new ServiceEvent();
-        e = se.consulterEvent(0);
-        titre.setText(e.getTitre());
-        description.setText(e.getTitre());
-        datedebut.setValue(e.getDateDebut().toLocalDate());
-        datefin.setValue(e.getDateFin().toLocalDate());
-        nbmax.setText(e.getNb_max()+"");
-        x.setText(e.getX()+"");
-        y.setText(e.getY()+"");
-        
     }    
 
     @FXML
@@ -112,21 +85,15 @@ public class ShowEventController implements Initializable {
     }
 
     @FXML
-    private void edit(ActionEvent event) {
+    private void charger(ActionEvent event) {
     }
 
     @FXML
-    private void delete(ActionEvent event) throws SQLException {
-        ServiceEvent se = new ServiceEvent();
-        Event e = se.consulterEvent(2);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("supprimer");
-        alert.setHeaderText(null);
-        alert.setContentText("cliquer sur OK si tu veux supprimer sinon annuler");
-        Optional<ButtonType> action = alert.showAndWait();
-        if (action.get() == ButtonType.OK) {
-            se.supprimerEvent(e.getId());
-        }
+    private void ajout(ActionEvent event) {
+    }
+
+    @FXML
+    private void retour_events(ActionEvent event) {
     }
     
 }

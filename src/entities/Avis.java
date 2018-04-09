@@ -15,6 +15,14 @@ public class Avis {
     int iduser;
     int idevent;
 
+    public Avis(int avis, int iduser, int idevent) {
+        this.avis = avis;
+        this.iduser = iduser;
+        this.idevent = idevent;
+    }
+
+    
+    
     public Avis() {
     }
 

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane id="AnchorPane" fx:id="container" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Event.ListEventController">
+<AnchorPane id="AnchorPane" fx:id="container" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Event.UserEventsController">
    <children>
       <JFXButton layoutX="46.0" layoutY="15.0" onAction="#addEvent" text="Ajouter un événement" />
       <JFXTextField fx:id="recherche_input" layoutX="429.0" layoutY="15.0" onKeyPressed="#key_pressed" prefHeight="25.0" prefWidth="347.0" />
@@ -28,6 +28,6 @@
             </GridPane>
          </children>
       </StackPane>
-      <JFXButton layoutX="242.0" layoutY="15.0" onAction="#listuser_events" text="Mes Evénements" />
+   
    </children>
 </AnchorPane>
