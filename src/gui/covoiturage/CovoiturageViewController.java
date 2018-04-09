@@ -91,7 +91,7 @@ public class CovoiturageViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -107,7 +107,7 @@ public class CovoiturageViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -123,7 +123,7 @@ public class CovoiturageViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -139,7 +139,7 @@ public class CovoiturageViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
     
