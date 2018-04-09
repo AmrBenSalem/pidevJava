@@ -8,6 +8,7 @@ package gui.covoituragedemande;
 import gui.covoiturage.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXTextField;
 import entities.CoVoiturage;
 import entities.CoVoiturageRequests;
 import entities.CoVoiturageSuggestion;
@@ -36,6 +37,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -91,6 +93,8 @@ public class DemandesViewController implements Initializable {
     public Capitals c = new Capitals();
     public User user = Session.getUser();
     public UserCRUD SUser = new UserCRUD();
+    @FXML
+    private JFXTextField searchTextField;
 
     /**
      * Initializes the controller class.
@@ -130,7 +134,7 @@ public class DemandesViewController implements Initializable {
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }
@@ -405,7 +409,7 @@ public class DemandesViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -421,7 +425,7 @@ public class DemandesViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -436,7 +440,7 @@ public class DemandesViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
     
@@ -451,7 +455,142 @@ public class DemandesViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
+    }
+
+    @FXML
+    private void refreshDemande(KeyEvent event) {
+        ArrayList<CoVoiturage> listOfDemandes = new ArrayList<>();
+        try {
+            listOfDemandes.addAll(cs.GetCovoituragePerTypeLike("d",searchTextField.getText()));
+        } catch (SQLException ex) {
+            //Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        testPane.getChildren().clear();
+        vboxAnchorPane.setMinHeight(54 * listOfDemandes.size());
+        vboxAnchorPane.setMaxHeight(54 * listOfDemandes.size());
+        vboxAnchorPane.setPrefHeight(54 * listOfDemandes.size());
+
+
+//       for (int x = 0; x < panee.getChildren().size() ; x++){
+//           System.out.println(x+"  "+panee.getChildren().get(x).toString());
+//       }
+        if (listOfDemandes.size() > 0)
+        {
+        for (int k = 0; k < listOfDemandes.size(); k++) {
+            Pane pane = null;
+            try {
+                pane = FXMLLoader.load(getClass().getResource("DemandeLine.fxml"));
+            } catch (IOException ex) {
+                Logger.getLogger(DemandesViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Label userField = new Label();
+            userField.setLayoutX(pane.getChildren().get(2).getLayoutX());
+            userField.setLayoutY(pane.getChildren().get(2).getLayoutY());
+            pane.getChildren().set(2, userField);
+
+            Label departField = new Label();
+            departField.setLayoutX(pane.getChildren().get(4).getLayoutX());
+            departField.setLayoutY(pane.getChildren().get(4).getLayoutY());
+            pane.getChildren().set(4, departField);
+
+            Label destinationField = new Label();
+            destinationField.setLayoutX(pane.getChildren().get(6).getLayoutX());
+            destinationField.setLayoutY(pane.getChildren().get(6).getLayoutY());
+            pane.getChildren().set(6, destinationField);
+
+            Label dateField = new Label();
+            dateField.setLayoutX(pane.getChildren().get(8).getLayoutX());
+            dateField.setLayoutY(pane.getChildren().get(8).getLayoutY());
+            pane.getChildren().set(8, dateField);
+
+            /*Label etatField = new Label();
+            etatField.setLayoutX(pane.getChildren().get(9).getLayoutX());
+            etatField.setLayoutY(pane.getChildren().get(9).getLayoutY());
+            pane.getChildren().set(9, etatField);*/
+            CoVoiturage demande;
+            demande = listOfDemandes.get(k);
+            userField.setText(String.valueOf(SUser.getUser(demande.getUser()).getUserName()));
+            departField.setText(String.valueOf(demande.getDepart()));
+            // departField.setMaxSize(3, 3);
+            destinationField.setText(String.valueOf(demande.getDestination()));
+            //PrettyTime p = new PrettyTime();
+            //dateField.setText(String.valueOf(TimeAgo.toDuration(offre.getDate().getTime())));
+
+            dateField.setText(String.valueOf(TimeAgo.toDuration(System.currentTimeMillis() - demande.getUpdated().getTime())));
+
+            ServiceCoVoiturageRequests scor = new ServiceCoVoiturageRequests();
+            
+            
+                
+            JFXButton request = new JFXButton("Request");
+            request = (JFXButton) pane.getChildren().get(14);
+            pane.getChildren().set(14, request);
+            request.setOnAction((eventt) -> {
+                CoVoiturageRequests cod = new CoVoiturageRequests(demande.getId(), user.getId(), "a", new Timestamp(System.currentTimeMillis()));
+                scor.addRequest(cod);
+                Refresh(eventt);
+            });
+            
+
+
+            JFXButton btnInfo = new JFXButton();
+            btnInfo = (JFXButton) pane.getChildren().get(0);
+            pane.getChildren().set(0, btnInfo);
+            btnInfo.setOnAction((eventt) -> {
+                CoVoiturage cov = new CoVoiturage();
+                covInfo = cs.readCoVoiturage(demande.getId());
+                redirectToInfo(eventt);
+            });
+
+            JFXButton btnUpdatee = new JFXButton();
+            btnUpdatee = (JFXButton) pane.getChildren().get(12);
+            pane.getChildren().set(12, btnUpdatee);
+            btnUpdatee.setOnAction((eventt) -> {
+                CoVoiturage cov = new CoVoiturage();
+                cov = cs.readCoVoiturage(demande.getId());
+                covInfo = cs.readCoVoiturage(demande.getId());
+                redirectToUpdate(eventt);
+            });
+
+            JFXButton btnDelete = new JFXButton();
+            btnDelete = (JFXButton) pane.getChildren().get(13);
+            pane.getChildren().set(13, btnDelete);
+            btnDelete.setOnAction((eventt) -> {
+                try {
+                    CoVoiturage cov = new CoVoiturage();
+                    cov = cs.readCoVoiturage(demande.getId());
+                    cs.deleteCoVoiturage(cov);
+                    Refresh(eventt);
+                } catch (SQLException ex) {
+                    Logger.getLogger(DemandesViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+            
+            
+
+            if (demande.getUser() == user.getId()) {
+                request.setVisible(false);
+                btnDelete.setVisible(true);
+                btnUpdatee.setVisible(true);
+
+            } else {
+                btnDelete.setVisible(false);
+                btnUpdatee.setVisible(false);
+                if (scor.hasRequests(user)) {
+                    request.setVisible(false);
+                } else {
+                    request.setVisible(true);
+                }
+
+            }
+
+            testPane.getChildren().add(pane);
+
+        }
+        }
     }
 }

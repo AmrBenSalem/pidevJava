@@ -140,12 +140,12 @@ public class AuthentificationController implements Initializable {
 
                     if (u.getRoles().equals("a:0:{}")) {
                         System.out.println("user");
-                        Parent root = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
+                        Parent root = FXMLLoader.load(getClass().getResource("/gui/covoiturage/CoVoiturageView.fxml"));
 
                         Scene scene = new Scene(root);
 
                         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
+                        app_stage.setResizable(false);
                         app_stage.setScene(scene);
 
                         app_stage.show();
