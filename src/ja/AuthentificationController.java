@@ -67,7 +67,6 @@ public class AuthentificationController implements Initializable {
          loginL.setText("");
     }
 
-    
     @FXML
     void creer(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/ja/creationCompte.fxml"));
@@ -140,8 +139,6 @@ public class AuthentificationController implements Initializable {
                     Session.setUser(u);
 
                     if (u.getRoles().equals("a:0:{}")) {
-                   
-                        
                         System.out.println("user");
                         Parent root = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
 
@@ -221,5 +218,4 @@ public class AuthentificationController implements Initializable {
        }*/
     }
 
-}
 }

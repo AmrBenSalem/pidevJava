@@ -115,19 +115,5 @@ public class GooglePlacesAPI {
         return null;
     }
     
-    
-    public static Image getPhoto(String photoRef, int maxWidth){
-        try {
-            String preparedURL = URLString.replace("#", "photo?maxwidth="+maxWidth+"&photoreference="+photoRef)+KEY;
-            URL url = new URL(preparedURL);
-            BufferedImage bufferedImage = ImageIO.read(url);
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            return image;
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(GooglePlacesAPI.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(GooglePlacesAPI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+   
 }
