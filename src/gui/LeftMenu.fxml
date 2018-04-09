@@ -37,7 +37,8 @@
             <ImageView fitHeight="67.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/diamond.png" />
-               </image></ImageView>
+               </image>
+            </ImageView>
          </graphic>
       </Button>
       <Button fx:id="b4" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ChangeViewAction" prefHeight="100.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" text=" ">
@@ -48,12 +49,13 @@
                </image></ImageView>
          </graphic>
       </Button>
-      <Button fx:id="b5" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ChangeViewAction" prefHeight="100.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" text=" ">
+      <Button fx:id="b21" contentDisplay="TOP" mnemonicParsing="false" onAction="#ChangeViewAction" prefHeight="100.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" text="Evenements" textFill="#cd2a2a">
          <graphic>
-            <ImageView fitHeight="58.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="btnevent" fitHeight="67.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../assets/diamond.png" />
-               </image></ImageView>
+                  <Image url="@../../../../../../Desktop/events.png" />
+               </image>
+            </ImageView>
          </graphic>
       </Button>
    </children>

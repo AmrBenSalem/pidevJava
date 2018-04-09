@@ -5,9 +5,6 @@
  */
 package Controller.Event;
 
-import javafx.collections.FXCollections;
-import java.net.MalformedURLException;
-import javafx.collections.ObservableList;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -15,46 +12,33 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import entities.Event;
-import entities.Session;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
-import javafx.stage.FileChooser;
-import javafx.stage.Window;
+import javafx.scene.web.WebView;
 import services.ServiceEvent;
-import sun.tools.jar.resources.jar;
 
 /**
  * FXML Controller class
  *
  * @author Liwa
  */
-public class AddEventController implements Initializable {
+public class EditEventController implements Initializable {
 
     @FXML
     private JFXDrawer drawerTop;
@@ -86,21 +70,18 @@ public class AddEventController implements Initializable {
     private JFXTextField nbmax;
     @FXML
     private JFXComboBox<String> categorie;
-    
     @FXML
     private JFXButton ajout;
     @FXML
     private Label lab_erreur;
     @FXML
     private Label warning;
-    private String path1;
+    @FXML
+    private ImageView image;
+    
     public String pathString;
     
     ObservableList<String> maincateg = FXCollections.observableArrayList("Randonnée", "Camping", "Anniversaire Club", "Workshop", "Hackathon");
-    @FXML
-    private AnchorPane container_ajout;
-    @FXML
-    private ImageView image;
 
     /**
      * Initializes the controller class.
@@ -108,11 +89,22 @@ public class AddEventController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        categorie.setValue("Randonnée");
+        Event e = new Event();
+        ServiceEvent se = new ServiceEvent();
+        
+        titre.setText(e.getTitre());
+        description.setText(e.getDescription());
+        datedebut.setValue(e.getDateDebut().toLocalDate());
+        datefin.setValue(e.getDateFin().toLocalDate());
+        lieu.setText(e.getLieu());
+        Image i = new Image("file:" + e.getPhoto());
+        image.setImage(i);
+        nbmax.setText(e.getNb_max()+"");
+        categorie.setValue(e.getCategorie());
         categorie.setItems(maincateg);
-        lab_erreur.setVisible(false);
-        warning.setVisible(false);
-        titre.setText(path1);
+        
+        
+        
     }    
 
     @FXML
@@ -120,41 +112,25 @@ public class AddEventController implements Initializable {
     }
 
     @FXML
-    private void charger(ActionEvent event) throws IOException{
-        
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choisir une image pour votre Evénement");
-        Window stage = null;
-        File file;
-        file = fileChooser.showOpenDialog(stage);
-        pathString = "src/assets/" + file.getName();
-        Image img = new Image("file:" + file.getPath());
-
-        Path pth = file.toPath();
-
-        File resourcesDirectory = new File("src/assets/" + file.getName());
-        Files.deleteIfExists(resourcesDirectory.toPath());
-        
-        File symfonyDirectory = new File("C:/wamp64/www/pidev2/web/"+file.getName());
-         Files.deleteIfExists(symfonyDirectory.toPath());
-        Files.copy(pth, symfonyDirectory.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
-        Files.copy(pth, resourcesDirectory.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
-        
-        image.setImage(img);
+    private void charger(ActionEvent event) {
     }
 
     @FXML
-    private void ajout(ActionEvent event) throws IOException {
+    private void ajout(ActionEvent event) {
         ServiceEvent se = new ServiceEvent();
         Event e = new Event();
 
         if (!(titre.getText().isEmpty())) {
-            
-            if(Session.getThisTimestamp().after(e.getDateDebut()) || e.getDateDebut().after(e.getDateFin())  )  {
-                lab_erreur.setText("Les dates sont invalides");
+            String masque = "^[a-zA-Z]+$";
+            Pattern pattern = Pattern.compile(masque);
+            Matcher controler = pattern.matcher(titre.getText());
+            if (!(controler.matches())) {
+                lab_erreur.setText("Titre Invalide");
                 lab_erreur.setVisible(true);
+                warning.setVisible(true);
                 return;
-            }    
+            }
+
             if ((description.getText().length() < 4)) {
                 lab_erreur.setText("Description Invalide");
                 lab_erreur.setVisible(true);
@@ -180,11 +156,8 @@ public class AddEventController implements Initializable {
             e.setCreatedAt(Date.valueOf(datedebut.getValue()));
             e.setCategorie(categorie.getSelectionModel().getSelectedItem());
             e.setEnable(0);
-            e.setIduser(Session.getIdThisUser());
+            e.setIduser(2);
             e.setPhoto(pathString);
-            e.setNb_max(Integer.parseInt(nbmax.getText()));
-            System.out.println(Session.getThisTimestamp()+"----------------------"+e.getDateDebut()+"-----------------------"+e.getDateFin());
-            
             
             //System.out.println("le champ photo  :  "+charger.getText());
 
@@ -195,22 +168,6 @@ public class AddEventController implements Initializable {
             }
     }
         
-             Node node = null;
-            FXMLLoader loader = new FXMLLoader();
-            node = (Parent) loader.load(getClass().getResourceAsStream("/Views/Event/ListEvent.fxml"));
-          //  container.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
-            container_ajout.getChildren().clear();
-            container_ajout.getChildren().add(node);
-    
-}
-
-    @FXML
-    private void retour_events(ActionEvent event) throws IOException {
-           Node node = null;
-            FXMLLoader loader = new FXMLLoader();
-            node = (Parent) loader.load(getClass().getResourceAsStream("/Views/Event/ListEvent.fxml"));
-          //  container.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
-            container_ajout.getChildren().clear();
-            container_ajout.getChildren().add(node);
     }
+    
 }

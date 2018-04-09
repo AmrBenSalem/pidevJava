@@ -37,15 +37,7 @@ public class Validation {
     
     }
     
-    public static boolean textalphabet(TextField tf ,Label lb,String errorMessage)
-    {
-    boolean isAlphabet =true;
     
-    String validationString=null;
-    if(!tf.getText().matches("[a-z A-Z]+")){
-    isAlphabet=false;
-    
-    }
 
     public static boolean textalphabet(TextField tf, Label lb, String errorMessage) {
         boolean isAlphabet = true;

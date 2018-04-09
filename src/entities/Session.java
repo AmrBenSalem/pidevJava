@@ -6,6 +6,8 @@
 package entities;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
 
 /**
  *
@@ -16,10 +18,16 @@ public class Session {
      private static Date DateThisDay;    
      public static int idLocal;
      public static int idAnnonce;
+     private static Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
    
     public static Date getDateThisDay() {
-        return DateThisDay;
+        
+        
+        
+         //dd/MM/yyyy
+    return DateThisDay;
+        
     }
 
     public static void setDateThisDay(Date DateThisDay) {
@@ -32,6 +40,10 @@ public class Session {
 
     public static void setIdThisUser(int IdThisUser) {
         Session.IdThisUser = IdThisUser;
+    }
+    
+    public static Timestamp getThisTimestamp(){
+        return timestamp;
     }
     
      

@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="Controller.Event.HomeController">
+<AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Event.HomeController">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="86.0" style="-fx-background-color: #3d3c3c;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -49,11 +48,11 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="b4" contentDisplay="CENTER" mnemonicParsing="false" onAction="#event_onClick" prefHeight="100.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" text=" ">
+            <Button fx:id="b21" contentDisplay="TOP" mnemonicParsing="false" onAction="#event_onclick" prefHeight="141.0" prefWidth="100.0" style="-fx-background-color: #3d3c3c;" text="Evenements" textFill="#cd2a2a">
                <graphic>
-                  <ImageView fitHeight="56.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnevent" fitHeight="67.0" fitWidth="59.0" onMouseClicked="#event" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assets/diamond.png" />
+                        <Image url="@../../assets/events.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -67,8 +66,9 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button fx:id="b4" contentDisplay="CENTER" mnemonicParsing="false" onAction="#event_onClick" prefHeight="100.0" prefWidth="127.0" style="-fx-background-color: #3d3c3c;" text=" " />
          </children>
       </VBox>
-      <StackPane fx:id="container" layoutX="400.0" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <StackPane fx:id="container" minHeight="400.0" minWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

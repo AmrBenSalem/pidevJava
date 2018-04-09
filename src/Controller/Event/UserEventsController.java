@@ -94,6 +94,29 @@ public class UserEventsController implements Initializable {
                     Label label = new Label(e.getTitre());
                     label.setContentDisplay(ContentDisplay.TOP);
                      label.setGraphic(imageView);
+                     Label labe = new Label(e.getId()+"");
+                     System.out.println(e.getId());
+                     
+                     label.setOnMouseClicked((event9) -> {
+                         System.out.println(e.getId()+"clicked");
+                         id_event=labe.getText();
+                         Node node = null;
+            FXMLLoader loader = new FXMLLoader();
+                           
+                        try {
+                            node = (Parent) loader.load(getClass().getResourceAsStream("/Views/Event/AfficheEvent.fxml"));
+                        } catch (IOException ex) {
+                            Logger.getLogger(ListEventController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                           
+          //  container.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+           container.getChildren().clear();
+            container.getChildren().add(node);
+            
+                     });
+                     
+                     
+                     
                       label.setOnMouseExited((event99) -> {
                   
                 label.setGraphic(imageView);
@@ -113,16 +136,21 @@ show_info.setStyle("-fx-background-color: #f7e4d9;");
         label1.relocate(20, 20);
          Label label2 =new Label(e.getNb_max()+"");
                         
-                      Hyperlink hyper =new Hyperlink(label2.getText());
+                      Hyperlink hyper =new Hyperlink(label1.getText());
                        hyper.relocate(20, 70);
                          Label label3 =new Label(e.getDescription());
                          label3.relocate(20, 100);
                          hyper.setOnMouseClicked((event22) -> {
-                          /*   se.clickedPub(label.getText());
-                          String domain="http://"+hyper.getText();
-                             System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-     WebDriver driver =new ChromeDriver();
-      driver.get(domain);*/
+                     /*   Node node = null;
+            FXMLLoader loader = new FXMLLoader();
+                           try {
+                               node = (Parent) loader.load(getClass().getResourceAsStream("/Views/Event/ShowEvent.fxml"));
+                           } catch (IOException ex) {
+                               Logger.getLogger(ListEventController.class.getName()).log(Level.SEVERE, null, ex);
+                           }
+          //  container.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+           container.getChildren().clear();
+            container.getChildren().add(node);  */
                          });
                     show_info.getChildren().addAll(label1,hyper,label3);
        label.setGraphic(show_info);
