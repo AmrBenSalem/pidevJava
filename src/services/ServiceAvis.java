@@ -82,11 +82,11 @@ public class ServiceAvis  implements IAvis{
         ResultSet result = statement.executeQuery(sql); 
 
         while (result.next()){
-            int id = result.getInt(1);
-            int avis = result.getInt(2);
-            int iduser = result.getInt(3);
-            int ide = result.getInt(4);
             
+            int id = result.getInt(4);
+            int avis = result.getInt(3);
+            int iduser = result.getInt(2);
+            int ide = result.getInt(1);
             list.add(new Avis(id,avis,ide,iduser)); 
             
         }

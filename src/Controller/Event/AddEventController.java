@@ -150,7 +150,7 @@ public class AddEventController implements Initializable {
 
         if (!(titre.getText().isEmpty())) {
             
-            if(Session.getThisTimestamp().after(e.getDateDebut()) || e.getDateDebut().after(e.getDateFin())  )  {
+            if(Session.getThisTimestamp().after(Date.valueOf(datedebut.getValue())) || Date.valueOf(datedebut.getValue()).after(Date.valueOf(datefin.getValue()))  )  {
                 lab_erreur.setText("Les dates sont invalides");
                 lab_erreur.setVisible(true);
                 return;
@@ -177,7 +177,7 @@ public class AddEventController implements Initializable {
             
             e.setDateDebut(Date.valueOf(datedebut.getValue()));
             e.setDateFin(Date.valueOf(datefin.getValue()));
-            e.setCreatedAt(Date.valueOf(datedebut.getValue()));
+            e.setCreatedAt(Session.getDateThisDay());
             e.setCategorie(categorie.getSelectionModel().getSelectedItem());
             e.setEnable(0);
             e.setIduser(Session.getIdThisUser());

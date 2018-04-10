@@ -9,19 +9,24 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import entities.Avis;
 import entities.Event;
 import entities.Session;
+import entities.User;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,13 +35,19 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
 import org.controlsfx.control.Rating;
 import services.ServiceAvis;
 import services.ServiceEvent;
+import services.UserCRUD;
 
 /**
  * FXML Controller class
@@ -89,6 +100,8 @@ public class AfficheEventController implements Initializable {
     private Rating rate;
     @FXML
     private JFXButton avis;
+    @FXML
+    private JFXListView list_rate;
 
     /**
      * Initializes the controller class.
@@ -150,6 +163,65 @@ public class AfficheEventController implements Initializable {
         categorie.setValue(e.getCategorie());
          Image i = new Image("file:" + e.getPhoto());
          image_show.setImage(i);
+         
+         
+                ArrayList<Avis> ar=sa.consulterAvis(e.getId());
+                if(ar.size()==0){
+                    list_rate.setVisible(false);
+                }
+                ObservableList<Avis> observableList1 = FXCollections.observableArrayList(ar);
+                list_rate.setItems(observableList1);
+                list_rate.setCellFactory(new Callback<JFXListView<Avis>, ListCell<Avis>>() {
+
+            @Override
+            public ListCell<Avis> call(JFXListView<Avis> arg0) {
+                return new ListCell<Avis>() {
+
+                    @Override
+                    protected void updateItem(Avis item, boolean bln) {
+                        super.updateItem(item, bln);
+                        if (item != null) {
+
+                            UserCRUD us = new UserCRUD();
+                            User user = null;
+                            try {
+                                user = us.getByID(item.getIduser());
+                            } catch (SQLException ex) {
+                                Logger.getLogger(AfficheEventController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            Rating t = new Rating();
+                            t.setRating(item.getAvis());
+                            //t.setStyle("-fx-font-size: 25 arial;");
+                            //t.setFill(Color.web("#ff214f"));
+                            VBox vBox = new VBox(t,
+                                    //new Timestamp(item.s),
+                                    new Text("Nom : "+user.getNom()+" Prénom : "+user.getPrenom())
+                                    //new HBox(bt, bt1)
+                            );
+                            vBox.setSpacing(4);
+                            
+                            
+
+                            HBox hBox = new HBox( vBox);
+                            hBox.setSpacing(10);
+
+                            setGraphic(hBox);
+
+                        } else {
+
+                            setText(null);
+                            setGraphic(null);
+
+                        }
+                    }
+
+                };
+            }
+
+        });
+            
+         
+         
         // TODO
     }    
 

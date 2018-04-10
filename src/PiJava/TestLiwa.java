@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 public class TestLiwa extends Application {
     
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/Views/Event/AfficheEvent.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Views/Event/ListEventsAdmin.fxml"));
         primaryStage.setTitle("Consulter un Evenement");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
