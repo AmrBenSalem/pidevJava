@@ -66,7 +66,12 @@ public class ColocationCRUD {
                 c.setMeuble(rs.getString(5));
                 c.setDescription(rs.getString(6));
                 c.setPhoto(rs.getString(7));
-
+                c.setPhoto1(rs.getString(8));
+                c.setPhoto2(rs.getString(9));
+                c.setX(rs.getDouble(12));
+                c.setY(rs.getDouble(13));
+                c.setVille(rs.getString("ville"));
+                c.setUser_id(rs.getInt("user_id"));
                 myList.add(c);
             }
 
@@ -76,11 +81,75 @@ public class ColocationCRUD {
         return myList;
     }
 
-    public List<Colocation> afficherColocationByUser(int id) {
+    public List<Colocation> afficherColocationDemande() {
         List<Colocation> myList = new ArrayList<Colocation>();
         try {
 
-            String requete = "SELECT * FROM colocation where user_id=?";
+            String requete2 = "SELECT * FROM colocation where nature='Demande' ";
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery(requete2);
+
+            while (rs.next()) {
+                Colocation c = new Colocation();
+                c.setId(rs.getInt(1));
+                c.setLoyer(rs.getInt(2));
+                c.setTitre(rs.getString(3));
+                c.setType(rs.getString(4));
+                c.setMeuble(rs.getString(5));
+                c.setDescription(rs.getString(6));
+                c.setPhoto(rs.getString(7));
+                c.setPhoto1(rs.getString(8));
+                c.setPhoto2(rs.getString(9));
+                c.setX(rs.getDouble(12));
+                c.setY(rs.getDouble(13));
+                c.setVille(rs.getString("ville"));
+                c.setUser_id(rs.getInt("user_id"));
+                myList.add(c);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return myList;
+    }
+
+    public List<Colocation> afficherColocationOffre() {
+        List<Colocation> myList = new ArrayList<Colocation>();
+        try {
+
+            String requete2 = "SELECT * FROM colocation where nature='Offre' ";
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery(requete2);
+
+            while (rs.next()) {
+                Colocation c = new Colocation();
+                c.setId(rs.getInt(1));
+                c.setLoyer(rs.getInt(2));
+                c.setTitre(rs.getString(3));
+                c.setType(rs.getString(4));
+                c.setMeuble(rs.getString(5));
+                c.setDescription(rs.getString(6));
+                c.setPhoto(rs.getString(7));
+                c.setPhoto1(rs.getString(8));
+                c.setPhoto2(rs.getString(9));
+                c.setX(rs.getDouble(12));
+                c.setY(rs.getDouble(13));
+                c.setUser_id(rs.getInt("user_id"));
+                c.setVille(rs.getString("ville"));
+                myList.add(c);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return myList;
+    }
+
+    public List<Colocation> afficherDemandeByUser(int id) {
+        List<Colocation> myList = new ArrayList<Colocation>();
+        try {
+
+            String requete = "SELECT * FROM colocation where user_id=?  and nature='Demande'";
 
             PreparedStatement pst = cnx.prepareStatement(requete);
             pst.setInt(1, id);
@@ -95,8 +164,84 @@ public class ColocationCRUD {
                 c.setMeuble(rs.getString(5));
                 c.setDescription(rs.getString(6));
                 c.setPhoto(rs.getString(7));
-c.setNature(rs.getString("nature"));
-c.setVille(rs.getString("ville"));
+                c.setPhoto1(rs.getString(8));
+                c.setPhoto2(rs.getString(9));
+                c.setNature(rs.getString("nature"));
+                c.setVille(rs.getString("ville"));
+                c.setX(rs.getDouble("x"));
+                c.setY(rs.getDouble("y"));
+                c.setUser_id(rs.getInt("user_id"));
+                myList.add(c);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return myList;
+    }
+
+    public List<Colocation> afficherOffreByUser(int id) {
+        List<Colocation> myList = new ArrayList<Colocation>();
+        try {
+
+            String requete = "SELECT * FROM colocation where user_id=?  and nature='Offre'";
+
+            PreparedStatement pst = cnx.prepareStatement(requete);
+            pst.setInt(1, id);
+
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Colocation c = new Colocation();
+                c.setId(rs.getInt(1));
+                c.setLoyer(rs.getInt(2));
+                c.setTitre(rs.getString(3));
+                c.setType(rs.getString(4));
+                c.setMeuble(rs.getString(5));
+                c.setDescription(rs.getString(6));
+                c.setPhoto(rs.getString(7));
+                c.setPhoto1(rs.getString(8));
+                c.setPhoto2(rs.getString(9));
+                c.setNature(rs.getString("nature"));
+                c.setVille(rs.getString("ville"));
+                c.setX(rs.getDouble("x"));
+                c.setY(rs.getDouble("y"));
+                c.setUser_id(rs.getInt("user_id"));
+                myList.add(c);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return myList;
+    }
+
+    public List<Colocation> afficherOffreByCollocation(Colocation col) {
+        List<Colocation> myList = new ArrayList<Colocation>();
+        try {
+
+            String requete = "SELECT * FROM colocation where loyer=? and meuble=? and type=?  and nature='Offre'";
+
+            PreparedStatement pst = cnx.prepareStatement(requete);
+            pst.setDouble(1, col.getLoyer());
+            pst.setString(2, col.getMeuble());
+            pst.setString(3, col.getType());
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Colocation c = new Colocation();
+                c.setId(rs.getInt(1));
+                c.setLoyer(rs.getInt(2));
+                c.setTitre(rs.getString(3));
+                c.setType(rs.getString(4));
+                c.setMeuble(rs.getString(5));
+                c.setDescription(rs.getString(6));
+                c.setPhoto(rs.getString(7));
+                c.setPhoto1(rs.getString(8));
+                c.setPhoto2(rs.getString(9));
+                c.setNature(rs.getString("nature"));
+                c.setVille(rs.getString("ville"));
+                c.setX(rs.getDouble("x"));
+                c.setY(rs.getDouble("y"));
+                c.setUser_id(rs.getInt("user_id"));
                 myList.add(c);
             }
 
@@ -107,7 +252,6 @@ c.setVille(rs.getString("ville"));
     }
 
     public void supprimerColocation(int id) {
-
         try {
             String requete = "DELETE FROM"
                     + " colocation WHERE id=?";
@@ -121,12 +265,26 @@ c.setVille(rs.getString("ville"));
         }
     }
 
-    public void modifierColocation(Colocation c, int id) {
+    public void modifierColocation(Colocation c) {
         try {
-            String requete = "UPDATE  colocation SET loyer=? WHERE id=?";
+            String requete = "UPDATE  colocation SET loyer=? ,nature=?,"
+                    + " type=?, meuble=?,  titre=?, photo=?, photo1=?, "
+                    + "photo2 =?, description=?,ville=? ,x=?,y=? WHERE id=?";
             PreparedStatement pst = cnx.prepareStatement(requete);
-            pst.setInt(2, id);
+
             pst.setFloat(1, c.getLoyer());
+            pst.setString(5, c.getTitre());
+            pst.setString(3, c.getType());
+            pst.setString(4, c.getMeuble());
+            pst.setString(9, c.getDescription());
+            pst.setString(6, c.getPhoto());
+            pst.setString(7, c.getPhoto1());
+            pst.setString(8, c.getPhoto2());
+            pst.setString(2, c.getNature());
+            pst.setString(10, c.getVille());
+            pst.setDouble(11, c.getX());
+            pst.setDouble(12, c.getY());
+            pst.setInt(13, c.getId());
 
             pst.executeUpdate();
             System.out.println("Colocation modifié");

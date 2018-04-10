@@ -52,7 +52,8 @@ public class LeftMenuController implements Initializable {
     @FXML
     private void ChangeViewAction(ActionEvent event) {
         Button btn = (Button) event.getSource();
-
+Parent Objet = null;
+Parent page = null;
         System.out.println(btn.getId());
         switch (btn.getId()) {
             case "b1":
@@ -61,7 +62,7 @@ public class LeftMenuController implements Initializable {
                 break;
 
             case "b2":
-                Parent page = null;
+                
                 try {
                  page = FXMLLoader.load(getClass().getResource("covoiturage/CovoiturageView.fxml"));
                 } catch (IOException ex) {
@@ -75,7 +76,7 @@ public class LeftMenuController implements Initializable {
                 break;
 
             case "b3":
-                Parent Objet = null;
+                
                 try {
                  page = FXMLLoader.load(getClass().getResource("ja/ObjetView.fxml"));
                 } catch (IOException ex) {
@@ -90,6 +91,19 @@ public class LeftMenuController implements Initializable {
 
             case "b4":
 //                DashboardCoVoiturageController.CoVoituragePaneInit.setVisible(false);
+                
+                try {
+                 page = FXMLLoader.load(getClass().getResource("/Controller/Application/Colocation/acceuilCol.fxml"));
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Scene Objetscenee = new Scene(page);
+                Stage Objetstagee = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Objetstagee.hide();
+                Objetstagee.setScene(Objetscenee);
+                Objetstagee.show();
+               
+
                 break;
 
             case "b5":

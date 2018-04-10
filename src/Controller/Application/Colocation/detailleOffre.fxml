@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="478.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Application.Colocation.DetailleOffreController">
+   <children>
+        <JFXDrawer fx:id="drawerLeft" prefHeight="600.0" prefWidth="86.0">
+                     <children>
+                        <Pane fx:id="CoVoiturage" prefHeight="448.0" prefWidth="983.0" style="-fx-background-color: #f0f0f0;" />
+                     </children>
+                  </JFXDrawer>
+                      <JFXDrawer fx:id="drawerTop" layoutX="86.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="97.0" prefWidth="828.0" style="-fx-background-color: #ef6262;" />
+      <ImageView fx:id="photo" fitHeight="150.0" fitWidth="200.0" layoutX="115.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="photo1" fitHeight="158.0" fitWidth="200.0" layoutX="325.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="photo2" fitHeight="158.0" fitWidth="200.0" layoutX="533.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="196.0" layoutY="288.0" text="Titre" textFill="#dd0e0e" />
+      <Label layoutX="191.0" layoutY="325.0" text="Descrption" textFill="#dd0e0e" />
+      <Label layoutX="379.0" layoutY="288.0" text="Prix" textFill="#dd0e0e" />
+      <Label layoutX="557.0" layoutY="288.0" text="TYPE" textFill="#dd0e0e" />
+      <Label layoutX="193.0" layoutY="363.0" text="Meuble" textFill="#dd0e0e" />
+      <Label layoutX="378.0" layoutY="363.0" text="Ville" textFill="#dd0e0e" />
+      <Label fx:id="titre" layoutX="249.0" layoutY="288.0" text="Label" />
+      <Label fx:id="prix" layoutX="433.0" layoutY="288.0" text="Label" />
+      <Label fx:id="type" layoutX="619.0" layoutY="288.0" text="Label" />
+      <Label fx:id="desc" layoutX="277.0" layoutY="325.0" text="Label" />
+      <Label fx:id="meuble" layoutX="263.0" layoutY="363.0" text="Label" />
+      <Label fx:id="ville" layoutX="433.0" layoutY="363.0" text="Label" />
+      <Button layoutX="502.0" layoutY="544.0" mnemonicParsing="false" onAction="#Repondre" text="Repondre" />
+      <TextField fx:id="sujet" layoutX="192.0" layoutY="413.0" prefHeight="25.0" prefWidth="283.0" promptText="Sujet" />
+      <TextArea fx:id="description" layoutX="188.0" layoutY="447.0" prefHeight="124.0" prefWidth="283.0" promptText="Description" />
+   </children>
+</AnchorPane>

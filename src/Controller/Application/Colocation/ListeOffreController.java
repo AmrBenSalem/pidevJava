@@ -6,6 +6,7 @@
 package Controller.Application.Colocation;
 
 import com.jfoenix.controls.JFXDrawer;
+import com.sun.javafx.scene.control.skin.LabeledText;
 import entities.Colocation;
 import gui.DashboardCoVoiturageController;
 import gui.LoginController;
@@ -29,6 +30,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -41,46 +43,44 @@ import util.Config;
  *
  * @author douha
  */
-public class ListeDemandeController implements Initializable {
+public class ListeOffreController implements Initializable {
+
     @FXML
     private ListView<Colocation> listView;
-    private ColocationCRUD colocationCRUD= new ColocationCRUD();
- private ObservableList<Colocation> data = FXCollections.observableArrayList();
+    private ColocationCRUD colocationCRUD = new ColocationCRUD();
+    private ObservableList<Colocation> data = FXCollections.observableArrayList();
     @FXML
     private JFXDrawer drawerLeft;
     @FXML
     private Pane CoVoiturage;
     @FXML
     private JFXDrawer drawerTop;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-        
-         try {
-              drawerLeft.open();
+
+        try {
+            drawerLeft.open();
             VBox box = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
             drawerLeft.setSidePane(box);
         } catch (IOException ex) {
             Logger.getLogger(DashboardCoVoiturageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-          List<Colocation> listCol = colocationCRUD.afficherColocationDemande();
+        List<Colocation> listCol = colocationCRUD.afficherColocationOffre();
 
         data = FXCollections.observableArrayList(listCol);
-         listView.setItems(data);
-        listView.setCellFactory(new Callback<ListView<Colocation>, javafx.scene.control.ListCell<Colocation>>()
-        {
+        listView.setItems(data);
+        listView.setCellFactory(new Callback<ListView<Colocation>, javafx.scene.control.ListCell<Colocation>>() {
             @Override
-            public ListCell<Colocation> call(ListView<Colocation> listView)
-            {
+            public ListCell<Colocation> call(ListView<Colocation> listView) {
                 return new ListViewCell();
             }
-            
         });
-        
+
         listView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -104,26 +104,18 @@ public class ListeDemandeController implements Initializable {
             }
         });
     }
-    
-    
-    
-    
-    public class ListViewCell extends ListCell<Colocation>
-{
-    @Override
-    public void updateItem(Colocation string, boolean empty)
-    {
-        super.updateItem(string,empty);
-        if(string != null)
-        {
-            ListItemController data = new ListItemController();
-            data.setInfo(string.getTitre(),String.valueOf(string.getLoyer()),string.getPhoto());
-            setGraphic(data.getPanel());
+
+    public class ListViewCell extends ListCell<Colocation> {
+
+        @Override
+        public void updateItem(Colocation string, boolean empty) {
+            super.updateItem(string, empty);
+            if (string != null) {
+                ListItemController data = new ListItemController();
+                data.setInfo(string.getTitre(), String.valueOf(string.getLoyer()), string.getPhoto());
+                setGraphic(data.getPanel());
+            }
         }
     }
-}
-    
-    
-    
-  
+
 }
