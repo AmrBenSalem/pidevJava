@@ -147,7 +147,6 @@ public class UpdateOffreViewController implements Initializable {
         if (cov.getOnetime().equals("off")){
              timeSpinner= new TimeSpinner(cov.getDate().toLocalDateTime().toLocalTime());
         }
-        System.out.println("bb");
         timePane.getChildren().add(timeSpinner);
         drawerLeft.open();
         //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));

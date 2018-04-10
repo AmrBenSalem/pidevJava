@@ -8,7 +8,6 @@ package gui.covoiturage;
 import com.jfoenix.controls.JFXDrawer;
 import entities.Session;
 import gui.DashboardCoVoiturageController;
-import static gui.DashboardCoVoiturageController.CoVoituragePaneInit;
 import gui.LoginController;
 import java.io.IOException;
 import java.net.URL;
@@ -66,7 +65,6 @@ public class CovoiturageViewController implements Initializable {
         
         CoVoiturageP=CoVoiturage;
         drawerLeft.open();
-      //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
         System.out.println(Session.getUser());
         
         try {
