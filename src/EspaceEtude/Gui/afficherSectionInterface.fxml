@@ -9,6 +9,9 @@
         <URL value="@affichersectioninterface.css" />
     </stylesheets>
    <children>
-      <ListView fx:id="listSection" onMouseClicked="#getMatiereSection" prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="listSection" layoutX="128.0" layoutY="100.0" onMouseClicked="#getMatiereSection" prefHeight="499.0" prefWidth="608.0" />
+      <fx:include source="../../gui/TopMenu.fxml" />
+      <fx:include source="../../gui/LeftMenu.fxml" />
    </children>
+   
 </AnchorPane>

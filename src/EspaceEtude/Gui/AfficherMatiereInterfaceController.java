@@ -83,7 +83,8 @@ listMatiere.setPrefHeight(500);
      @FXML
     void getAllDocument(MouseEvent event) throws IOException {
          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/EspaceEtude/Gui/AffficherDocumentsInterface.fxml"));
-            // AfficherMatiereInterfaceController display= new AfficherMatiereInterfaceController();
+         AffficherDocumentsInterfaceController display= new AffficherDocumentsInterfaceController();
+         AffficherDocumentsInterfaceController.setIdMatiere(listMatiere.getSelectionModel().getSelectedItem());
          Parent root1 = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root1));

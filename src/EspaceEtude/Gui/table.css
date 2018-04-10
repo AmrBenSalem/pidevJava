@@ -1,0 +1,22 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.table-view{
+   -fx-background-color: transparent;
+}
+.table .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+.table-view .column-header-background{
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+}

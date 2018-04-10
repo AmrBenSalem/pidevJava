@@ -8,19 +8,20 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="66.0" prefWidth="737.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="gui.TopMenuController">
+<AnchorPane id="AnchorPane" fx:id="ap" prefHeight="66.0" prefWidth="737.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.TopMenuController">
     
    <children>
       <Pane prefHeight="101.0" prefWidth="737.0" style="-fx-background-color: #F06261;">
          <children>
-            <Label layoutX="155.0" layoutY="29.0" prefHeight="17.0" prefWidth="144.0" text="USER NAME" textFill="WHITE">
+            <Label layoutX="146.0" layoutY="38.0" prefHeight="17.0" prefWidth="144.0" text="USER NAME" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <MenuButton layoutX="507.0" layoutY="21.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
+            <MenuButton layoutX="615.0" layoutY="23.0" mnemonicParsing="false" style="-fx-background-color: transparent;">
               <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -28,11 +29,21 @@
                <graphic>
                   <ImageView fx:id="avatar" fitHeight="50.0" fitWidth="47.0" onMouseClicked="#showList" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../image/avatar.png" />
+                        <Image url="@../image/avatar.png" />
                      </image>
                   </ImageView>
                </graphic>
             </MenuButton>
+            <MenuButton fx:id="notifMenuButton" layoutX="523.0" layoutY="23.0" mnemonicParsing="false" style="-fx-background-color: transparent;" stylesheets="@topmenu.css">
+               <graphic>
+                  <ImageView fitHeight="47.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Notification_64px.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MenuButton>
+            <Circle fx:id="notifCercle" fill="DODGERBLUE" layoutX="566.0" layoutY="31.0" opacity="0.76" radius="4.0" stroke="WHITE" strokeType="INSIDE" style="-fx-fill: white;" />
          </children>
       </Pane>
    </children>

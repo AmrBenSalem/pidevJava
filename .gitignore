@@ -1,3 +1,7 @@
 /build/
 /dist/
 /nbproject/
+project.properties
+project.xml
+private.properties
+private.xml

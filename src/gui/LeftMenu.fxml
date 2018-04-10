@@ -44,7 +44,7 @@
          <graphic>
             <ImageView fitHeight="56.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../image/Study.png" />
+                  <Image url="@../image/Study.png" />
                </image></ImageView>
          </graphic>
       </Button>

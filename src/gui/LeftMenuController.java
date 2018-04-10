@@ -5,7 +5,6 @@
  */
 package gui;
 
-import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -79,7 +78,17 @@ public class LeftMenuController implements Initializable {
                 break;
 
             case "b4":
-//                DashboardCoVoiturageController.CoVoituragePaneInit.setVisible(false);
+                Parent page1 = null; 
+                try {
+                    page1 = FXMLLoader.load(getClass().getResource("/EspaceEtude/Gui/afficherClasseInterface.fxml"));
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Scene scene1 = new Scene(page1);
+                Stage stage1 = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage1.hide();
+                stage1.setScene(scene1);
+                stage1.show();
                 break;
 
             case "b5":

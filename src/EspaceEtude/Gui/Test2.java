@@ -22,7 +22,7 @@ public class Test2 extends Application {
     
    public void start(Stage stage) throws IOException {
      
-        Parent root = FXMLLoader.load(getClass().getResource("/EspaceEtude/Gui/afficherClasseInterface.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/EspaceEtude/Gui/sectionAdmin.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(true);

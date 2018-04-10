@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EspaceEtude.Gui.DocumentDetailsController">
+   <children>
+      <SplitPane dividerPositions="0.5" prefHeight="400.0" prefWidth="600.0">
+         <items>
+            <ImageView fx:id="documentImage" fitHeight="435.0" fitWidth="222.0" pickOnBounds="true" preserveRatio="true" />
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="documentName" layoutX="43.0" layoutY="14.0" prefHeight="62.0" prefWidth="196.0">
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="documentLanguage" layoutX="43.0" layoutY="109.0" prefHeight="30.0" prefWidth="76.0" />
+                  <Label fx:id="documentSize" layoutX="39.0" layoutY="180.0" prefHeight="42.0" prefWidth="76.0" />
+                  <Label fx:id="documentType" layoutX="39.0" layoutY="277.0" prefHeight="53.0" prefWidth="76.0" />
+               </children>
+            </Pane>
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

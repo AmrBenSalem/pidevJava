@@ -46,7 +46,6 @@ public class AfficherClasseInterfaceController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         
 list.setCellFactory(new Callback<ListView<Niveau>,ListCell<Niveau>>() {
     @Override
     public ListCell<Niveau> call(ListView<Niveau> param) {
