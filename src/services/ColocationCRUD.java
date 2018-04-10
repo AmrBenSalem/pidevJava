@@ -66,10 +66,12 @@ public class ColocationCRUD {
                 c.setMeuble(rs.getString(5));
                 c.setDescription(rs.getString(6));
                 c.setPhoto(rs.getString(7));
-                 c.setPhoto1(rs.getString(8));
-                  c.setPhoto2(rs.getString(9));
+                c.setPhoto1(rs.getString(8));
+                c.setPhoto2(rs.getString(9));
                 c.setX(rs.getDouble(12));
-                 c.setY(rs.getDouble(13));
+                c.setY(rs.getDouble(13));
+                c.setVille(rs.getString("ville"));
+                c.setUser_id(rs.getInt("user_id"));
                 myList.add(c);
             }
 
@@ -78,9 +80,9 @@ public class ColocationCRUD {
         }
         return myList;
     }
-    
-    
-     public List<Colocation> afficherColocationDemande() {
+
+
+    public List<Colocation> afficherColocationDemande() {
         List<Colocation> myList = new ArrayList<Colocation>();
         try {
 
@@ -97,24 +99,58 @@ public class ColocationCRUD {
                 c.setMeuble(rs.getString(5));
                 c.setDescription(rs.getString(6));
                 c.setPhoto(rs.getString(7));
-                 c.setPhoto1(rs.getString(8));
-                  c.setPhoto2(rs.getString(9));
+                c.setPhoto1(rs.getString(8));
+                c.setPhoto2(rs.getString(9));
                 c.setX(rs.getDouble(12));
-                 c.setY(rs.getDouble(13));
+                c.setY(rs.getDouble(13));
+                c.setVille(rs.getString("ville"));
+                c.setUser_id(rs.getInt("user_id"));
                 myList.add(c);
             }
 
         } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
+            ex.printStackTrace();
         }
         return myList;
     }
 
-    public List<Colocation> afficherColocationByUser(int id) {
+    public List<Colocation> afficherColocationOffre() {
         List<Colocation> myList = new ArrayList<Colocation>();
         try {
 
-            String requete = "SELECT * FROM colocation where user_id=?";
+            String requete2 = "SELECT * FROM colocation where nature='Offre' ";
+            Statement st = cnx.createStatement();
+            ResultSet rs = st.executeQuery(requete2);
+
+            while (rs.next()) {
+                Colocation c = new Colocation();
+                c.setId(rs.getInt(1));
+                c.setLoyer(rs.getInt(2));
+                c.setTitre(rs.getString(3));
+                c.setType(rs.getString(4));
+                c.setMeuble(rs.getString(5));
+                c.setDescription(rs.getString(6));
+                c.setPhoto(rs.getString(7));
+                c.setPhoto1(rs.getString(8));
+                c.setPhoto2(rs.getString(9));
+                c.setX(rs.getDouble(12));
+                c.setY(rs.getDouble(13));
+                c.setUser_id(rs.getInt("user_id"));
+                c.setVille(rs.getString("ville"));
+                myList.add(c);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return myList;
+    }
+
+    public List<Colocation> afficherDemandeByUser(int id) {
+        List<Colocation> myList = new ArrayList<Colocation>();
+        try {
+
+            String requete = "SELECT * FROM colocation where user_id=?  and nature='Demande'";
 
             PreparedStatement pst = cnx.prepareStatement(requete);
             pst.setInt(1, id);
@@ -128,13 +164,85 @@ public class ColocationCRUD {
                 c.setType(rs.getString(4));
                 c.setMeuble(rs.getString(5));
                 c.setDescription(rs.getString(6));
-                 c.setPhoto(rs.getString(7));
-                 c.setPhoto1(rs.getString(8));
-                  c.setPhoto2(rs.getString(9));
+                c.setPhoto(rs.getString(7));
+                c.setPhoto1(rs.getString(8));
+                c.setPhoto2(rs.getString(9));
                 c.setNature(rs.getString("nature"));
                 c.setVille(rs.getString("ville"));
-                 c.setX(rs.getDouble("x"));
-                 c.setY(rs.getDouble("y"));
+                c.setX(rs.getDouble("x"));
+                c.setY(rs.getDouble("y"));
+                c.setUser_id(rs.getInt("user_id"));
+                myList.add(c);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return myList;
+    }
+
+    public List<Colocation> afficherOffreByUser(int id) {
+        List<Colocation> myList = new ArrayList<Colocation>();
+        try {
+
+            String requete = "SELECT * FROM colocation where user_id=?  and nature='Offre'";
+
+            PreparedStatement pst = cnx.prepareStatement(requete);
+            pst.setInt(1, id);
+
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Colocation c = new Colocation();
+                c.setId(rs.getInt(1));
+                c.setLoyer(rs.getInt(2));
+                c.setTitre(rs.getString(3));
+                c.setType(rs.getString(4));
+                c.setMeuble(rs.getString(5));
+                c.setDescription(rs.getString(6));
+                c.setPhoto(rs.getString(7));
+                c.setPhoto1(rs.getString(8));
+                c.setPhoto2(rs.getString(9));
+                c.setNature(rs.getString("nature"));
+                c.setVille(rs.getString("ville"));
+                c.setX(rs.getDouble("x"));
+                c.setY(rs.getDouble("y"));
+                c.setUser_id(rs.getInt("user_id"));
+                myList.add(c);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return myList;
+    }
+
+    public List<Colocation> afficherOffreByCollocation(Colocation col) {
+        List<Colocation> myList = new ArrayList<Colocation>();
+        try {
+
+            String requete = "SELECT * FROM colocation where loyer=? and meuble=? and type=?  and nature='Offre'";
+
+            PreparedStatement pst = cnx.prepareStatement(requete);
+            pst.setDouble(1, col.getLoyer());
+            pst.setString(2, col.getMeuble());
+            pst.setString(3, col.getType());
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Colocation c = new Colocation();
+                c.setId(rs.getInt(1));
+                c.setLoyer(rs.getInt(2));
+                c.setTitre(rs.getString(3));
+                c.setType(rs.getString(4));
+                c.setMeuble(rs.getString(5));
+                c.setDescription(rs.getString(6));
+                c.setPhoto(rs.getString(7));
+                c.setPhoto1(rs.getString(8));
+                c.setPhoto2(rs.getString(9));
+                c.setNature(rs.getString("nature"));
+                c.setVille(rs.getString("ville"));
+                c.setX(rs.getDouble("x"));
+                c.setY(rs.getDouble("y"));
+                c.setUser_id(rs.getInt("user_id"));
                 myList.add(c);
             }
 

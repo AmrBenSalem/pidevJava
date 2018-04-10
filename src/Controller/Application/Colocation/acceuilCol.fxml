@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="anchor" prefHeight="600.0" prefWidth="1110.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Application.Colocation.AcceuilColController">
+   <children>
+      <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1110.0">
+        <content>
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="1110.0">
+               <children>
+                  <JFXDrawer fx:id="drawerLeft" prefHeight="600.0" prefWidth="86.0">
+                     <children>
+                        <Pane fx:id="CoVoiturage" prefHeight="448.0" prefWidth="983.0" style="-fx-background-color: #f0f0f0;" />
+                     </children>
+                  </JFXDrawer>
+                  <JFXDrawer fx:id="drawerTop" layoutX="86.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="97.0" prefWidth="1024.0" style="-fx-background-color: #ef6262;" />
+                  <Pane layoutX="87.0" layoutY="97.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="1023.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label fx:id="pageLabel" layoutX="43.0" layoutY="9.0" prefHeight="39.0" prefWidth="183.0" text="Colocation">
+                           <font>
+                              <Font name="Arial" size="27.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="CoVoiturage1" layoutX="86.0" layoutY="153.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="1024.0" style="-fx-background-color: #f0f0f0;">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="389.0" layoutX="124.0" layoutY="17.0" stroke="#ffc870" strokeType="INSIDE" strokeWidth="0.0" width="342.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="387.0" layoutX="512.0" layoutY="14.0" stroke="#7accbe" strokeType="INSIDE" strokeWidth="0.0" width="342.0" />
+                        <Button fx:id="buttonOffres" layoutX="226.0" layoutY="287.0" mnemonicParsing="false" onAction="#DisplayOffresAction" prefHeight="34.0" prefWidth="138.0" style="-fx-background-color: #ffc870;" text="Consulter les offres" />
+                        <Button fx:id="buttonOwnOffres" layoutX="253.0" layoutY="336.0" mnemonicParsing="false" onAction="#DisplayOwnOffresAction" prefHeight="31.0" prefWidth="84.0" style="-fx-background-color: #ef6262;" text="Vos offres" />
+                        <Button fx:id="buttonDemandes" layoutX="611.0" layoutY="289.0" mnemonicParsing="false" onAction="#DisplayDemandeAction" prefHeight="30.0" prefWidth="164.0" style="-fx-background-color: #7accbe;" text="Consulter les demandes" />
+                        <Button fx:id="buttonOwnDemandes" layoutX="639.0" layoutY="336.0" mnemonicParsing="false" onAction="#DisplayOwnDemandesAction" prefHeight="31.0" prefWidth="111.0" style="-fx-background-color: #ef6262;" text="Vos demandes" />
+                        <Button layoutX="612.0" layoutY="238.0" mnemonicParsing="false" onAction="#DisplayAjoutDemandeAction" prefHeight="30.0" prefWidth="164.0" style="-fx-background-color: #7accbe;" text="Ajouter demande" />
+                        <Button layoutX="223.0" layoutY="230.0" mnemonicParsing="false" onAction="#DisplayAjoutOffresAction" prefHeight="34.0" prefWidth="138.0" style="-fx-background-color: #ffc870;" text="Ajouter offre" />
+                        <Text fill="#e48d0a" layoutX="256.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COLOCATION" />
+                        <Text layoutX="628.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous pouvez demander si   " />
+                        <Text layoutX="243.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="de Colocation ou " wrappingWidth="98.8671875" />
+                        <Text layoutX="259.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="en poster un" />
+                        <Text layoutX="212.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous pouvez consulter les offres   " />
+                        <Text layoutX="612.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="quelqu'un pourrait vous dépanner" />
+                        <Text layoutX="633.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="en ajoutant une demande" />
+                        <Text fill="#e48d0a" layoutX="664.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="COLOCATION" />
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

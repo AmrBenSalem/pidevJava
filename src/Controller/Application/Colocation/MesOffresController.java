@@ -5,7 +5,9 @@
  */
 package Controller.Application.Colocation;
 
+import com.jfoenix.controls.JFXDrawer;
 import entities.Colocation;
+import gui.DashboardCoVoiturageController;
 import gui.LoginController;
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +33,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import services.ColocationCRUD;
@@ -41,7 +44,7 @@ import util.Config;
  *
  * @author douha
  */
-public class MesAnnoncesController implements Initializable {
+public class MesOffresController implements Initializable {
 
     private ObservableList<Colocation> data = FXCollections.observableArrayList();
     @FXML
@@ -52,7 +55,8 @@ public class MesAnnoncesController implements Initializable {
 
     @FXML
     private TableColumn<Colocation, String> colTitre;
-
+ @FXML
+    private JFXDrawer drawerLeft;
     @FXML
     private TableColumn<Colocation, String> colType;
 
@@ -75,14 +79,20 @@ public class MesAnnoncesController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+ try {
+              drawerLeft.open();
+            VBox box = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
+            drawerLeft.setSidePane(box);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardCoVoiturageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         colNature.setCellValueFactory(new PropertyValueFactory<Colocation, String>("nature"));
         colTitre.setCellValueFactory(new PropertyValueFactory<Colocation, String>("titre"));
         colType.setCellValueFactory(new PropertyValueFactory<Colocation, String>("type"));
         colVille.setCellValueFactory(new PropertyValueFactory<Colocation, String>("ville"));
         colLoyer.setCellValueFactory(new PropertyValueFactory<Colocation, Double>("loyer"));
 
-        List<Colocation> listCol = colocationCRUD.afficherColocationByUser(Config.idUser);
+        List<Colocation> listCol = colocationCRUD.afficherOffreByUser(Config.idUser);
 
         data = FXCollections.observableArrayList(listCol);
         tableAnnonce.setItems(data);
@@ -115,7 +125,7 @@ public class MesAnnoncesController implements Initializable {
 
                                     colocationCRUD.supprimerColocation(colocation.getId());
                                     //pour charger la liste
-                                    List<Colocation> listCol = colocationCRUD.afficherColocationByUser(Config.idUser);
+                                    List<Colocation> listCol = colocationCRUD.afficherDemandeByUser(Config.idUser);
 
                                     data = FXCollections.observableArrayList(listCol);
                                     tableAnnonce.setItems(data);
