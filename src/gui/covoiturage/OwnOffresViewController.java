@@ -201,8 +201,8 @@ public class OwnOffresViewController implements Initializable {
                 CoVoiturage cov = new CoVoiturage();
                 //System.out.println("bbbbbbbb" + offre.getId());
                 cov = cs.readCoVoiturage(offre.getId());
-                //cs.deleteCoVoiturage(cov);
-                Refresh(event);
+                OffresViewController.covInfo=cov;
+                redirectToUpdate(event);
             });
 
             JFXButton btnDelete = new JFXButton();
@@ -481,6 +481,21 @@ public class OwnOffresViewController implements Initializable {
         Parent page = null;
         try {
             page = FXMLLoader.load(getClass().getResource("InfoOffreView.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(page);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+    
+    private void redirectToUpdate(ActionEvent event) {
+        Parent page = null;
+        try {
+            page = FXMLLoader.load(getClass().getResource("UpdateOffreView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
