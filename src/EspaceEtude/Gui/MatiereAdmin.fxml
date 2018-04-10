@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="ap" prefHeight="400.0" prefWidth="667.0" style="-fx-background-color: white;" stylesheets="@adminCss.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EspaceEtude.Gui.MatiereAdminController">
+   <children>
+      <Pane id="pane" layoutY="-1.0" prefHeight="80.0" prefWidth="667.0">
+         <children>
+            <Label layoutX="31.0" layoutY="22.0" prefHeight="33.0" prefWidth="134.0" text="Matiere" textFill="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <JFXButton id="AjoutButton" fx:id="addMatiere" layoutX="511.0" layoutY="23.0" onMouseClicked="#ajoutMatiereInterface" prefHeight="34.0" prefWidth="134.0" text="Nouvelle Matiere" textFill="WHITE" />
+         </children>
+      </Pane>
+      <Pane layoutX="2.0" layoutY="79.0" prefHeight="320.0" prefWidth="661.0">
+         <children>
+            <Label fx:id="SectionNameLabel" layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="112.0" />
+            <ScrollPane layoutX="14.0" layoutY="85.0">
+               <content>
+                  <TableView fx:id="MatiereTableView" prefHeight="200.0" prefWidth="597.0" stylesheets="@table.css">
+                    <columns>
+                      <TableColumn fx:id="libelle" prefWidth="295.0" text="Libelle" />
+                      <TableColumn fx:id="coefficient" minWidth="9.0" prefWidth="88.0" text="Coefficient" />
+                        <TableColumn fx:id="type" prefWidth="94.0" text="Type" />
+                    </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

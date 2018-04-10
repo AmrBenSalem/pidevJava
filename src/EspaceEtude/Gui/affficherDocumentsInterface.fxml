@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EspaceEtude.Gui.AffficherDocumentsInterfaceController">
+    <stylesheets>
+        <URL value="@affficherdocumentsinterface.css" />
+    </stylesheets>
+   <children>
+      <Pane fx:id="pane" layoutX="123.0" layoutY="100.0" prefHeight="500.0" prefWidth="614.0">
+         <children>
+            <Button fx:id="addButton" layoutX="492.0" layoutY="448.0" mnemonicParsing="false" onMouseClicked="#startCrud" text="Ajouter un fichier" />
+         </children>
+      </Pane>
+      <fx:include source="../../gui/TopMenu.fxml" />
+      <fx:include source="../../gui/LeftMenu.fxml" />
+   </children>
+</AnchorPane>

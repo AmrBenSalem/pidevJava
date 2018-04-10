@@ -1,62 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="474.0" prefWidth="664.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" fx:id="parent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="738.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EspaceEtude.Gui.AfficherClasseInterfaceController">
    <children>
-      <Pane layoutX="-6.0" prefHeight="91.0" prefWidth="672.0" style="-fx-background-color: #F06261;" />
-      <Pane layoutY="-2.0" prefHeight="481.0" prefWidth="118.0" style="-fx-background-color: #3D3B3C;">
-         <children>
-            <JFXButton layoutY="108.0" prefHeight="56.0" prefWidth="118.0" text="objet perdu" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../image/lost.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton layoutY="164.0" prefHeight="56.0" prefWidth="118.0" text="Co-voiturage" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../image/lost.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton layoutY="221.0" prefHeight="56.0" prefWidth="118.0" text="Colocation" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../image/House.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton layoutY="277.0" prefHeight="56.0" prefWidth="118.0" text="Etude" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../image/Study.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton layoutY="333.0" prefHeight="56.0" prefWidth="118.0" text="Evennement" textFill="WHITE">
-               <graphic>
-                  <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../image/Event.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-         </children>
-      </Pane>
+      <ListView fx:id="list" layoutX="129.0" layoutY="101.0" onMouseClicked="#test" orientation="VERTICAL" prefHeight="258.0" prefWidth="355.0" />
+      <fx:include source="../../gui/TopMenu.fxml" />
+      <fx:include source="../../gui/LeftMenu.fxml" />
    </children>
 </AnchorPane>
