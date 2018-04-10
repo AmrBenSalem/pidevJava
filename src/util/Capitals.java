@@ -63,11 +63,11 @@ public class Capitals {
     
     public String getIpAdress(){
             try {
-                URL whatismyip = new URL("http://checkip.amazonaws.com");
+                URL mip = new URL("http://checkip.amazonaws.com");
                 BufferedReader in = null;
                 try {
                     in = new BufferedReader(new InputStreamReader(
-                            whatismyip.openStream()));
+                            mip.openStream()));
                 } catch (IOException ex) {
                     // Logger.getLogger(LookUpProgram.class.getName()).log(Level.SEVERE, null, ex);
                 }

@@ -12,6 +12,8 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.cells.editors.base.JFXTreeTableCell;
 import entities.CoVoiturage;
 import entities.CoVoiturageRequests;
+import entities.Session;
+import entities.User;
 import gui.DashboardCoVoiturageController;
 import gui.LoginController;
 import static gui.covoiturage.OffresViewController.covInfo;
@@ -49,6 +51,7 @@ import util.TimeSpinner;
 import java.util.Date;
 import javafx.scene.input.MouseEvent;
 import services.ServiceCoVoiturageRequests;
+import services.UserCRUD;
 import util.TimeAgo;
 
 /**
@@ -94,6 +97,9 @@ public class OwnOffresViewController implements Initializable {
     @FXML
     private VBox testPaneSug;
     public int counter;
+    
+    public User user = Session.getUser();
+    public UserCRUD SUser = new UserCRUD();
 
     /**
      * Initializes the controller class.
@@ -101,16 +107,8 @@ public class OwnOffresViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        try {
-            cs = new ServiceCoVoiturage();
-        } catch (SQLException ex) {
-            Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            cr = new ServiceCoVoiturageRequests();
-        } catch (SQLException ex) {
-            Logger.getLogger(OwnOffresViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        cs = new ServiceCoVoiturage();
+        cr = new ServiceCoVoiturageRequests();
         try {
             Instance();
         } catch (IOException ex) {
@@ -130,7 +128,7 @@ public class OwnOffresViewController implements Initializable {
     public void Instance() throws IOException {
         ArrayList<CoVoiturage> listOfOffres = new ArrayList<>();
         try {
-            listOfOffres.addAll(cs.GetOwnCovoituragePerType("o", 5));
+            listOfOffres.addAll(cs.GetOwnCovoituragePerType("o", Session.getUser().getId()));
         } catch (SQLException ex) {
             Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -178,7 +176,7 @@ public class OwnOffresViewController implements Initializable {
             pane.getChildren().set(9, etatField);*/
             CoVoiturage offre;
             offre = listOfOffres.get(k);
-            userField.setText(String.valueOf(offre.getUser()));
+            userField.setText(String.valueOf(SUser.getUser(offre.getUser()).getUserName()));
             departField.setText(String.valueOf(offre.getDepart()));
             // departField.setMaxSize(3, 3);
             destinationField.setText(String.valueOf(offre.getDestination()));
@@ -201,17 +199,13 @@ public class OwnOffresViewController implements Initializable {
             request = (JFXButton) pane.getChildren().get(14);
             pane.getChildren().set(14, request);
             request.setOnAction((event) -> {
-                try {
-                    CoVoiturageRequests cod = new CoVoiturageRequests(offre.getId(), 5, "a", new Timestamp(System.currentTimeMillis()));
-                    ServiceCoVoiturageRequests scor = new ServiceCoVoiturageRequests();
-                    scor.addRequest(cod);
-                    //System.out.println("bbbbbbbb" + offre.getId());
-                    //cov = cs.readCoVoiturage(offre.getId());
-                    //cs.deleteCoVoiturage(cov);
-                    Refresh(event);
-                } catch (SQLException ex) {
-                    Logger.getLogger(OffresViewController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                CoVoiturageRequests cod = new CoVoiturageRequests(offre.getId(), Session.getUser().getId(), "a", new Timestamp(System.currentTimeMillis()));
+                ServiceCoVoiturageRequests scor = new ServiceCoVoiturageRequests();
+                scor.addRequest(cod);
+                //System.out.println("bbbbbbbb" + offre.getId());
+                //cov = cs.readCoVoiturage(offre.getId());
+                //cs.deleteCoVoiturage(cov);
+                Refresh(event);
             });
 
             JFXButton btnUpdatee = new JFXButton();
@@ -248,14 +242,16 @@ public class OwnOffresViewController implements Initializable {
 
             ArrayList<CoVoiturageRequests> listOfRequestss = new ArrayList<>();
             try {
-                listOfRequestss.addAll(cr.GetOwnCovoiturageRequests(5, offre.getId()/* USER */));
+                listOfRequestss.addAll(cr.GetOwnCovoiturageRequestsIdc(offre.getId()/* USER */));
+                System.out.println(listOfRequestss.size());
                 //System.out.println("aaa");
             } catch (SQLException ex) {
                 Logger.getLogger(OwnOffresViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            System.out.println("bbbbbbbbbbbbb");
             if (listOfRequestss.size() > 0) {
                 counter = counter + listOfRequestss.size();
-
+                System.out.println("aaaaaaaaaaaaaaaa");
                 /////hhhhhhhhhhhhhhhhhhhh
                 for (int j = 0; j < listOfRequestss.size(); j++) {
 
@@ -279,7 +275,7 @@ public class OwnOffresViewController implements Initializable {
                     CoVoiturageRequests offreR;
                     offreR = listOfRequestss.get(j);
 
-                    userFieldR.setText(String.valueOf(offreR.getUser()));
+                    userFieldR.setText(String.valueOf(SUser.getUser(offreR.getUser()).getUserName()));
                     dateFieldR.setText(String.valueOf(TimeAgo.toDuration(System.currentTimeMillis() - offreR.getCreated().getTime())));
 
                     if (offreR.getEtat().equals("a")) {
@@ -346,14 +342,13 @@ public class OwnOffresViewController implements Initializable {
         
         ArrayList<CoVoiturageRequests> listOfRequestss = new ArrayList<>();
         try {
-            listOfRequestss.addAll(cr.GetOwnCovoiturageRequests(5/* USER */));
+            listOfRequestss.addAll(cr.GetOwnCovoiturageRequests(user.getId()/* USER */));
             //System.out.println("aaa");
         } catch (SQLException ex) {
             Logger.getLogger(OwnOffresViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         if (listOfRequestss.size()>0){
-        
         CoVoiturageRequests offreR = listOfRequestss.get(0);
         CoVoiturage offre = cs.readCoVoiturage(offreR.getIdc());
         System.out.println(offreR);
@@ -388,7 +383,7 @@ public class OwnOffresViewController implements Initializable {
             etatField.setLayoutX(pane.getChildren().get(9).getLayoutX());
             etatField.setLayoutY(pane.getChildren().get(9).getLayoutY());
             pane.getChildren().set(9, etatField);*/
-        userField.setText(String.valueOf(offre.getUser()));
+        userField.setText(String.valueOf(SUser.getUser(offre.getUser()).getUserName()));
         departField.setText(String.valueOf(offre.getDepart()));
         // departField.setMaxSize(3, 3);
         destinationField.setText(String.valueOf(offre.getDestination()));
@@ -411,12 +406,12 @@ public class OwnOffresViewController implements Initializable {
         pane.getChildren().get(13).setVisible(false);
         pane.getChildren().get(12).setVisible(false);
 
-        if (offreR.getEtat().equals("c")) {
+        if (offreR.getEtat().equals("c") || offreR.getEtat().equals("a")) {
             Label annuler = new Label();
             annuler.setText("Annuler");
-            annuler.setLayoutX(pane.getChildren().get(14).getLayoutX());
-            annuler.setLayoutY(pane.getChildren().get(14).getLayoutY());
-            pane.getChildren().set(14, annuler);
+            annuler.setLayoutX(pane.getChildren().get(13).getLayoutX());
+            annuler.setLayoutY(pane.getChildren().get(13).getLayoutY());
+            pane.getChildren().set(13, annuler);
             annuler.setOnMouseClicked((event) -> {
                 cr.deleteRequestOffre(offreR);
                 Refresh(event);
@@ -463,7 +458,7 @@ public class OwnOffresViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -478,7 +473,7 @@ public class OwnOffresViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -494,7 +489,7 @@ public class OwnOffresViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -509,7 +504,7 @@ public class OwnOffresViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 }

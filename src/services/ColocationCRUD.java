@@ -81,6 +81,7 @@ public class ColocationCRUD {
         return myList;
     }
 
+
     public List<Colocation> afficherColocationDemande() {
         List<Colocation> myList = new ArrayList<Colocation>();
         try {
@@ -285,6 +286,7 @@ public class ColocationCRUD {
             pst.setDouble(11, c.getX());
             pst.setDouble(12, c.getY());
             pst.setInt(13, c.getId());
+
 
             pst.executeUpdate();
             System.out.println("Colocation modifié");

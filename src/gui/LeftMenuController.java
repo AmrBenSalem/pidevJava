@@ -20,6 +20,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
@@ -37,9 +39,11 @@ public class LeftMenuController implements Initializable {
     private Button b3;
     @FXML
     private Button b4;
-    @FXML
-    private Button b5;
     public static Label pageNameLabel;
+    @FXML
+    private ImageView btnevent;
+    @FXML
+    private Button b21;
 
     /**
      * Initializes the controller class.
@@ -78,7 +82,7 @@ Parent page = null;
             case "b3":
                 
                 try {
-                 page = FXMLLoader.load(getClass().getResource("ja/ObjetView.fxml"));
+                 Objet = FXMLLoader.load(getClass().getResource("/ja/ObjetView.fxml"));
                 } catch (IOException ex) {
                     Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -106,11 +110,24 @@ Parent page = null;
 
                 break;
 
-            case "b5":
+            case "b21":
+                Parent pageEvent = null;
+                try {
+                 pageEvent = FXMLLoader.load(getClass().getResource("/Views/Event/Home.fxml"));
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Scene sceneEvent = new Scene(pageEvent);
+                Stage stageEvent = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stageEvent.hide();
+                stageEvent.setScene(sceneEvent);
+                stageEvent.show();
+                break;
             //  DashboardCoVoiturageController.CoVoituragePaneInit.setVisible(false);
 
         }
 //        pageNameLabel.setText(btn.getText());
     }
+
 
 }

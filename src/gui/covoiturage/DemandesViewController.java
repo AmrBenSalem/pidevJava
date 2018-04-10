@@ -49,6 +49,16 @@ public class DemandesViewController implements Initializable {
     private Pane CoVoiturage1;
     @FXML
     private JFXButton redirectButtonCov;
+    @FXML
+    private JFXButton buttonAddDemande;
+    @FXML
+    private AnchorPane vboxAnchorPane;
+    @FXML
+    private VBox testPane;
+    @FXML
+    private AnchorPane vboxAnchorPaneSug;
+    @FXML
+    private VBox testPaneSug;
 
     /**
      * Initializes the controller class.
@@ -79,8 +89,12 @@ public class DemandesViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
+    }
+
+    @FXML
+    private void AddDemandeAction(ActionEvent event) {
     }
 
     

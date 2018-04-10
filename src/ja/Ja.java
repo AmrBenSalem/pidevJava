@@ -19,9 +19,10 @@ public class Ja extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("ObjetView.fxml"));        
+        Parent root = FXMLLoader.load(getClass().getResource("authentification.fxml"));        
         Scene scene = new Scene(root);        
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

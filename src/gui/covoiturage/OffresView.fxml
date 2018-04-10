@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
@@ -31,6 +32,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
+                  <JFXTextField fx:id="searchTextField" layoutX="812.0" layoutY="7.0" onKeyTyped="#refreshOffres" />
                </children>
             </Pane>
             <ScrollPane layoutX="8.0" layoutY="243.0" prefHeight="200.0" prefWidth="1011.0">

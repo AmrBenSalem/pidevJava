@@ -48,9 +48,7 @@ import entities.CoVoiturage;
 import entities.CoVoiturageDays;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javafx.geometry.Pos;
 import javafx.scene.control.SpinnerValueFactory;
@@ -62,6 +60,7 @@ import javafx.scene.paint.Color;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import javax.management.Notification;
 import services.ServiceCoVoiturage;
+import services.ServiceCoVoiturageDays;
 import util.Capitals;
 import util.GooglePlacesAPI;
 import util.TimeSpinner;
@@ -136,7 +135,7 @@ public class UpdateOffreViewController implements Initializable {
     private JFXButton buttonSubmit;
     @FXML
     private Pane timePane;
-    TimeSpinner timeSpinner;
+    TimeSpinner timeSpinner = new TimeSpinner();
 
     /**
      * Initializes the controller class.
@@ -144,10 +143,11 @@ public class UpdateOffreViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        
         //System.out.println(c.getCapital());
-        
-        timeSpinner = new TimeSpinner();
+        if (cov.getOnetime().equals("off")){
+             timeSpinner= new TimeSpinner(cov.getDate().toLocalDateTime().toLocalTime());
+        }
+        System.out.println("bb");
         timePane.getChildren().add(timeSpinner);
         drawerLeft.open();
         //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
@@ -166,12 +166,10 @@ public class UpdateOffreViewController implements Initializable {
         }
         daysPane.setVisible(false);
         datePane.setVisible(true);
-
         originLat = cov.getDepart_lat();
         originLng = cov.getDepart_lng();
         origin_place_id = cov.getDepart_id();
         dest_place_id = cov.getDestination_id();
-        System.out.println("aaaa");
         GooglePlacesAPI gpi = new GooglePlacesAPI();
         Adresse a = gpi.getAdress(cov.getDestination());
         
@@ -179,6 +177,25 @@ public class UpdateOffreViewController implements Initializable {
         destLng = a.getLongitude();
         
         setParams(originLat, originLng, destLat, destLng, parent);
+        
+        placeTextField.setText(Integer.toString(cov.getPlacedisponibles()));
+        
+        if (cov.getOnetime().equals("off")){
+            dateTextField.setValue(cov.getDate().toLocalDateTime().toLocalDate());
+        } else {
+            onoff = "on";
+            daysPane.setVisible(true);
+            datePane.setVisible(false);
+            check = false;
+            ServiceCoVoiturageDays scor = new ServiceCoVoiturageDays();
+            if (scor.GetCovoiturageDays(cov).getLundi() != null) lundiButton.setSelected(true);
+            if (scor.GetCovoiturageDays(cov).getMardi() != null) mardiButton.setSelected(true);
+            if (scor.GetCovoiturageDays(cov).getMercredi()!= null) mercrediButton.setSelected(true);
+            if (scor.GetCovoiturageDays(cov).getJeudi()!= null) jeudiButton.setSelected(true);
+            if (scor.GetCovoiturageDays(cov).getVendredi() != null) vendrediButton.setSelected(true);
+            if (scor.GetCovoiturageDays(cov).getSamedi() != null) samediButton.setSelected(true);
+        }
+        
         departTextField.setText(cov.getDepart());
         destinationTextField.setText(cov.getDestination());
 
@@ -255,7 +272,7 @@ public class UpdateOffreViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -271,7 +288,7 @@ public class UpdateOffreViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -305,8 +322,6 @@ public class UpdateOffreViewController implements Initializable {
             if (!text.replace(" ", "").isEmpty() && lll.toUpperCase().contains(text.toUpperCase())) {
                 Label label = new Label(lll); // create a label and set the text 
                 label.setOnMouseClicked((event) -> {
-                    //System.out.println(option);
-                    //System.out.println("ddeeeefffff");
                     textx.setText(lll);
                     origin_place_id = option.getPlaceId();
                     originLat = option.getLatitude();
@@ -339,7 +354,6 @@ public class UpdateOffreViewController implements Initializable {
                 Label label = new Label(lll); // create a label and set the text 
                 label.setOnMouseClicked((event) -> {
 
-                    System.out.println(option);
                     textx.setText(lll);
                     dest_place_id = option.getPlaceId();
                     destLat = option.getLatitude();
@@ -366,15 +380,15 @@ public class UpdateOffreViewController implements Initializable {
             if (onoff.equals("off")){
                  ts = Timestamp.valueOf(dt);
             }
-            System.out.println(departTextField.getText());
-            System.out.println(destinationTextField.getText());
-            System.out.println(ts);
-            System.out.println(onoff);
-            System.out.println(placeTextField.getText());
-            System.out.println(origin_place_id);
-            System.out.println(dest_place_id);
-            System.out.println(originLat);
-            System.out.println(originLng);
+//            System.out.println(departTextField.getText());
+//            System.out.println(destinationTextField.getText());
+//            System.out.println(ts);
+//            System.out.println(onoff);
+//            System.out.println(placeTextField.getText());
+//            System.out.println(origin_place_id);
+//            System.out.println(dest_place_id);
+//            System.out.println(originLat);
+//            System.out.println(originLng);
             
             
             if (departTextField.getText().equals("Votre emplacement")){
@@ -414,7 +428,6 @@ public class UpdateOffreViewController implements Initializable {
             } else {
                 scov.updateCoVoiturage(covr);
             }
-            System.out.println(covr);
             redirectToOffres(event);
             
         } catch (SQLException ex) {
