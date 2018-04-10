@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Event.ListEventsAdminController">
+   <children>
+      <Pane layoutX="9.0" layoutY="8.0" style="-fx-background-color: #06a6e0;" AnchorPane.bottomAnchor="320.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fill="WHITE" layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Les évènements">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <TableView fx:id="events" layoutY="81.0">
+        <columns>
+          <TableColumn fx:id="titre" prefWidth="75.0" text="Titre" />
+          <TableColumn fx:id="description" prefWidth="75.0" text="Description" />
+            <TableColumn fx:id="datedebut" prefWidth="75.0" text="Date Début" />
+            <TableColumn fx:id="datefin" prefWidth="75.0" text="Date Fin" />
+            <TableColumn fx:id="lieu" prefWidth="75.0" text="Lieu" />
+            <TableColumn fx:id="nbmax" prefWidth="75.0" text="Nombre Maximum" />
+            <TableColumn fx:id="categorie" prefWidth="75.0" text="Catégorie" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

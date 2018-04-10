@@ -331,4 +331,25 @@ public class UserCRUD implements IUserService {
             ex.printStackTrace();
         }
         }
+         
+         
+         
+         public User getByID(int id) throws SQLException{
+             User u = new User();
+             String requete2 = "SELECT * FROM user WHERE id=?";
+             PreparedStatement pre=myconnection.prepareStatement(requete2);
+             pre.setInt(1,id);
+             ResultSet rs=pre.executeQuery();
+             while(rs.next()){
+                 u.setClasse(rs.getString("classe"));
+                 u.setDateNaissance(rs.getDate("dateNaissance"));
+                 u.setUserName(rs.getString("username"));
+                 u.setTelephone(rs.getString("telephone"));
+                 u.setNom(rs.getString("nom"));
+                 u.setPrenom(rs.getString("prenom"));
+                            
+            }
+             
+             return u;
+         }
 }
