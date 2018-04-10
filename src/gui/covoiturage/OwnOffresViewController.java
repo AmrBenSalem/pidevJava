@@ -135,16 +135,6 @@ public class OwnOffresViewController implements Initializable {
         Pane panee = FXMLLoader.load(getClass().getResource("OffreLine.fxml"));
         if (listOfOffres.size()>0){
             counter = listOfOffres.size();
-        
-//        vboxAnchorPaneSug.setMinHeight(54 * listOfOffres.size());
-//        vboxAnchorPaneSug.setMaxHeight(54 * listOfOffres.size());
-//        vboxAnchorPaneSug.setPrefHeight(54 * listOfOffres.size());
-
-        
-
-//        for (int x = 0; x < panee.getChildren().size(); x++) {
-//            System.out.println(x + "  " + panee.getChildren().get(x).toString());
-//        }
 
         for (int k = 0; k < listOfOffres.size(); k++) {
 
@@ -170,10 +160,6 @@ public class OwnOffresViewController implements Initializable {
             dateField.setLayoutY(pane.getChildren().get(8).getLayoutY());
             pane.getChildren().set(8, dateField);
 
-            /*Label etatField = new Label();
-            etatField.setLayoutX(pane.getChildren().get(9).getLayoutX());
-            etatField.setLayoutY(pane.getChildren().get(9).getLayoutY());
-            pane.getChildren().set(9, etatField);*/
             CoVoiturage offre;
             offre = listOfOffres.get(k);
             userField.setText(String.valueOf(SUser.getUser(offre.getUser()).getUserName()));
@@ -215,8 +201,8 @@ public class OwnOffresViewController implements Initializable {
                 CoVoiturage cov = new CoVoiturage();
                 //System.out.println("bbbbbbbb" + offre.getId());
                 cov = cs.readCoVoiturage(offre.getId());
-                //cs.deleteCoVoiturage(cov);
-                Refresh(event);
+                OffresViewController.covInfo=cov;
+                redirectToUpdate(event);
             });
 
             JFXButton btnDelete = new JFXButton();
@@ -248,10 +234,8 @@ public class OwnOffresViewController implements Initializable {
             } catch (SQLException ex) {
                 Logger.getLogger(OwnOffresViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("bbbbbbbbbbbbb");
             if (listOfRequestss.size() > 0) {
                 counter = counter + listOfRequestss.size();
-                System.out.println("aaaaaaaaaaaaaaaa");
                 /////hhhhhhhhhhhhhhhhhhhh
                 for (int j = 0; j < listOfRequestss.size(); j++) {
 
@@ -497,6 +481,21 @@ public class OwnOffresViewController implements Initializable {
         Parent page = null;
         try {
             page = FXMLLoader.load(getClass().getResource("InfoOffreView.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(page);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+    
+    private void redirectToUpdate(ActionEvent event) {
+        Parent page = null;
+        try {
+            page = FXMLLoader.load(getClass().getResource("UpdateOffreView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -108,9 +108,9 @@ public class InfoOffreViewController implements Initializable {
         }
         CoVoiturage cov = OffresViewController.covInfo;
 
-        for (int x = 0; x < CoVoiturage1.getChildren().size(); x++) {
+        /*for (int x = 0; x < CoVoiturage1.getChildren().size(); x++) {
             System.out.println(x + "  " + CoVoiturage1.getChildren().get(x).toString());
-        }
+        }*/
 
         labelDepart.setText(cov.getDepart());
         labelDestination.setText(cov.getDestination());

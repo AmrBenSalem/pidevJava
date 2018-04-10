@@ -36,7 +36,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -157,9 +156,6 @@ public class OffresViewController implements Initializable {
         vboxAnchorPaneSug.setMaxHeight(54 * 3);
         vboxAnchorPaneSug.setPrefHeight(54 * 3);
 
-//       for (int x = 0; x < panee.getChildren().size() ; x++){
-//           System.out.println(x+"  "+panee.getChildren().get(x).toString());
-//       }
         if (listOfOffres.size() > 0)
         {
         for (int k = 0; k < listOfOffres.size(); k++) {
@@ -185,18 +181,11 @@ public class OffresViewController implements Initializable {
             dateField.setLayoutY(pane.getChildren().get(8).getLayoutY());
             pane.getChildren().set(8, dateField);
 
-            /*Label etatField = new Label();
-            etatField.setLayoutX(pane.getChildren().get(9).getLayoutX());
-            etatField.setLayoutY(pane.getChildren().get(9).getLayoutY());
-            pane.getChildren().set(9, etatField);*/
             CoVoiturage offre;
             offre = listOfOffres.get(k);
             userField.setText(String.valueOf(SUser.getUser(offre.getUser()).getUserName()));
             departField.setText(String.valueOf(offre.getDepart()));
-            // departField.setMaxSize(3, 3);
             destinationField.setText(String.valueOf(offre.getDestination()));
-            //PrettyTime p = new PrettyTime();
-            //dateField.setText(String.valueOf(TimeAgo.toDuration(offre.getDate().getTime())));
 
             dateField.setText(String.valueOf(TimeAgo.toDuration(System.currentTimeMillis() - offre.getUpdated().getTime())));
 
@@ -274,12 +263,12 @@ public class OffresViewController implements Initializable {
    
             
         for (int k = 0; k < listOfOffres.size(); k++) {
-            
             double lat = abs(abs(c.getCapital().getLatitude()) - abs(listOfOffres.get(k).getDepart_lat()));
             double lng = abs(abs(c.getCapital().getLongitude()) - abs(listOfOffres.get(k).getDepart_lng()));
             double value = lat + lng;
             listOfSugg.add(new CoVoiturageSuggestion(listOfOffres.get(k).getId(), Session.getUser().getUserName(), listOfOffres.get(k).getUser(), listOfOffres.get(k).getDepart(), listOfOffres.get(k).getDestination(), value, listOfOffres.get(k).getUpdated()));
         }
+        
         Collections.sort(listOfSugg, new CoVoiturageSuggestion());
         int j = 0;
         ServiceCoVoiturageRequests scor = new ServiceCoVoiturageRequests();

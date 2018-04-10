@@ -91,7 +91,7 @@ public class AddOffreViewController implements Initializable {
     @FXML
     private Pane datePane;
     @FXML
-    private DatePicker dateTextField = new DatePicker(LocalDate.now()); 
+    private DatePicker dateTextField = new DatePicker(LocalDate.now());
     @FXML
     private Pane daysPane;
     @FXML
@@ -149,17 +149,12 @@ public class AddOffreViewController implements Initializable {
     public User user = Session.getUser();
     public UserCRUD SUser = new UserCRUD();
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        //System.out.println(c.getCapital());
         timeSpinner = new TimeSpinner(LocalTime.now());
         timePane.getChildren().add(timeSpinner);
         drawerLeft.open();
-        //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
         try {
             VBox box = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
             drawerLeft.setSidePane(box);
@@ -194,31 +189,25 @@ public class AddOffreViewController implements Initializable {
         container2.setLayoutX(135);
         container2.setLayoutY(315);
 
-        /*dateTextField.setValue(LocalDate.now());
-        dt=timeSpinner.valueProperty().getValue().atDate(LocalDate.now());*/
         DateTimeFormatter formatterr = DateTimeFormatter.ofPattern("hh:mm:ss");
         timeSpinner.valueProperty().addListener((obs, oldTime, newTime)
                 -> dt = newTime.atDate(dateTextField.getValue()));
 
         departTextField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            if (container.getChildren().size() > 1) { // if already contains a drop-down menu -> remove it 
+            if (container.getChildren().size() > 1) {
                 container.getChildren().remove(1);
             }
-            container.add(populateDropDownMenuOrigin(newValue, departTextField), 0, 1); // then add the populated drop-down menu to the second row in the grid pane
+            container.add(populateDropDownMenuOrigin(newValue, departTextField), 0, 1);
 
         });
 
         destinationTextField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            if (container2.getChildren().size() > 1) { // if already contains a drop-down menu -> remove it 
+            if (container2.getChildren().size() > 1) {
                 container2.getChildren().remove(1);
             }
-            container2.add(populateDropDownMenuDest(newValue, destinationTextField), 0, 1); // then add the populated drop-down menu to the second row in the grid pane
+            container2.add(populateDropDownMenuDest(newValue, destinationTextField), 0, 1);
 
         });
-
-        /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss");
-        timeSpinner.valueProperty().addListener((obs, oldTime, newTime)
-                -> timee=formatter.format(newTime));*/
     }
 
     @FXML
@@ -289,17 +278,13 @@ public class AddOffreViewController implements Initializable {
     public VBox populateDropDownMenuOrigin(String text, TextField textx) {
         List<Adresse> opt = GooglePlacesAPI.autoCompleteAddress(textx.getText());
         VBox dropDownMenu = new VBox();
-        //dropDownMenu.setBackground(new Background(new BackgroundFill(Color.GREEN, null,null))); // colors just for example
-        dropDownMenu.setAlignment(Pos.CENTER); // all these are optional and up to you
+        dropDownMenu.setAlignment(Pos.CENTER);
 
-        for (Adresse option : opt) { // loop through every String in the array
-            // if the given text is not empty and doesn't consists of spaces only, as well as it's a part of one (or more) of the options
+        for (Adresse option : opt) {
             String lll = option.getCity() + "," + option.getCountry();
             if (!text.replace(" ", "").isEmpty() && lll.toUpperCase().contains(text.toUpperCase())) {
-                Label label = new Label(lll); // create a label and set the text 
+                Label label = new Label(lll);
                 label.setOnMouseClicked((event) -> {
-                    //System.out.println(option);
-                    //System.out.println("ddeeeefffff");
                     for (int k = 0; k < parent.getChildren().size(); k++) {
                         System.out.println(parent.getChildren().get(k));
                     }
@@ -307,49 +292,37 @@ public class AddOffreViewController implements Initializable {
                     origin_place_id = option.getPlaceId();
                     originLat = option.getLatitude();
                     originLng = option.getLongitude();
-                    //dropDownMenu.setVisible(false);
                     dropDownMenu.getChildren().clear();
-                    //parent.getChildren().get(parent.getChildren().size()).setVisible(false);
 
                     setParams(originLat, originLng, destLat, destLng, parent);
 
                 });
-                // you can add listener to the label here if you want
-                // your user to be able to click on the options in the drop-down menu
-                dropDownMenu.getChildren().add(label); // add the label to the VBox
+                dropDownMenu.getChildren().add(label);
             }
 
         }
 
-        return dropDownMenu; // at the end return the VBox (i.e. drop-down menu)
+        return dropDownMenu;
     }
 
     public VBox populateDropDownMenuDest(String text, TextField textx) {
         List<Adresse> opt = GooglePlacesAPI.autoCompleteAddress(textx.getText());
         VBox dropDownMenu = new VBox();
-        //dropDownMenu.setBackground(new Background(new BackgroundFill(Color.GREEN, null,null))); // colors just for example
-        dropDownMenu.setAlignment(Pos.CENTER); // all these are optional and up to you
+        dropDownMenu.setAlignment(Pos.CENTER);
 
-        for (Adresse option : opt) { // loop through every String in the array
-            // if the given text is not empty and doesn't consists of spaces only, as well as it's a part of one (or more) of the options
+        for (Adresse option : opt) {
             String lll = option.getCity() + "," + option.getCountry();
             if (!text.replace(" ", "").isEmpty() && lll.toUpperCase().contains(text.toUpperCase())) {
-                Label label = new Label(lll); // create a label and set the text 
+                Label label = new Label(lll);
 
-                // you can add listener to the label here if you want
-                // your user to be able to click on the options in the drop-down menu
-                dropDownMenu.getChildren().add(label); // add the label to the VBox
+                dropDownMenu.getChildren().add(label);
                 label.setOnMouseClicked((event) -> {
 
-                    /*for(int k=0;k<parent.getChildren().size();k++){
-                        System.out.println( parent.getChildren().get(k));
-                    }*/
                     System.out.println(option);
                     textx.setText(lll);
                     dest_place_id = option.getPlaceId();
                     destLat = option.getLatitude();
                     destLng = option.getLongitude();
-                    //parent.getChildren().get(parent.getChildren().size()).setVisible(false);
                     dropDownMenu.getChildren().clear();
                     setParams(originLat, originLng, destLat, destLng, parent);
 
@@ -357,7 +330,7 @@ public class AddOffreViewController implements Initializable {
             }
         }
 
-        return dropDownMenu; // at the end return the VBox (i.e. drop-down menu)
+        return dropDownMenu;
     }
 
     @FXML
@@ -408,7 +381,6 @@ public class AddOffreViewController implements Initializable {
         if (departTextField.getText().equals("Votre emplacement")) {
             departTextField.setText(c.getCapital().getCity() + "," + c.getCapital().getCountry());
         }
-        //Timestamp t = new Timestamp(dateTextField.getValue().getYear(),dateTextField.getValue().getMonthValue(), dateTextField.getValue().getDayOfMonth(),, 0, 0, 0)
         CoVoiturage cov = new CoVoiturage(Session.getUser().getId(), "o", departTextField.getText(), destinationTextField.getText(), ts, onoff, Integer.parseInt(placeTextField.getText()), origin_place_id, dest_place_id, new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()), originLat, originLng);
         if ("on".equals(onoff)) {
             String lundi = null;

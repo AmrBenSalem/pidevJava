@@ -310,6 +310,7 @@ public class AjoutDemandeController implements Initializable, MapComponentInitia
         };
 
         //Add a marker to the map
+        
         map.addMouseEventHandler(UIEventType.click, mouseClick);
 
 
