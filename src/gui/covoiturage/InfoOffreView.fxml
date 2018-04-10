@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane id="AnchorPane" fx:id="parent" prefHeight="600.0" prefWidth="1110.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.covoiturage.InfoOffreViewController">
+   <children>
+      <JFXDrawer fx:id="drawerLeft" prefHeight="600.0" prefWidth="86.0">
+         <children>
+            <Pane fx:id="CoVoiturage" prefHeight="448.0" prefWidth="983.0" style="-fx-background-color: #f0f0f0;" />
+         </children>
+      </JFXDrawer>
+      <JFXDrawer fx:id="drawerTop" layoutX="85.0" prefHeight="97.0" prefWidth="1026.0" style="-fx-background-color: #ef6262;" />
+      <Pane layoutX="83.0" layoutY="96.0" prefHeight="56.0" prefWidth="1028.0" style="-fx-background-color: white;">
+         <children>
+            <Label fx:id="pageLabel" layoutX="14.0" prefHeight="2.0" prefWidth="183.0" text="Informations">
+               <font>
+                  <Font name="SansSerif Regular" size="24.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="redirectButtonCov" layoutX="11.0" layoutY="27.0" onAction="#redirectToCoVoiturage" style="-fx-background-color: transparent;" text="Co-Voiturage" textFill="#ec4444" />
+            <Label layoutX="98.0" layoutY="32.0" opacity="0.35" text="/" />
+            <JFXButton fx:id="redirectButtonCov1" layoutX="103.0" layoutY="28.0" onAction="#redirectToOffres" style="-fx-background-color: transparent;" text="Offres" textFill="#ec4444" />
+            <Label layoutX="149.0" layoutY="32.0" opacity="0.35" text="/" />
+            <Label layoutX="157.0" layoutY="32.0" opacity="0.6" text="Informations" />
+         </children>
+      </Pane>
+      <Pane fx:id="CoVoiturage1" layoutX="83.0" layoutY="152.0" prefHeight="448.0" prefWidth="1025.0" style="-fx-background-color: #f0f0f0;">
+         <children>
+            <WebView fx:id="webView" layoutX="366.0" layoutY="24.0" prefHeight="388.0" prefWidth="563.0" />
+            <Label layoutX="49.0" layoutY="41.0" text="Départ :" textFill="#ec4444">
+               <font>
+                  <Font name="Arial" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelDepart" layoutX="49.0" layoutY="72.0" text="Départ" textFill="#000000ab">
+               <font>
+                  <Font name="Arial" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="46.0" layoutY="110.0" prefHeight="21.0" prefWidth="108.0" text="Destination : " textFill="#ec4444">
+               <font>
+                  <Font name="Arial" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelDestination" layoutX="46.0" layoutY="142.0" text="Destination" textFill="#000000ab">
+               <font>
+                  <Font name="Arial" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="46.0" layoutY="181.0" prefHeight="21.0" prefWidth="144.0" text="Quotidiennement :" textFill="#ec4444">
+               <font>
+                  <Font name="Arial" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelQuotidiennement" layoutX="46.0" layoutY="213.0" text="Quotidiennement" textFill="#000000ab">
+               <font>
+                  <Font name="Arial" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelDate" layoutX="48.0" layoutY="247.0" prefHeight="21.0" prefWidth="129.0" text="Date " textFill="#ec4444">
+               <font>
+                  <Font name="Arial" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelDateD" layoutX="48.0" layoutY="277.0" prefHeight="16.0" prefWidth="312.0" text="Date" textFill="#000000ab">
+               <font>
+                  <Font name="Arial" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="48.0" layoutY="314.0" prefHeight="21.0" prefWidth="156.0" text="Places disponibles" textFill="#ec4444">
+               <font>
+                  <Font name="Arial" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelPlaceDispo" layoutX="48.0" layoutY="341.0" text="Date" textFill="#000000ab">
+               <font>
+                  <Font name="Arial" size="17.0" />
+               </font>
+            </Label>
+            <Pane fx:id="daysPane" layoutX="49.0" layoutY="247.0" prefHeight="67.0" prefWidth="277.0" visible="false">
+               <children>
+                  <CheckBox fx:id="lundiButton" layoutX="25.0" layoutY="14.0" mnemonicParsing="false" text="Lundi" />
+                  <CheckBox fx:id="jeudiButton" layoutX="25.0" layoutY="41.0" mnemonicParsing="false" text="Jeudi" />
+                  <CheckBox fx:id="vendrediButton" layoutX="94.0" layoutY="41.0" mnemonicParsing="false" text="Vendredi" />
+                  <CheckBox fx:id="samediButton" layoutX="174.0" layoutY="40.0" mnemonicParsing="false" text="Samedi" />
+                  <CheckBox fx:id="mercrediButton" layoutX="174.0" layoutY="13.0" mnemonicParsing="false" text="Mercredi" />
+                  <CheckBox fx:id="mardiButton" layoutX="94.0" layoutY="14.0" mnemonicParsing="false" text="Mardi" />
+               </children>
+            </Pane>
+            <ProgressIndicator fx:id="load" layoutX="461.0" layoutY="162.0" prefHeight="125.0" prefWidth="373.0" />
+         </children>
+      </Pane>
+      
+   </children>
+</AnchorPane>

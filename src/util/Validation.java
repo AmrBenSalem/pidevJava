@@ -37,7 +37,7 @@ public class Validation {
     return b;
     
     }
-    
+     
     public static boolean textalphabet(TextField tf ,Label lb,String errorMessage)
     {
     boolean isAlphabet =true;
@@ -59,7 +59,7 @@ public class Validation {
     boolean isNum =true;
     
     String validationString=null;
-    if(!tf.getText().matches("[0-9]+")){
+    if(!tf.getText().matches("[0-9]+")||tf.getText().length()!=8){
     isNum=false;
     
     }

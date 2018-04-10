@@ -26,6 +26,18 @@ public class Objet {
     public Objet() {
     }
 
+    public Objet(int id, int user, String Type, String Description, Date Date, String Nature, String Lieu, String Photo) {
+        this.id = id;
+        this.user = user;
+        this.Type = Type;
+        this.Description = Description;
+        this.Date = Date;
+        this.Nature = Nature;
+        this.Lieu = Lieu;
+        this.Photo = Photo;
+    }
+    
+
     public Objet(int user, String Type, String Description, Date Date, String Nature, String Lieu, String Photo, Boolean enable) {
         
         this.user = user;

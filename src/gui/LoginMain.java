@@ -24,21 +24,16 @@ import util.Capitals;
  * @author Justpro
  */
 public class LoginMain extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
-     
-    
-        
-        Capitals c = new Capitals() ;
-        System.out.println(c.getCapital());
 
-            
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(true);
         stage.show();
-       }
+    }
 
     /**
      * @param args the command line arguments
@@ -46,5 +41,5 @@ public class LoginMain extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

@@ -8,6 +8,7 @@ package util;
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import com.maxmind.geoip2.model.CityResponse;
+import entities.Adresse;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +29,7 @@ import org.json.simple.parser.ParseException;
  */
 public class Capitals {
 
-    public String getCapital() {
+    public Adresse getCapital() {
         File database = new File("C:\\Users\\Justpro\\Documents\\NetBeansProjects\\pidevv\\src\\util\\GeoLite2-City.mmdb");
 
         try {
@@ -45,7 +46,8 @@ public class Capitals {
                 //System.out.println(jsonObject);
                 JSONObject addressArray = (JSONObject) jsonObject.get(0);
                 //System.out.println((String)addressArray.get("name"));
-                return (String) addressArray.get("capital");
+                GooglePlacesAPI gpi = new GooglePlacesAPI();
+                return  gpi.getAdress((String) addressArray.get("capital"));
             }
         } catch (IOException ex) {
             //Logger.getLogger(MapViewController.class.getName()).log(Level.SEVERE, null, ex);

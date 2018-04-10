@@ -18,8 +18,7 @@ public class Traitafter {
     public Traitafter() {
     }
 
-    public Traitafter(int id, int user, String statut, int interaction) {
-        this.id = id;
+    public Traitafter(int user, String statut, int interaction) {
         this.user = user;
         this.statut = statut;
         this.interaction = interaction;

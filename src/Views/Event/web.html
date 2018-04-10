@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <style>#mapcanvas { height: 360px; width: 100%}</style>
+    
+</head>
+<body>
+<div id="mapcanvas">
+
+    <script type="text/javascript">
+        document.map = new google.maps.Map(document.getElementById("mapcanvas"));
+        var latlng = new google.maps.LatLng(35.857908, 10.598997);
+        var Options = {
+            zoom: 15,
+            center: latlng,
+            gestureHandling: 'cooperative',
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("mapcanvas"), Options);
+        //var carMarkerImage = new google.maps.MarkerImage('resources/images/car.png');
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(35.857908, 10.598997),
+            map: map,
+            draggable: true,
+//icon: carMarkerImage,
+            title: "",
+            autoPan: true
+        });
+        
+      //  document.getElementById( "maps_latitude" ).value = marker.getPosition().lat();
+ //   document.getElementById( "maps_longitude" ).value = marker.getPosition().lng();
+        
+        google.maps.event.addListener(marker, 'dragend', function () {
+    map.setCenter(this.getPosition()); // Set map center to marker position
+    updatePosition(this.getPosition().lat(), this.getPosition().lng()); // update position display
+     document.getElementById( "maps_latitude" ).value = this.getPosition().lat();
+    document.getElementById( "maps_longitude" ).value = this.getPosition().lng();
+});
+
+google.maps.event.addListener(map, 'dragend', function () {
+    myMarker.setPosition(this.getCenter()); // set marker position to map center
+    updatePosition(this.getCenter().lat(), this.getCenter().lng()); // update position display
+});
+
+document.goToLocation = function(x, y) {
+            alert("goToLocation, x: " + x +", y:" + y);
+            var latLng = new google.maps.LatLng(x, y);
+            marker.setPosition(latLng);
+            map.setCenter(latLng);
+           
+        }
+
+         function tes()
+ {
+ var lt = marker.getPosition().lat();
+ var lg = marker.getPosition().lng();
+        myJavaMember.showTime(lt,lg);
+        }
+        
+       function test()
+ {
+   var marker = new google.maps.Marker({
+       position : new google.maps.LatLng(10, 10),
+       map : map,
+       draggable : false,
+       //icon: carMarkerImage,
+       title : "",
+       autoPan : true
+    });
+    var infobulle = new google.maps.InfoWindow({
+            content: '<IMG BORDER="0" ALIGN="Left" SRC="zara.jpg" style="width:50px;height:50px;">' + "  Zara"
+        });
+        google.maps.event.addListener(marker, 'mouseover', function() {
+            infobulle.open(map, marker);
+        });
+
+ }
+    </script>
+    
+   <input type="hidden" name="maps_latitude" id="maps_latitude" value="">
+<input type="hidden" name="maps_longitude" id="maps_longitude" value="">
+
+
+</div>
+</body>
+</html>
+

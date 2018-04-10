@@ -6,31 +6,53 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="616.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ja.CreationCompteController">
-   <children>
-      <TextField id="usernameTF" fx:id="usernameTF" layoutX="202.0" layoutY="44.0" promptText="UserName" />
-      <TextField id="nomTF" fx:id="nomTF" layoutX="202.0" layoutY="88.0" promptText="Nom" />
-      <TextField id="mailTF" fx:id="mailTF" layoutX="202.0" layoutY="188.0" promptText="E-mail" />
-      <TextField id="prenomTF" fx:id="prenomTF" layoutX="202.0" layoutY="132.0" promptText="Prenom" />
-      <PasswordField id="confirmTF" fx:id="confirmTF" layoutX="202.0" layoutY="287.0" promptText="Confirmer Mot de Passe" />
-      <PasswordField id="passwordTF" fx:id="passwordTF" layoutX="202.0" layoutY="241.0" promptText="Mot de Passe" />
-      <Label fx:id="cpasswordL" layoutX="32.0" layoutY="291.0" text="Confirmer Mot de Passe" />
-      <Label fx:id="passwordL" layoutX="48.0" layoutY="245.0" text="Mot de Passe" />
-      <Label fx:id="mailL" layoutX="64.0" layoutY="193.0" text="E-mail" />
-      <Label fx:id="prenomL" layoutX="63.0" layoutY="136.0" text="Prenom" />
-      <Label fx:id="nomL" layoutX="71.0" layoutY="92.0" text="Nom" />
-      <Label fx:id="usernameL" layoutX="57.0" layoutY="48.0" text="UserName" />
-      <Button id="ajouterB" fx:id="ajouterB" layoutX="44.0" layoutY="542.0" mnemonicParsing="false" onAction="#ajouter" text="Ajouter" />
-      <Button id="LoginB" fx:id="loginB" layoutX="524.0" layoutY="542.0" mnemonicParsing="false" onAction="#login" text="Retour" />
-      <Label fx:id="datenaissanceL" layoutX="36.0" layoutY="337.0" text="Date de Naissance" />
-      <DatePicker fx:id="dateNaissance" layoutX="202.0" layoutY="333.0" promptText="Date de Naissance" />
-      <Label fx:id="sexeL" layoutX="59.0" layoutY="375.0" text="Sexe" />
-      <ChoiceBox fx:id="sexe" layoutX="202.0" layoutY="371.0" prefWidth="150.0" />
-      <TextField fx:id="telephone" layoutX="202.0" layoutY="418.0" promptText="N° Téléphone" />
-      <Label fx:id="telephoneL" layoutX="53.0" layoutY="422.0" text="Telephone" />
-      <TextField fx:id="classe" layoutX="203.0" layoutY="472.0" promptText="Classe" />
-      <Label fx:id="classeL" layoutX="67.0" layoutY="476.0" text="Classe" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="757.0" style="-fx-background-color: #494646;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ja.CreationCompteController">
+    <children>
+        <TextField id="usernameTF" fx:id="usernameTF" alignment="CENTER" layoutX="61.0" layoutY="131.0" prefHeight="28.0" prefWidth="252.0" promptText="UserName" style="-fx-background-color:#ff6a6a; -fx-border-width: 0px 0px 3px 0px; -fx-border-color: white;" />
+        <TextField id="nomTF" fx:id="nomTF" alignment="CENTER" layoutX="61.0" layoutY="202.0" prefHeight="28.0" prefWidth="252.0" promptText="Nom" style="-fx-background-color: #ff6a6a; -fx-border-color: white; -fx-border-width: 0px 0px 3px 0px;" />
+        <TextField id="mailTF" fx:id="mailTF" alignment="CENTER" layoutX="61.0" layoutY="481.0" prefHeight="28.0" prefWidth="252.0" promptText="E-mail" style="-fx-background-color: #ff6a6a; -fx-border-color: white; -fx-border-width: 0px 0px 3px 0px;" />
+        <TextField id="prenomTF" fx:id="prenomTF" layoutX="61.0" alignment="CENTER" layoutY="270.0" prefHeight="28.0" prefWidth="252.0" promptText="Prenom" style="-fx-border-width: 0px 0px 3px 0px; -fx-background-color: #ff6a6a; -fx-border-color: white;" />
+        <PasswordField id="confirmTF" fx:id="confirmTF" alignment="CENTER" layoutX="61.0" layoutY="410.0" prefHeight="28.0" prefWidth="252.0" promptText="Confirmer Mot de Passe" style="-fx-background-color: #ff6a6a; -fx-border-color: white; -fx-border-width: 0px 0px 3px 0px;" />
+        <PasswordField id="passwordTF" fx:id="passwordTF" alignment="CENTER" layoutX="61.0" layoutY="338.0" prefHeight="28.0" prefWidth="252.0" promptText="Mot de Passe" style="-fx-background-color: #ff6a6a; -fx-border-color: white; -fx-border-width: 0px 0px 3px 0px;" />
+        <Label fx:id="cpasswordL" layoutX="103.0" layoutY="438.0" text="Confirmer Mot de Passe" textFill="#ffd323" />
+        <Label fx:id="passwordL" layoutX="103.0" layoutY="366.0" text="Mot de Passe" textFill="#ffd323" />
+        <Label fx:id="mailL" layoutX="103.0" layoutY="509.0" text="E-mail" textFill="#ffd323" />
+        <Label fx:id="prenomL" layoutX="103.0" layoutY="299.0" text="Prenom" textFill="#ffd323" />
+        <Label fx:id="nomL" layoutX="103.0" layoutY="237.0" text="Nom" textFill="#ffd323" />
+        <Label fx:id="usernameL" layoutX="103.0" layoutY="167.0" text="UserName" textAlignment="CENTER" textFill="#ffd323" />
+        <Button id="ajouterB" fx:id="ajouterB" layoutX="407.0" layoutY="555.0" mnemonicParsing="false" onAction="#ajouter" prefHeight="25.0" prefWidth="162.0" style="-fx-background-color: #50d433;" text="Ajouter" />
+        <Button id="LoginB" fx:id="loginB" layoutX="188.0" layoutY="555.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: #468499;" text="Retour" />
+        <Label fx:id="datenaissanceL" layoutX="532.0" layoutY="167.0" text="Date de Naissance" textFill="#ffd323" />
+        <DatePicker fx:id="dateNaissance" layoutX="475.0" layoutY="131.0" prefHeight="28.0" prefWidth="229.0" promptText="Date de Naissance" style="-fx-background-color: #468499; -fx-border-color: white; -fx-border-width: 0px 0px 3px 0px;">
+            <effect>
+                <Lighting>
+                    <bumpInput>
+                        <Shadow />
+                    </bumpInput>
+                </Lighting>
+            </effect>
+        </DatePicker>
+        <Label fx:id="sexeL" layoutX="532.0" layoutY="237.0" text="Sexe" textFill="#ffd323" />
+        <ChoiceBox fx:id="sexe" layoutX="475.0" layoutY="202.0" prefHeight="28.0" prefWidth="229.0" style="-fx-background-color: #ff6a6a; -fx-border-color: white; -fx-border-width: 0px 0px 3px 0px;" />
+        <TextField fx:id="telephone" alignment="CENTER" layoutX="475.0" layoutY="270.0" prefHeight="28.0" prefWidth="229.0" promptText="N° Téléphone" style="-fx-background-color: #ff6a6a; -fx-border-color: white; -fx-border-width: 0px 0px 3px 0px;" />
+        <Label fx:id="telephoneL" layoutX="532.0" layoutY="299.0" text="Telephone" textFill="#ffd323" />
+        <TextField fx:id="classe" alignment="CENTER" layoutX="475.0" layoutY="338.0" prefHeight="28.0" prefWidth="229.0" promptText="Classe" style="-fx-background-color: #ff6a6a; -fx-border-color: white; -fx-border-width: 0px 0px 3px 0px;" />
+        <Label fx:id="classeL" layoutX="532.0" layoutY="366.0" text="Classe" textFill="#ffd323" />
+        <ImageView fitHeight="74.0" fitWidth="91.0" layoutX="352.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../assets/logo.png" />
+            </image>
+        </ImageView>
+        <Label layoutX="334.0" layoutY="92.0" text="SIGN UP" textFill="WHITE">
+         <font>
+            <Font name="Berlin Sans FB Bold" size="28.0" />
+         </font></Label>
+    </children>
 </AnchorPane>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40" fx:controller="Controller.Application.Colocation.ListeDemandeController">
+    <stylesheets>
+        <URL value="@listedemande.css" />
+    </stylesheets>
+   <children>
+      <ListView fx:id="listView" layoutX="-4.0" layoutY="1.0" prefHeight="400.0" prefWidth="600.0" />
+   </children>
+</AnchorPane>

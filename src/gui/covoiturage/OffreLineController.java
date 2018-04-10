@@ -58,11 +58,7 @@ public class OffreLineController implements Initializable {
         // TODO
         OffresViewController.littlePane = redPane;
         
-        try {
-            cs = new ServiceCoVoiturage();
-        } catch (SQLException ex) {
-            Logger.getLogger(OffreLineController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        cs = new ServiceCoVoiturage();
     }
 
     

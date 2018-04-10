@@ -6,6 +6,7 @@
 package gui.covoiturage;
 
 import com.jfoenix.controls.JFXDrawer;
+import entities.Session;
 import gui.DashboardCoVoiturageController;
 import static gui.DashboardCoVoiturageController.CoVoituragePaneInit;
 import gui.LoginController;
@@ -62,10 +63,11 @@ public class CovoiturageViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         CoVoiturageP=CoVoiturage;
         drawerLeft.open();
       //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
-       
+        System.out.println(Session.getUser());
         
         try {
             VBox box = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
@@ -113,7 +115,7 @@ public class CovoiturageViewController implements Initializable {
     private void DisplayDemandeAction(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("DemandesView.fxml"));
+            page = FXMLLoader.load(getClass().getResource("/gui/covoituragedemande/DemandesView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -129,7 +131,7 @@ public class CovoiturageViewController implements Initializable {
     private void DisplayOwnDemandesAction(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("OwnDemandesView.fxml"));
+            page = FXMLLoader.load(getClass().getResource("/gui/covoituragedemande/OwnDemandesView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
