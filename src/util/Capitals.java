@@ -30,7 +30,7 @@ import org.json.simple.parser.ParseException;
 public class Capitals {
 
     public Adresse getCapital() {
-        File database = new File("C:\\Users\\Justpro\\Documents\\NetBeansProjects\\pidevv\\src\\util\\GeoLite2-City.mmdb");
+        File database = new File("src\\util\\GeoLite2-City.mmdb");
 
         try {
             DatabaseReader dbReader = new DatabaseReader.Builder(database).build();
