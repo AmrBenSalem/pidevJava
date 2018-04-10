@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EspaceEtude.Gui.AfficherSectionInterfaceController">
+    <stylesheets>
+        <URL value="@affichersectioninterface.css" />
+    </stylesheets>
+   <children>
+      <ListView fx:id="listSection" layoutX="128.0" layoutY="100.0" onMouseClicked="#getMatiereSection" prefHeight="499.0" prefWidth="608.0" />
+      <fx:include source="../../gui/TopMenu.fxml" />
+      <fx:include source="../../gui/LeftMenu.fxml" />
+   </children>
+   
+</AnchorPane>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EspaceEtude.Gui.DocumentUpdateController">
+   <children>
+      <Label layoutX="51.0" layoutY="25.0" prefHeight="62.0" prefWidth="243.0" text="Modifier un document">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="128.0" layoutY="140.0" text="Nom du fichier :">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="128.0" layoutY="229.0" prefHeight="26.0" prefWidth="127.0" text="language          :">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <JFXTextArea fx:id="nomFichier" layoutX="300.0" layoutY="91.0" prefHeight="62.0" prefWidth="207.0" />
+      <JFXTextArea fx:id="language" layoutX="298.0" layoutY="180.0" prefHeight="62.0" prefWidth="207.0" />
+      <JFXButton fx:id="modif" layoutX="435.0" layoutY="328.0" onMouseClicked="#updateDoc" prefHeight="51.0" prefWidth="127.0" ripplerFill="#ee0404" text="Modifier" />
+   </children>
+</AnchorPane>

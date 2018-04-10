@@ -17,12 +17,21 @@ public class Documents {
     private String typeDocument;
     private Double size;
     private String language;
-    private Matiere matiere;
+    private int user;
+    private int matiere;
     private String image;
     private int flag;
     
     public int getId() {
         return id;
+    }
+
+    public int getUser() {
+        return user;
+    }
+
+    public void setUser(int user) {
+        this.user = user;
     }
 
     public void setId(int id) {
@@ -77,11 +86,11 @@ public class Documents {
         this.language = language;
     }
 
-    public Matiere getMatiere() {
+    public int getMatiere() {
         return matiere;
     }
 
-    public void setMatiere(Matiere matiere) {
+    public void setMatiere(int matiere) {
         this.matiere = matiere;
     }
 
@@ -104,8 +113,8 @@ public class Documents {
     public Documents() {
     }
 
-    public Documents(int id, String path, String libelle, String date, String typeDocument, Double size, String language, Matiere matiere, String image, int flag) {
-        this.id = id;
+    public Documents(String path, String libelle, String date, String typeDocument, Double size, String language, int matiere,int user ,String image, int flag) {
+     
         this.path = path;
         this.libelle = libelle;
         this.date = date;
@@ -115,6 +124,7 @@ public class Documents {
         this.matiere = matiere;
         this.image = image;
         this.flag = flag;
+        this.user=user;
     }
 
     @Override
