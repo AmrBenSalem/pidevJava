@@ -248,7 +248,7 @@ public class AddOffreViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -264,7 +264,7 @@ public class AddOffreViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -307,7 +307,8 @@ public class AddOffreViewController implements Initializable {
                     origin_place_id = option.getPlaceId();
                     originLat = option.getLatitude();
                     originLng = option.getLongitude();
-                    dropDownMenu.setVisible(false);
+                    //dropDownMenu.setVisible(false);
+                    dropDownMenu.getChildren().clear();
                     //parent.getChildren().get(parent.getChildren().size()).setVisible(false);
 
                     setParams(originLat, originLng, destLat, destLng, parent);
@@ -349,7 +350,7 @@ public class AddOffreViewController implements Initializable {
                     destLat = option.getLatitude();
                     destLng = option.getLongitude();
                     //parent.getChildren().get(parent.getChildren().size()).setVisible(false);
-
+                    dropDownMenu.getChildren().clear();
                     setParams(originLat, originLng, destLat, destLng, parent);
 
                 });

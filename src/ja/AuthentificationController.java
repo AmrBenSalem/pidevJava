@@ -67,7 +67,6 @@ public class AuthentificationController implements Initializable {
          loginL.setText("");
     }
 
-    
     @FXML
     void creer(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/ja/creationCompte.fxml"));
@@ -140,15 +139,13 @@ public class AuthentificationController implements Initializable {
                     Session.setIdThisUser(u.getId());
 
                     if (u.getRoles().equals("a:0:{}")) {
-                   
-                        
                         System.out.println("user");
                         Parent root = FXMLLoader.load(getClass().getResource("/ja/ObjetView.fxml"));
 
                         Scene scene = new Scene(root);
 
                         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
+                        app_stage.setResizable(false);
                         app_stage.setScene(scene);
 
                         app_stage.show();
@@ -217,5 +214,4 @@ public class AuthentificationController implements Initializable {
        }*/
     }
 
-}
 }
