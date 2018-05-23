@@ -5,6 +5,7 @@
  */
 package ja;
 
+import entities.Session;
 import entities.User;
 import services.UserCRUD;
 import util.Validation;
@@ -51,21 +52,27 @@ public class CreationCompteController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-      sexe.setItems(FXCollections.observableArrayList(
-      new String("H"),
-      new String("F")   
-      ));
+
+        sexe.setItems(FXCollections.observableArrayList(
+                new String("H"),
+                new String("F")
+        ));
+        nomL.setText("");
+        prenomL.setText("");
+        mailL.setText("");
+        usernameL.setText("");
+        passwordL.setText("");
+        cpasswordL.setText("");
+        datenaissanceL.setText("");
+        sexeL.setText("");
+        classeL.setText("");
+        telephoneL.setText("");
 
     }
 
     public boolean controleSaisie() throws IOException, SQLException {
         boolean saisie = true;
         UserCRUD us = new UserCRUD();
-
-       
-
-       
 
         if (!Validation.textalphabet(nomTF, nomL, "* le nom de doit contenir que des lettre")) {
             saisie = false;
@@ -96,6 +103,14 @@ public class CreationCompteController implements Initializable {
         if (!Validation.textValidation(confirmTF, cpasswordL, "* tout les champs doivent etre remplis")) {
             saisie = false;
         }
+        if (!Validation.texAlphNum(telephone, telephoneL, "*Vous devez entrer un numéro")) {
+            saisie = false;
+        }
+
+        if (!Validation.textValidation(classe, classeL, "* tout les champs doivent etre remplis")) {
+            saisie = false;
+        }
+
         if (!us.uniqueMail(mailTF.getText())) {
             mailL.setText("* le e-mail est déjà utilisé");
             saisie = false;
@@ -104,11 +119,16 @@ public class CreationCompteController implements Initializable {
             usernameL.setText("* le username est déjà utilisé");
             saisie = false;
         }
-         if (!passwordTF.getText().equals(confirmTF.getText())) {
+        if (!passwordTF.getText().equals(confirmTF.getText())) {
             cpasswordL.setText("* vous devez confirmer le mot de passe");
             saisie = false;
         }
-          if (Validation.texMail(mailTF, mailL, "* la forme de mail est invalide")) {
+          if (Session.getThisTimestamp().before(Date.valueOf(dateNaissance.getValue()))) {
+               datenaissanceL.setText("La date est Invalide");
+               saisie=false;
+                            
+            }
+        if (Validation.texMail(mailTF, mailL, "* la forme de mail est invalide")) {
 
             /*String validationString = null;
             if (!mailTF.getText().matches("^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$")) {
@@ -161,84 +181,77 @@ public class CreationCompteController implements Initializable {
     private Label cpasswordL;
     @FXML
     private Button loginB;
-    
+
     @FXML
     private DatePicker dateNaissance;
-    
+
     @FXML
     private ChoiceBox sexe;
-    
+
     @FXML
-     private TextField telephone;
-    
-     @FXML
+    private TextField telephone;
+
+    @FXML
     private Label datenaissanceL;
-     
-      @FXML
+
+    @FXML
     private Label sexeL;
-      
-       @FXML
+
+    @FXML
     private Label telephoneL;
-       
-       @FXML
+
+    @FXML
     private Label classeL;
-       
-       @FXML
-       
+
+    @FXML
+
     private TextField classe;
-    
-   
-    
-    
 
     @FXML
     void ajouter(ActionEvent event) throws UnsupportedEncodingException, NoSuchAlgorithmException, IOException, SQLException {
 
         Validation v = new Validation();
-        
-            UserCRUD a = new UserCRUD();
-            if (this.controleSaisie()) {
-                
-                User u1= new User(usernameTF.getText(), Date.valueOf(dateNaissance.getValue()), (String) sexe.getValue(), classe.getText(), telephone.getText(), mailTF.getText(), BCrypt.hashpw(passwordTF.getText(),BCrypt.gensalt(13)),  nomTF.getText(), prenomTF.getText());
 
-                //User u = new User(usernameTF.getText(), mailTF.getText(), a.MD5(passwordTF.getText()), nomTF.getText(), prenomTF.getText());
-                a.ajouterUser(u1);
+        UserCRUD a = new UserCRUD();
+        if (this.controleSaisie()) {
 
-                Notifications notificiationBuilder = Notifications.create()
-                        .title("créer")
-                        .text("votre compte a été créer !")
-                        .graphic(null)
-                        .hideAfter(Duration.seconds(10))
-                        .position(Pos.BOTTOM_RIGHT)
-                        .onAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent event) {
-                                System.out.println("Missing!");
-                            }
-                        });
-                notificiationBuilder.darkStyle();
-                //notificiationBuilder.showConfirm();
-                login(event);
-            }
+            User u1 = new User(usernameTF.getText(), Date.valueOf(dateNaissance.getValue()), (String) sexe.getValue(), classe.getText(), telephone.getText(), mailTF.getText(), BCrypt.hashpw(passwordTF.getText(), BCrypt.gensalt(13)), nomTF.getText(), prenomTF.getText());
 
-      
+            //User u = new User(usernameTF.getText(), mailTF.getText(), a.MD5(passwordTF.getText()), nomTF.getText(), prenomTF.getText());
+            a.ajouterUser(u1);
+
+            Notifications notificiationBuilder = Notifications.create()
+                    .title("créer")
+                    .text("votre compte a été créer !")
+                    .graphic(null)
+                    .hideAfter(Duration.seconds(10))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .onAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            System.out.println("Missing!");
+                        }
+                    });
+            notificiationBuilder.darkStyle();
+            //notificiationBuilder.showConfirm();
+            login(event);
+        }
+
     }
-    
-       @FXML
+
+    @FXML
     void login(ActionEvent event) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("/ja/authentification.fxml"));
-         
+
         Scene scene = new Scene(root);
-        
-        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();  
-        
+
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
         app_stage.setScene(scene);
-        
+
         app_stage.show();
-        
+
     }
-    
- 
 
 }

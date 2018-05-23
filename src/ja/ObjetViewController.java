@@ -7,6 +7,7 @@ package ja;
 
 import ja.*;
 import com.jfoenix.controls.JFXDrawer;
+import entities.Session;
 import gui.DashboardCoVoiturageController;
 import gui.LoginController;
 import java.io.IOException;
@@ -22,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -36,11 +38,7 @@ import javafx.stage.Stage;
 public class ObjetViewController implements Initializable {
 
     @FXML
-    private Pane CoVoiturage;
-    @FXML
     private AnchorPane anchor;
-    @FXML
-    private JFXDrawer drawerLeft;
     @FXML
     private JFXDrawer drawerTop;
     @FXML
@@ -57,30 +55,22 @@ public class ObjetViewController implements Initializable {
     @FXML
     private Button affichobjtrouv;
 
+    /* @FXML
+    private Hyperlink changermdp;*/
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        CoVoiturageP=CoVoiturage;
-        drawerLeft.open();
-      //  pageLabel.setText(String.valueOf(LeftMenuController.pageNameLabel));
-       
         
-        try {
-            VBox box = FXMLLoader.load(getClass().getResource("/gui/LeftMenu.fxml"));
-            drawerLeft.setSidePane(box);
-        } catch (IOException ex) {
-            Logger.getLogger(DashboardCoVoiturageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    }
 
-       
-    }    
-@FXML
+    @FXML
     private void ajoutObjTrouvAction(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("ajoutObjTrouv.fxml"));
+            page = FXMLLoader.load(getClass().getResource("ajoutObjTrouv1.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -88,15 +78,15 @@ public class ObjetViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
 
-@FXML
+    @FXML
     private void affichObjTrouvAction(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("affichObjTrouvView.fxml"));
+            page = FXMLLoader.load(getClass().getResource("affichageObjTrouv1View.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -104,14 +94,15 @@ public class ObjetViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
+
     @FXML
     private void ajoutObjPerdAction(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("ajoutObjPerd.fxml"));
+            page = FXMLLoader.load(getClass().getResource("ajoutObjPerd1.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -119,15 +110,15 @@ public class ObjetViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
 
-        @FXML
+    @FXML
     private void affichObjPerdAction(ActionEvent event) {
         Parent page = null;
         try {
-            page = FXMLLoader.load(getClass().getResource("affichObjPerdView.fxml"));
+            page = FXMLLoader.load(getClass().getResource("affichageObjPerdView.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -135,9 +126,40 @@ public class ObjetViewController implements Initializable {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.hide();
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.show();
     }
- 
-    
+    /* @FXML
+    private void changermdp(ActionEvent event){
+             Parent page = null;
+        try {
+            page = FXMLLoader.load(getClass().getResource("changerMDP.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(page);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.hide();
+        stage.setScene(scene);
+        stage.setResizable(true);
+        stage.show();
+        
+    }
+     */
+
+     
+   @FXML
+    private void logout(ActionEvent event) throws IOException {
+        Session.setIdThisUser(0);
+        Parent root = FXMLLoader.load(getClass().getResource("/ja/authentification.fxml"));
+
+        Scene scene = new Scene(root);
+
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        app_stage.setScene(scene);
+
+        app_stage.show();
+    }
+
 }

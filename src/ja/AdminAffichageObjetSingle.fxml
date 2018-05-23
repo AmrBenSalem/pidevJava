@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="900.0" style="-fx-background-color: #CEBC99;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ja.AdminAffichageObjetSingle">
+   <children>
+      <Pane prefHeight="88.0" prefWidth="900.0" style="-fx-background-color: #C34E14;">
+         <children>
+            <Label fx:id="labnom" layoutX="26.0" layoutY="23.0" prefHeight="43.0" prefWidth="406.0" text="Les Objets Non Approuvés" textFill="WHITE">
+               <font>
+                  <Font name="Wingdings 2" size="34.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="68.0" fitWidth="49.0" layoutX="700.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/logo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label fx:id="labuser" layoutX="651.0" layoutY="204.0" prefHeight="30.0" prefWidth="106.0" text="Label" />
+      <Label fx:id="labtype" layoutX="651.0" layoutY="271.0" prefHeight="30.0" prefWidth="106.0" text="Label" />
+      <Label fx:id="lablieu" layoutX="651.0" layoutY="338.0" prefHeight="30.0" prefWidth="106.0" text="Label" />
+      <Label fx:id="labdate" layoutX="651.0" layoutY="409.0" prefHeight="30.0" prefWidth="106.0" text="Label" />
+      <JFXTextArea fx:id="description" layoutX="54.0" layoutY="454.0" maxWidth="476.0" minWidth="442.0" prefHeight="117.0" prefWidth="442.0" />
+      <JFXButton fx:id="btn" layoutX="605.0" layoutY="528.0" onAction="#approuver" prefHeight="43.0" prefWidth="138.0" style="-fx-background-color: #4F84B9;" text="Approuver" />
+      <JFXButton fx:id="btn1" layoutX="54.0" layoutY="620.0" onAction="#retour" prefHeight="43.0" prefWidth="138.0" style="-fx-background-color: #CEBC99;" text="Retour" />
+      <ImageView fx:id="imv" fitHeight="314.0" fitWidth="442.0" layoutX="54.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="userlab" layoutX="625.0" layoutY="178.0" text="User" />
+      <Label fx:id="typelab" layoutX="625.0" layoutY="244.0" text="Type" />
+      <Label fx:id="lieulab" layoutX="625.0" layoutY="309.0" prefHeight="18.0" prefWidth="49.0" text="Lieu" />
+      <Label fx:id="datelab" layoutX="625.0" layoutY="383.0" prefHeight="18.0" prefWidth="95.0" text="Date" />
+      <JFXButton fx:id="btn2" layoutX="605.0" layoutY="620.0" onAction="#supprimer" prefHeight="43.0" prefWidth="138.0" style="-fx-background-color: #D22323;" text="Supprimer" />
+   </children>
+</AnchorPane>

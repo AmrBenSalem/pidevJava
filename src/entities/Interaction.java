@@ -58,6 +58,13 @@ public class Interaction {
         this.objet = objet;
         this.statut = statut;
     }
+    
+
+    public Interaction(int user, int objet, String statut) {
+        this.user = user;
+        this.objet = objet;
+        this.statut = statut;
+    }
 
     @Override
     public String toString() {

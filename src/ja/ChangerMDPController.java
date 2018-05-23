@@ -23,12 +23,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import util.BCrypt;
 
 /**
@@ -73,7 +77,7 @@ public class ChangerMDPController implements Initializable {
 
 
     @FXML
-    void changePSW(ActionEvent event) throws SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
+    void changePSW(ActionEvent event) throws SQLException, UnsupportedEncodingException, NoSuchAlgorithmException, IOException {
       UserCRUD u=new UserCRUD();
       User user=new User();
       
@@ -83,6 +87,16 @@ public class ChangerMDPController implements Initializable {
           if (newPassword.getText().equals(confirmNewPassword.getText()))
           {
               u.changerMDP(newPassword.getText(),Session.getIdThisUser());
+                   Parent root;
+         
+        root = FXMLLoader.load(getClass().getResource("UserView.fxml"));
+        Scene scene = new Scene(root);
+
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        app_stage.setScene(scene);
+
+        app_stage.show();  
           }
       }
       else 

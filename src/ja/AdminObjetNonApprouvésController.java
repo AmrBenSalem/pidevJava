@@ -47,9 +47,7 @@ public class AdminObjetNonApprouvésController implements Initializable {
     private TableView<Objet> table;
     @FXML
     private TableColumn<Objet, String> User;
-    @FXML
-    private TableColumn<Objet, String> Photo;
-    @FXML
+       @FXML
     private TableColumn<Objet, Date> Date;
     @FXML
     private TableColumn<Objet, String> Type;
@@ -65,20 +63,7 @@ public class AdminObjetNonApprouvésController implements Initializable {
 
     @FXML
     protected void handleEditChoiceAction() {
-        Window owner = table.getScene().getWindow();
-        ObjetCRUD o = new ObjetCRUD();
 
-        ArrayList arrayList = new ArrayList();
-        arrayList.addAll(o.afficherObjet());
-        ObservableList observableList = FXCollections.observableArrayList(arrayList);
-        System.out.println(observableList);
-        table.setItems(observableList);
-        User.setCellValueFactory(new PropertyValueFactory<>("User"));
-        Date.setCellValueFactory(new PropertyValueFactory<>("Date"));
-        Type.setCellValueFactory(new PropertyValueFactory<>("Type"));
-        Description.setCellValueFactory(new PropertyValueFactory<>("Description"));
-        Lieu.setCellValueFactory(new PropertyValueFactory<>("Lieu"));
-        Nature.setCellValueFactory(new PropertyValueFactory<>("Nature"));
        /* SiteWeb.setCellValueFactory(new PropertyValueFactory<>("SiteWeb"));
         PageFacebook.setCellValueFactory(new PropertyValueFactory<>("PageFacebook"));
         Description.setCellValueFactory(new PropertyValueFactory<>("Description"));
@@ -123,8 +108,52 @@ public class AdminObjetNonApprouvésController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-         
-    }
+//                Window owner = table.getScene().getWindow();
+        ObjetCRUD o = new ObjetCRUD();
+
+        ArrayList arrayList = new ArrayList();
+        arrayList.addAll(o.afficherObjetnonapprouvés());
+        
+        ObservableList observableList = FXCollections.observableArrayList(arrayList);
+       // System.out.println(observableList);
+        table.setItems(observableList);
+        User.setCellValueFactory(new PropertyValueFactory<>("User"));
+        Date.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        Type.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        Description.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        Lieu.setCellValueFactory(new PropertyValueFactory<>("Lieu"));
+        Nature.setCellValueFactory(new PropertyValueFactory<>("Nature"));
+        table.setRowFactory(tv -> {
+            TableRow<Objet> row = new TableRow<>();
+           row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1 && (!row.isEmpty())) {
+                    //Navigation nav = new Navigation();
+                    Objet rowData = row.getItem();
+                   // System.out.println(rowData.getUser());
+                    AdminAffichageObjetSingle.id = row.getItem().getId();
+                    //System.out.println(row.getItem().getId());
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ja/AdminAffichageObjetSingle.fxml"));
+            try {
+            Pane pane = (Pane) loader.load();        
+            stage.setTitle("Objet");
+            Scene scene = new Scene(pane);
+            scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+            stage.centerOnScreen();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(AdminObjetNonApprouvésController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+                }
+            });
+            return row;
+
+        });
+                }
+    
+    
     
 
 }
