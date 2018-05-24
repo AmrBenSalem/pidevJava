@@ -42,6 +42,10 @@ public class Objet {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getUser() {
         return user;
     }

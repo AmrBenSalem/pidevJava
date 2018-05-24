@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
+
+<AnchorPane id="AnchorPane" prefHeight="883.0" prefWidth="1241.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ja.StatController">
+   <children>
+     
+      <LineChart fx:id="LineChart" layoutX="85.0" layoutY="136.0" prefHeight="459.0" prefWidth="825.0">
+        <xAxis>
+          <CategoryAxis fx:id="adresse" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="moyenne_note" side="LEFT" />
+        </yAxis>
+      </LineChart>
+      
+   </children>
+</AnchorPane>
